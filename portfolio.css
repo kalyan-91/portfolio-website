@@ -703,3 +703,8 @@ footer {
   border-top: 1px solid #ccc;
   font-weight: bold;
 }
+
+footer p {
+  margin: 0;
+  text-align: center;
+}
