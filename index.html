@@ -186,6 +186,11 @@
     loop: true
   });
 </script>
+
+<script>
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById("last-updated").textContent = new Date().toLocaleDateString(undefined, options);
+</script>
   
 </body>
 
