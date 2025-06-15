@@ -1,21 +1,20 @@
 /* General Reset */
 body {
   text-align: left;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  background-color: #ffffff;
+  background: linear-gradient(to bottom, #e0f7f4, #ffffff);
   background-attachment: fixed;
   background-size: cover;
-  color: #333;
-  /* Dark text for readability */
+  color: #222;
   height: 100vh;
   display: flex;
   flex-direction: column;
   animation: fadeIn 1s ease-out;
-  /* Fade in animation for page load */
 }
+
 
 /* Profile Section */
 /* Header section with profile picture, text, and social links */
@@ -25,7 +24,7 @@ header {
   align-items: center;
   justify-content: center;
   padding: 2rem 0;
-  background: linear-gradient(135deg, #ff7f7f, #ffb347);
+  background: linear-gradient(135deg, #43cea2, #185a9d); 
   color: white;
 }
 
