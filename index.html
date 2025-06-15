@@ -19,7 +19,8 @@
     <div class="profile-frame">
       <img src="pavankalyan5.jpg" alt="Profile Picture" class="profile-pic" />
     </div>
-    <h1 class="typing">Hi, I'm Daroor Pavan Kalyan</h1>
+    <h1>Hello, I'm <span id="typing-name"></span></h1>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <div class="social-links">
       <p style="font-weight: bold; margin-bottom: 10px;">Follow me on social accounts:</p>
       <a href="https://github.com/kalyan-91" target="_blank"><i class="fab fa-github"></i></a>
@@ -166,7 +167,26 @@
     
 </section>
 
+<footer>
+  <p><strong>This site is developed and maintained by Pavan Kalyan</strong><br>
+  <strong>Last updated: <span id="last-updated"></span></strong></p>
+</footer>
 
+<script>
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById("last-updated").textContent = new Date().toLocaleDateString(undefined, options);
+</script>
+
+<script>
+  new Typed('#typing-name', {
+    strings: ['Daroor Pavan Kalyan'],
+    typeSpeed: 100,
+    backSpeed: 50,
+    backDelay: 10000,
+    loop: true
+  });
+</script>
+  
 </body>
 
 </html>
