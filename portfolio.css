@@ -161,8 +161,7 @@ nav ul {
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background: linear-gradient(135deg, #ffffff, #ff007f);
-  /* White to Pink Gradient */
+  background: linear-gradient(135deg, #ffffff, #43cea2);
   margin: 0;
 }
 
@@ -178,7 +177,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #e15215;
+  background-color: #c1e011;
 }
 
 /* Section Styles */
