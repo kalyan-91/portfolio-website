@@ -189,7 +189,7 @@ section {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, background-color 0.3s ease;
-  color: #A52A2A;
+  color: #130606;
   animation: fadeInUp 0.5s forwards;
   /* Fade in with a slight upward motion */
 }
