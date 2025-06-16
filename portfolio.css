@@ -537,6 +537,58 @@ a i {
   transition: color 0.3s ease;
 }
 
+.contact-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #43cea2, #185a9d,#ffffff);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #43cea2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(67, 206, 162, 0.5);
+}
+
+.contact-form button {
+  padding: 12px 20px;
+  background: linear-gradient(to right, #43cea2, #185a9d);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.4s ease;
+}
+
+.contact-form button:hover {
+  background: linear-gradient(to right, #185a9d, #43cea2);
+
 
 /* Fade-in animation */
 .fade-in {
