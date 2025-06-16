@@ -167,14 +167,23 @@
     
 </section>
 
- <footer>
+<footer>
   <p><strong>This site is developed and maintained by Pavan Kalyan</strong><br>
   <strong>Last updated: <span id="last-updated"></span></strong></p>
 </footer>
 
 <script>
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById("last-updated").textContent = new Date().toLocaleDateString(undefined, options);
+  const rawDate = new Date(document.lastModified);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  };
+  const formattedDateTime = rawDate.toLocaleString(undefined, options);
+  document.getElementById("last-updated").textContent = formattedDateTime;
 </script>
 
 <script>
@@ -185,11 +194,6 @@
     backDelay: 10000,
     loop: true
   });
-</script>
-
-<script>
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById("last-updated").textContent = new Date().toLocaleDateString(undefined, options);
 </script>
   
 </body>
