@@ -155,10 +155,12 @@ h1.typing {
 }
 
 .social-links i:hover {
-  color: #fff;
-  text-shadow: 0 0 5px #ffffff, 0 0 10px #00aced, 0 0 15px #0077b5;
+  color: #00ff99; /* Electric green */
+  text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 15px #00ff99;
   transform: scale(1.2);
+  transition: all 0.3s ease;
 }
+
 
 .social-links p {
   color: white;
@@ -171,7 +173,7 @@ nav ul {
   display: flex;
   justify-content: center;
   padding: 1rem;
-  background: linear-gradient(135deg, #ffffff, #43cea2);
+  background: linear-gradient(135deg, #11998e, #38ef7d);
   margin: 0;
 }
 
@@ -187,8 +189,13 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #c1e011;
+  background-color: transparent; /* Keep background clean */
+  color: #ffffff;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
+
 
 /* Section Styles */
 section {
@@ -302,8 +309,17 @@ section h2 {
   flex: 1 1 calc(50% - 20px); /* Each item takes up 50% of container width with gap */
   box-sizing: border-box; /* Ensures proper padding and width calculation */
   padding: 20px;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #43cea2, #185a9d); 
+  color: #ffffff;
   border-radius: 8px;
+}
+
+.project-item h3,
+.project-item p,
+.project-item strong,
+.project-item a {
+  color: #ffffff;  /* force white text for all content inside card */
+  font-weight: 400;
 }
 
 .project-item h3 {
@@ -314,6 +330,15 @@ section h2 {
 .project-item img {
   width: 48%; /* Ensures images take full width of the container */
   height: auto;
+}
+
+.project-item {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-10px);
 }
 
 .project-images {
@@ -329,15 +354,23 @@ section h2 {
 
 .project-item a {
   text-decoration: none;
-  color: #007bff;
+  color: #eef2f3;
   font-weight: bold;
   display: inline-block;
   margin-top: 10px;
 }
 
-.project-item a:hover {
-  color: #0056b3;
+.project-item a {
+  color: #ffeb3b;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
+
+.project-item a:hover {
+  color: #00ff99;
+  text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 20px #00ff99;
+}
+
 
 @media (max-width: 768px) {
   .project-item {
@@ -395,7 +428,7 @@ a {
 }
 
 a:hover {
-  color: #0056b3;
+  color: #ed800b;
 }
 
 a i {
