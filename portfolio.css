@@ -88,6 +88,16 @@ header i:hover {
   z-index: 1;
 }
 
+.welcome-message {
+  font-size: 19px;
+  font-weight: 800;
+  color: #f6f4f4;
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+
 @keyframes shine {
   0% {
     left: -75%;
