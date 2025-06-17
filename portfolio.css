@@ -790,7 +790,7 @@ a:hover i {
 }
 
 .site-footer {
-  background: linear-gradient(90deg, #43cea2, #ffffff, #185a9d);
+  background: linear-gradient(135deg, #43cea2, #185a9d);
   color: #222;
   text-align: center;
   padding: 1.5rem 1rem;
@@ -808,5 +808,6 @@ a:hover i {
 }
 
 .site-footer strong {
-  color: #000;
+  color: #f5f1f1;
 }
+
