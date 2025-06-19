@@ -941,22 +941,27 @@ a:hover i {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow-wrap: break-word;
+  }
+
+  .project-card.project-item h3 {
+    font-size: 20px;
+    text-align: center;
   }
 
   .project-item img {
     width: 100% !important;
     height: auto !important;
     max-width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     margin-bottom: 10px;
   }
 
-  .project-item h3,
   .project-item p,
   .project-item ul,
   .project-item a {
-    text-align: left !important;
-    width: 100% !important;
+    width: 100%;
+    text-align: left;
   }
 
   .project-item ul {
@@ -964,8 +969,10 @@ a:hover i {
   }
 
   .roller-controls {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
   }
 }
