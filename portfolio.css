@@ -926,49 +926,5 @@ a:hover i {
   color: #f5f1f1;
 }
 
-.project-card {
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 16px;
-  overflow: hidden;
-  height: auto; /* Don't fix height */
-}
 
-.project-card img {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.project-card ul {
-  text-align: left;
-  padding-left: 20px;
-}
-
-@media (max-width: 768px) {
-  .roller-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .project-card {
-    width: 90%;
-    margin: auto;
-  }
-
-  .project-card img {
-    width: 100%;
-    height: auto;
-  }
-
-  .roller-controls {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-  .roller-btn {
-    width: 100%;
-  }
-}
+ 
