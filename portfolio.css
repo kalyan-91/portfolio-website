@@ -925,3 +925,31 @@ a:hover i {
 .site-footer strong {
   color: #f5f1f1;
 }
+
+@media (max-width: 768px) {
+  .project-item {
+    width: 90vw;
+    max-width: 100%;
+    height: auto;
+    padding: 15px;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .project-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+
+  .roller-container {
+    padding: 0 10px;
+  }
+
+  .roller-controls {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+}
