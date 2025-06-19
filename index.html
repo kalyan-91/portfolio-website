@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Portfolio</title>
   <link rel="icon" type="image/png" href="website_icon.png" />
-  <link rel="stylesheet" href="portfolio.css?v=43">
+  <link rel="stylesheet" href="portfolio.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -17,13 +17,14 @@
 
   <header>
     <div class="profile-frame">
-      <img src="pavankalyan5.jpg" alt="Profile Picture" class="profile-pic" />
+      <img src="E:\\kalyan\\pavankalyan5.jpg" alt="Profile Picture" class="profile-pic" />
     </div>
     <h1>Hello, I'm <span id="typing-name"></span></h1>
     <p class="welcome-message">
     👋 Welcome to my digital space — a snapshot of my journey through data, design, and discovery.
   </p>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <div class="social-links">
       <p style="font-weight: bold; margin-bottom: 10px;">Follow me on social accounts:</p>
       <a href="https://github.com/kalyan-91" target="_blank"><i class="fab fa-github"></i></a>
@@ -69,58 +70,87 @@
   </section>
 
   <section id="projects" class="animated-section">
-    <h2><i class="fas fa-code"></i> Projects</h2>
-    <div class="projects-container">
-        <div class="project-item">
-            <h3>Project 1:Zomato Restaurants Analysis & Predictive Modeling</h3>
-            <img src="restaurants_success.png" alt="Project 1:Zomato Restaurants Analysis & Predictive Modeling" />
-            <img src="best_location_for_restaurants.png" alt="Project 1:Zomato Restaurants Analysis & Predictive Modeling" />
-            <p>Performed an in-depth analysis of restaurant data from Zomato, exploring various factors affecting restaurant ratings and customer preferences. Used predictive modeling techniques to forecast restaurant ratings based on various attributes, classifying restaurants as low-rated and high-rated.</p>
-            <p><strong>Technologies Used:</strong> Python, Pandas, Scikit-learn, Matplotlib, Seaborn</p>
-            <p><strong>Key Insights:</strong>
-                - Analyzed restaurant attributes such as location, cuisine, and cost to identify trends.
-                - Built a predictive model to forecast ratings for new restaurants based on historical data.
-                - Visualized data insights through interactive dashboards in Excel.
-            </p>
-            <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank">
-                <i class="fab fa-github"></i> View Project on GitHub
-            </a>
-        </div>
+  <h2><i class="fas fa-code"></i> Projects</h2>
+  <span class="highlight-text">
+      Here are my latest projects – from real-world data analysis to impactful visualizations and machine learning models.
+  </span>
 
-        <div class="project-item">
-          <h3>Project 2:Handwritten Digit Recognition</h3>
-          <img src="output.png" alt="Project 2:Handwritten Digit Recognition" />
-          <img src="training_model.png" alt="Project 2:Handwritten Digit Recognition" />
-          <p>This project involves training a model to recognize handwritten digits using the MNIST dataset. It leverages deep learning techniques, specifically Convolutional Neural Networks (CNN), to achieve high accuracy in classifying handwritten digits.</p>
-          <p><strong>Technologies Used:</strong> Python, TensorFlow, Keras, NumPy, Matplotlib</p>
-          <p><strong>Key Insights:</strong>
-              - Trained a CNN model to classify digits with high accuracy.
-              - Visualized predictions made by the model on test images.
-              - Achieved impressive results in digit classification using deep learning techniques.
-          </p>
-          <a href="https://github.com/kalyan-91/Hand-Written-Digit-Recognition/tree/main" target="_blank">
-              <i class="fab fa-github"></i> View Project on GitHub
-          </a>
+  <div class="roller-container">
+    <div class="project-card active project-item">
+
+      <h3>Zomato Restaurants Analysis & Predictive Modeling</h3>
+
+      <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+        <img src="restaurants_success.png" alt="Project 1:Zomato Restaurants Analysis & Predictive Modeling" />
+        <img src="best_location_for_restaurants.png" alt="Project 1:Zomato Restaurants Analysis & Predictive Modeling" />
       </div>
-  </div>
-</section>
 
-  <div class="project-item">
-          <h3>Project 3:Netflix Power BI Dashboard</h3>
-          <img src= "netflix_powerbi/dashboard1.png" alt="Netflix Dashboard Page 1" />
-          <img src= "netflix_powerbi/dashboard2.png" alt="Netflix Dashboard Map Page" />
-          <p>This interactive Power BI dashboard analyzes over 5,000 Netflix titles to reveal insights into content type, genre trends, country-level viewing patterns, and average ratings. Designed with a dark theme inspired by Netflix, it includes multiple pages and interactive drillthroughs.</p>
-          <p><strong>Technologies Used:</strong> Power BI, DAX, Data Visualization, Dashboard Design</p>
-          <p><strong>Key Insights:</strong><br>
-            - Analyzed Movies vs TV Shows by duration and ratings<br>
-            - Highlighted top genres by count and average rating<br>
-            - Mapped top 15 countries by average content duration<br>
-            - Implemented cross-page filters for country-wise insights
-          </p>
-          <a href="https://github.com/kalyan-91/Netflix-PowerBI-Dashboard" target="_blank">
-            <i class="fab fa-github"></i> View Project on GitHub
-          </a>
-        </div>
+      <p>Performed an in-depth analysis of restaurant data from Zomato, exploring various factors affecting restaurant ratings and customer preferences. Used predictive modeling techniques to forecast restaurant ratings based on various attributes, classifying restaurants as low-rated and high-rated.</p>
+      <p><strong>Technologies Used:</strong> Python, Pandas, Scikit-learn, Matplotlib, Seaborn</p>
+      <p><strong>Key Insights:</strong></p>
+      <ul>
+        <li>Analyzed restaurant attributes such as location, cuisine, and cost to identify trends.</li>
+        <li>Built a predictive model to forecast ratings for new restaurants based on historical data.</li>
+        <li>Visualized data insights through interactive dashboards in Excel.</li>
+      </ul>
+
+      <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank">
+        <i class="fab fa-github"></i> View Project on GitHub
+      </a>
+    </div>
+
+    <div class="project-card project-item">
+      <h3>Handwritten Digit Recognition</h3>
+
+       <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+        <img src="output.png" alt="Project 2:Handwritten Digit Recognition" />
+        <img src="training_model.png" alt="Project 2:Handwritten Digit Recognition" />
+       </div>
+
+      <p>This project involves training a model to recognize handwritten digits using the MNIST dataset. It leverages deep learning techniques, specifically Convolutional Neural Networks (CNN), to achieve high accuracy in classifying handwritten digits.</p>
+      <p><strong>Technologies Used:</strong> Python, TensorFlow, Keras, NumPy, Matplotlib</p>
+      <p><strong>Key Insights:</strong></p>
+      <ul>
+        <li>Trained a CNN model to classify digits with high accuracy.</li>
+        <li>Visualized predictions made by the model on test images.</li>
+        <li>Achieved impressive results in digit classification using deep learning techniques.</li>
+      </ul>
+      <a href="https://github.com/kalyan-91/Hand-Written-Digit-Recognition/tree/main" target="_blank">
+        <i class="fab fa-github"></i> View Project on GitHub
+      </a>
+    </div>
+
+    <div class="project-card project-item">
+      <h3>Netflix Power BI Dashboard</h3>
+
+      <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+         <img src= "netflix_powerbi/dashboard1.png" alt="Netflix Dashboard Page 1" />
+         <img src= "netflix_powerbi/dashboard2.png" alt="Netflix Dashboard Map Page" />
+      </div>
+      
+      <p>This interactive Power BI dashboard analyzes over 5,000 Netflix titles to reveal insights into content type, genre trends, country-level viewing patterns, and average ratings. Designed with a dark theme inspired by Netflix, it includes multiple pages and interactive drillthroughs.</p>
+      <p><strong>Technologies Used:</strong> Power BI, DAX, Data Visualization, Dashboard Design</p>
+      <p><strong>Key Insights:</strong></p>
+      <ul>
+        <li>Analyzed Movies vs TV Shows by duration and ratings</li>
+        <li>Highlighted top genres by count and average rating</li>
+        <li>Mapped top 15 countries by average content duration</li>
+        <li>Implemented cross-page filters for country-wise insights</li>
+      </ul>
+      <a href="https://github.com/kalyan-91/Netflix-PowerBI-Dashboard" target="_blank">
+        <i class="fab fa-github"></i> View Project on GitHub
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="roller-controls">
+    <button class="roller-btn prev">⟵ Prev</button>
+    <button class="roller-btn next">Next ⟶</button>
+  </div>
+
+</div>
+</section>
 
 <section id="resume" class="animated-section">
   <h2><i class="fas fa-file-alt"></i> Resume</h2>
@@ -162,25 +192,25 @@
     <h2><i class="fas fa-envelope"></i> Contact</h2>
     <p>I'm happy to hear from you! Whether it's a question or just to say hi, feel free to reach out:</p>
 
-    <form action="https://formspree.io/f/mnnnpoop" method="POST" class="contact-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" placeholder="Your Email" required>
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <form action="https://formspree.io/f/mnnnpoop" method="POST" class="contact-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Your Email" required>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+
     
     <a href="https://wa.me/918919944203" target="_blank">📱 WhatsApp</a>
-  
+    
     <a href="mailto:daroorpavankalyan@gmail.com">📧 Email Me</a>
 
     <p>Phone: +91-8919944203</p>
-    
 </section>
 
-<footer class="site-footer">
+  <footer class="site-footer">
   <p><strong>This site is developed and maintained by Pavan Kalyan</strong><br>
   <strong>Last updated: <span id="last-updated"></span></strong></p>
 </footer>
@@ -200,6 +230,7 @@
   document.getElementById("last-updated").textContent = formattedDateTime;
 </script>
 
+
 <script>
   new Typed('#typing-name', {
     strings: ['Daroor Pavan Kalyan'],
@@ -209,7 +240,54 @@
     loop: true
   });
 </script>
-  
+
+<script>
+  const cards = document.querySelectorAll(".project-card");
+  let current = 0;
+  let autoRotate;
+
+  function showCard(index) {
+    cards.forEach((card, i) => {
+      card.classList.remove("active");
+      card.style.zIndex = 0;
+      if (i === index) {
+        card.classList.add("active");
+        card.style.zIndex = 1;
+      }
+    });
+  }
+
+  function startRotation() {
+    autoRotate = setInterval(() => {
+      current = (current + 1) % cards.length;
+      showCard(current);
+    }, 5000);
+  }
+
+  function stopRotation() {
+    clearInterval(autoRotate);
+  }
+
+  document.querySelector(".roller-btn.next").addEventListener("click", () => {
+    current = (current + 1) % cards.length;
+    showCard(current);
+  });
+
+  document.querySelector(".roller-btn.prev").addEventListener("click", () => {
+    current = (current - 1 + cards.length) % cards.length;
+    showCard(current);
+  });
+
+  // Start auto rotation
+  startRotation();
+
+  // Add hover listeners to all project cards
+  cards.forEach(card => {
+    card.addEventListener("mouseenter", stopRotation);
+    card.addEventListener("mouseleave", startRotation);
+  });
+</script>
+
 </body>
 
 </html>
