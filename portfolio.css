@@ -927,29 +927,45 @@ a:hover i {
 }
 
 @media (max-width: 768px) {
-  .project-item {
-    width: 90vw;
-    max-width: 100%;
-    height: auto;
-    padding: 15px;
+  .roller-container {
+    overflow-x: hidden;
+  }
+
+  .project-card.project-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 16px;
+    margin: 0 auto;
+    display: flex;
     flex-direction: column;
-    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   .project-item img {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
     object-fit: cover;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
-  .roller-container {
-    padding: 0 10px;
+  .project-item h3,
+  .project-item p,
+  .project-item ul,
+  .project-item a {
+    text-align: left !important;
+    width: 100% !important;
+  }
+
+  .project-item ul {
+    padding-left: 20px;
   }
 
   .roller-controls {
     flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+    align-items: center;
+    margin-top: 10px;
   }
 }
