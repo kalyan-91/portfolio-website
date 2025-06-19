@@ -926,43 +926,30 @@ a:hover i {
   color: #f5f1f1;
 }
 
-/* Make all .project-card items responsive */
-.project-card.project-item {
-  max-width: 95%;
-  width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg, #43cea2, #185a9d);
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-}
-
-/* Fix image layout for all projects */
-.project-item img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-/* Ensure images don't overflow on small screens */
 @media (max-width: 768px) {
-  .project-item img {
+  .project-item {
+    width: 90vw;
+    max-width: 100%;
     height: auto;
+    padding: 15px;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .project-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+
+  .roller-container {
+    padding: 0 10px;
+  }
+
+  .roller-controls {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
   }
 }
-
-/* Prevent overflow in text and links */
-.project-item ul,
-.project-item p,
-.project-item a {
-  word-wrap: break-word;
-  text-align: left;
-}
-
- 
