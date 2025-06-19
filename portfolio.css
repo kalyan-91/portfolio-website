@@ -928,11 +928,11 @@ a:hover i {
 
 @media (max-width: 768px) {
   .project-item {
-    width: 95vw;
+    width: 100%;
     max-width: 100%;
     padding: 16px;
-    height: auto;
     box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   .project-item h3 {
@@ -940,27 +940,31 @@ a:hover i {
     text-align: center;
   }
 
+  /* Fix image layout */
   .project-item div[style*="display: flex"] {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 10px !important;
   }
 
   .project-item img {
     width: 100% !important;
+    max-width: 100%;
     height: auto !important;
     object-fit: contain;
-    margin-bottom: 10px;
+    display: block;
   }
 
   .project-item p,
   .project-item ul {
     text-align: left;
+    padding: 0 10px;
   }
 
   .roller-controls {
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
   }
 }
-
