@@ -927,44 +927,45 @@ a:hover i {
 }
 
 @media (max-width: 768px) {
-  .project-item {
-    width: 100%;
-    max-width: 100%;
-    padding: 16px;
+  .project-card {
+    width: 100% !important;
     box-sizing: border-box;
+    padding: 16px;
     overflow-x: hidden;
   }
 
-  .project-item h3 {
+  .project-card h3 {
     font-size: 20px;
     text-align: center;
   }
 
-  /* Fix image layout */
-  .project-item div[style*="display: flex"] {
+  .project-card div[style*="display: flex"] {
     flex-direction: column !important;
     align-items: center !important;
-    gap: 10px !important;
+    gap: 12px !important;
   }
 
-  .project-item img {
+  .project-card img {
     width: 100% !important;
-    max-width: 100%;
     height: auto !important;
-    object-fit: contain;
+    object-fit: contain !important;
     display: block;
+    border-radius: 10px;
   }
 
-  .project-item p,
-  .project-item ul {
-    text-align: left;
-    padding: 0 10px;
+  .project-card p,
+  .project-card ul,
+  .project-card li {
+    text-align: left !important;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 0 12px;
   }
 
   .roller-controls {
     flex-direction: row;
     justify-content: center;
     gap: 12px;
-    margin-top: 10px;
+    margin-top: 12px;
   }
 }
