@@ -336,7 +336,7 @@ section h2 {
   margin: auto;
   perspective: 1200px; /* 3D effect */
   overflow: hidden;
-  height: 1200px;
+  height: 1100px;
 }
 
 .project-card {
