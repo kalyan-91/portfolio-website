@@ -522,16 +522,18 @@ function handleKeyboardNavigation(e) {
 
 // Update Last Modified Date
 function updateLastModified() {
+    const lastUpdated = document.getElementById("last-updated");
     if (lastUpdated) {
-        const now = new Date();
+        const modifiedDate = new Date(document.lastModified);
         const options = { 
             year: 'numeric', 
             month: 'long', 
             day: 'numeric' 
         };
-        lastUpdated.textContent = now.toLocaleDateString('en-US', options);
+        lastUpdated.textContent = modifiedDate.toLocaleDateString('en-US', options);
     }
 }
+
 
 // Auto-advance projects
 function startProjectAutoAdvance() {
