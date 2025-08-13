@@ -1698,14 +1698,14 @@ body {
     gap: 3rem;
   }
 
-/* Enhanced Experience Section */
+  /* Enhanced Experience Section */
   .timeline {
     max-width: 100%;
     padding: 0 1.5rem;
   }
 
   .timeline::before {
-    left: 1.5rem;
+    left: 25px;
     width: 3px;
     background: linear-gradient(180deg, #6366f1, #8b5cf6);
   }
@@ -1719,8 +1719,8 @@ body {
   }
 
   .timeline-content {
-    margin-left: 3rem;
-    margin-right: 1rem;
+    margin-left: 60px;
+    margin-right: 0;
     padding: 2rem;
     border-radius: 20px;
     backdrop-filter: blur(15px);
@@ -1764,6 +1764,7 @@ body {
     border-radius: 15px;
     backdrop-filter: blur(10px);
   }
+
 
   .timeline-content {
     margin-left: 3rem;
@@ -2210,7 +2211,7 @@ body {
   }
   30% {
     transform: skew(-0.5deg);
-  }
+  } 
   40% {
     transform: skew(1deg);
   }
@@ -2233,4 +2234,3 @@ body {
     transform: skew(0deg);
   }
 }
-
