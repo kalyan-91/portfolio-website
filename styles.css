@@ -813,6 +813,83 @@ body {
   font-weight: 500;
 }
 
+/* Education Section Specific Styles */
+#education .timeline-item:nth-child(1) .timeline-marker {
+  background: linear-gradient(135deg, #0ef 0%, #06b6d4 100%);
+  box-shadow: 0 0 20px rgba(0, 238, 255, 0.4);
+}
+
+#education .timeline-item:nth-child(2) .timeline-marker {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ef 100%);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+#education .timeline-content {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+#education .timeline-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px #0ef;
+}
+
+#education .timeline-header h3 {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#education .skill-badge {
+  background: linear-gradient(135deg, rgba(0, 238, 255, 0.15), rgba(56, 189, 248, 0.15));
+  border: 1px solid rgba(0, 238, 255, 0.3);
+  color: #0ef;
+  transition: all 0.3s ease;
+}
+
+#education .skill-badge:hover {
+  background: linear-gradient(135deg, #0ef, #38bdf8);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 238, 255, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  #education .timeline {
+    border-left: none; /* remove vertical line */
+    padding-left: 0;
+  }
+
+  #education .timeline-item {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  #education .timeline-marker {
+    position: relative;
+    left: 0;
+    margin-bottom: 10px;
+  }
+
+  #education .timeline-content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  #education .timeline {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #education .timeline-item {
+    max-width: 100%;
+  }
+}
+
 /* Enhanced Skills Section */
 .skills-grid {
   display: grid;
@@ -2156,3 +2233,4 @@ body {
     transform: skew(0deg);
   }
 }
+
