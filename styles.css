@@ -814,6 +814,11 @@ body {
 }
 
 /* Education Section Specific Styles */
+:root {
+  --primary-color: #0ef;       /* Cyan */
+  --secondary-color: #38bdf8; /* Light Blue */
+}
+
 #education .timeline-item:nth-child(1) .timeline-marker {
   background: linear-gradient(135deg, #0ef 0%, #06b6d4 100%);
   box-shadow: 0 0 20px rgba(0, 238, 255, 0.4);
@@ -836,10 +841,11 @@ body {
 }
 
 #education .timeline-header h3 {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--primary-color, #0ef), var(--secondary-color, #38bdf8));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: #0ef; /* fallback if gradient not supported */
 }
 
 #education .skill-badge {
@@ -2234,3 +2240,4 @@ body {
     transform: skew(0deg);
   }
 }
+
