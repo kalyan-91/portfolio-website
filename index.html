@@ -11,14 +11,39 @@
 </head>
 
 <body>
+  <!-- Theme Selector -->
+  <div class="theme-selector">
+    <button class="theme-btn" data-theme="blue" aria-label="Blue Theme">
+      <div class="theme-color" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></div>
+    </button>
+    <button class="theme-btn" data-theme="purple" aria-label="Purple Theme">
+      <div class="theme-color" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%)"></div>
+    </button>
+    <button class="theme-btn" data-theme="green" aria-label="Green Theme">
+      <div class="theme-color" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%)"></div>
+    </button>
+    <button class="theme-btn" data-theme="orange" aria-label="Orange Theme">
+      <div class="theme-color" style="background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)"></div>
+    </button>
+    <button class="theme-btn" data-theme="red" aria-label="Red Theme">
+      <div class="theme-color" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%)"></div>
+    </button>
+  </div>
+
   <!-- Animated Background -->
   <div class="animated-bg">
-    <div class="floating-shapes">
-      <div class="gear gear-1"><i class="fas fa-cog"></i></div>
-      <div class="gear gear-2"><i class="fas fa-gear"></i></div>
-      <div class="gear gear-3"><i class="fas fa-cog"></i></div>
-      <div class="gear gear-4"><i class="fas fa-gear"></i></div>
-      <div class="gear gear-5"><i class="fas fa-cog"></i></div>
+    <div class="floating-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    <div class="gradient-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
     </div>
   </div>
 
@@ -27,15 +52,16 @@
     <div class="nav-container">
       <div class="nav-logo">
         <span class="logo-text">PK</span>
+        <div class="logo-pulse"></div>
       </div>
       <ul class="nav-menu">
-        <li><a href="#home" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a></li>
+        <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a></li>
         <li><a href="#about" class="nav-link"><i class="fas fa-user"></i><span>About</span></a></li>
         <li><a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i><span>Education</span></a></li>
         <li><a href="#skills" class="nav-link"><i class="fas fa-tools"></i><span>Skills</span></a></li>
         <li><a href="#projects" class="nav-link"><i class="fas fa-laptop-code"></i><span>Projects</span></a></li>
         <li><a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i><span>Resume</span></a></li>
-        <li><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i><span>Internship</span></a></li>
+        <li><a href="#experience" class="nav-link"><i class="fas fa-briefcase"></i><span>Experience</span></a></li>
         <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i><span>Contact</span></a></li>
       </ul>
       <div class="hamburger">
@@ -52,7 +78,9 @@
       <div class="profile-container">
         <div class="profile-frame">
           <div class="profile-ring"></div>
-          <img src="pavankalyan.jpg" alt="Profile Picture" class="profile-pic" />
+          <div class="profile-pic-placeholder">
+            <img src="D:\\Portfolio\\pavankalyan.jpg" alt="Profile Picture">
+          </div>
           <div class="profile-status"></div>
         </div>
       </div>
@@ -64,11 +92,22 @@
         <p class="hero-subtitle">
           <span class="wave">👋</span> Welcome to my digital world — built on <span class="highlight">data</span>, <span class="highlight">analytics</span>, and <span class="highlight">technology</span>.
         </p>
-        
+
         <div class="hero-tags">
           <span class="tag">Data Analyst</span>
           <span class="tag">MCA Student</span>
           <span class="tag">Python Developer</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-rocket"></i>
+            View My Work
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <i class="fas fa-envelope"></i>
+            Get In Touch
+          </a>
         </div>
       </div>
 
@@ -128,164 +167,238 @@
         
         <div class="about-stats">
           <div class="stat-card">
-            <div class="stat-number" data-target="4">4</div>
+            <div class="stat-icon">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="stat-number" data-target="4">0</div>
             <div class="stat-label">Projects Completed</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number" data-target="4">5</div>
-            <div class="stat-label">Technologies learnt</div>
+            <div class="stat-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="stat-number" data-target="6">0</div>
+            <div class="stat-label">Technologies Learned</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-number" data-target="1"></div>
+            <div class="stat-label">Internships Completed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-graduation-cap section-icon"></i>
+          Education
+        </h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Master of Computer Applications (MCA)</h3>
+              <span class="company">Jawaharlal Nehru Technological University, Anantapur (JNTUA)</span>
+              <span class="duration">Aug 2025 – Present</span>
+            </div>
+            <div class="timeline-description">
+              <p>
+                Pursuing MCA with emphasis on software development, data structures, algorithms, and modern
+                programming practices. Building expertise in data science, machine learning, and database management through academic projects and practical applications.
+              </p>
+              <div class="timeline-skills">
+                <span class="skill-badge">Advanced Programming</span>
+                <span class="skill-badge">Data Structures</span>
+                <span class="skill-badge">Software Engineering</span>
+                <span class="skill-badge">Database Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <i class="fas fa-university"></i>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Bachelor of Science (BSc) - Mathematics, Statistics, Computer Science</h3>
+              <span class="company">St Joseph's Degree College (Affiliated to Rayalaseema University)</span>
+              <span class="duration">2021 – 2024</span>
+            </div>
+            <div class="timeline-description">
+              <p>
+                Graduated with a solid foundation in mathematics, statistical methods, and computer science.
+                Developed problem-solving skills and practical knowledge in programming, data analysis, and mathematical modeling.
+              </p>
+              <div class="timeline-skills">
+                <span class="skill-badge">Mathematics</span>
+                <span class="skill-badge">Statistics</span>
+                <span class="skill-badge">Programming</span>
+                <span class="skill-badge">Data Analysis</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
- <!-- Education Section -->
-<section id="education" class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">
-        <i class="fas fa-graduation-cap section-icon"></i>
-        Education
-      </h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="timeline-header">
-            <h3>Master of Computer Applications (MCA)</h3>
-            <span class="company">Jawaharlal Nehru Technological University, Anantapur (JNTUA)</span>
-            <span class="duration">Aug 2025 – Present</span>
+  <!-- Skills Section -->
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-tools section-icon"></i>
+          Skills & Technologies
+        </h2>
+        <div class="section-line"></div>
+      </div>
+      
+      <div class="skills-grid">
+        <!-- Programming & Analysis -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="fas fa-code"></i>
+            <h3>Programming & Analysis</h3>
           </div>
-          <div class="timeline-description">
-            <p>
-              Pursuing MCA with emphasis on software development, data structures, algorithms, and modern
-              programming practices. Building expertise in data science, machine learning, and database management through academic projects and practical applications.
-            </p>
-            <div class="timeline-skills">
-              <span class="skill-badge">Advanced Programming</span>
-              <span class="skill-badge">Data Structures</span>
-              <span class="skill-badge">Software Engineering</span>
-              <span class="skill-badge">Database Systems</span>
+          <div class="skills-list">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fab fa-python"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Python</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-database"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">SQL</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="85"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Machine Learning</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="50"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="timeline-item">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <div class="timeline-header">
-            <h3>Bachelor of Science (BSc) - Mathematics, Statistics, Computer Science</h3>
-            <span class="company">St Joseph's Degree College (Affiliated to Rayalaseema University)</span>
-            <span class="duration">2021 – 2024</span>
-          </div>
-          <div class="timeline-description">
-            <p>
-              Graduated with a solid foundation in mathematics, statistical methods, and computer science.
-              Developed problem-solving skills and practical knowledge in programming, data analysis, and mathematical modeling.
-            </p>
-            <div class="timeline-skills">
-              <span class="skill-badge">Mathematics</span>
-              <span class="skill-badge">Statistics</span>
-              <span class="skill-badge">Programming</span>
-              <span class="skill-badge">Data Analysis</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Skills Section -->
-<section id="skills" class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">
-        <i class="fas fa-tools section-icon"></i>
-        Skills & Technologies
-      </h2>
-      <div class="section-line"></div>
-    </div>
-    
-    <div class="skills-grid">
-      <!-- Programming & Analysis -->
-      <div class="skill-category">
-        <h3>Programming & Analysis</h3>
-        <div class="skills-list">
-          <div class="skill-item">
-            <i class="fab fa-python"></i>
-            <span>Python</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-database"></i>
-            <span>SQL</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-robot"></i>
-            <span>Machine Learning</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Data Visualization -->
-      <div class="skill-category">
-        <h3>Data Visualization</h3>
-        <div class="skills-list">
-          <div class="skill-item">
+        <!-- Data Visualization -->
+        <div class="skill-category">
+          <div class="category-header">
             <i class="fas fa-chart-bar"></i>
-            <span>Power BI</span>
+            <h3>Data Visualization</h3>
           </div>
-          <div class="skill-item">
-            <i class="fas fa-file-excel"></i>
-            <span>Excel</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-chart-pie"></i>
-            <span>Data Visualization</span>
+          <div class="skills-list">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Power BI</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="88"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-file-excel"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Excel</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="92"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-chart-pie"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Data Visualization</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="85"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Soft Skills -->
-      <div class="skill-category">
-        <h3>Soft Skills</h3>
-        <div class="skills-list">
-          <div class="skill-item">
-            <i class="fas fa-lightbulb"></i>
-            <span>Problem Solving</span>
-          </div>
-          <div class="skill-item">
+        <!-- Soft Skills -->
+        <div class="skill-category">
+          <div class="category-header">
             <i class="fas fa-users"></i>
-            <span>Teamwork</span>
+            <h3>Soft Skills</h3>
           </div>
-          <div class="skill-item">
-            <i class="fas fa-clock"></i>
-            <span>Time Management</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-comments"></i>
-            <span>Communication</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-brain"></i>
-            <span>Analytical Thinking</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-search"></i>
-            <span>Curiosity</span>
+          <div class="skills-list">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Problem Solving</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="95"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Teamwork</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="90"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="fas fa-comments"></i>
+              </div>
+              <div class="skill-info">
+                <span class="skill-name">Communication</span>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-progress="88"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Projects Section -->
   <section id="projects" class="section">
@@ -301,19 +414,30 @@
         </p>
       </div>
       
-      <div class="projects-container">
-        <div class="project-card active" data-project="0">
-          <div class="project-header">
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/kalyan-91/EmployeeAttritionAndEngagementAnalysis" target="_blank" class="project-link">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
             <div class="project-icon">
               <i class="fas fa-users"></i>
-            </div>
-            <div class="project-meta">
-              <h3>Employee Attrition Analysis</h3>
-              <span class="project-type">HR Analytics</span>
             </div>
           </div>
           
           <div class="project-content">
+            <div class="project-header">
+              <h3>Employee Attrition Analysis</h3>
+              <span class="project-type">HR Analytics</span>
+            </div>
+            
             <p class="project-description">
               Analyzed employee attrition data to identify key factors influencing resignations. Built classification models to predict attrition and developed an interactive Power BI dashboard.
             </p>
@@ -324,43 +448,32 @@
               <span class="tech-tag">Power BI</span>
               <span class="tech-tag">Pandas</span>
             </div>
-            
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <i class="fas fa-chart-line"></i>
-                <span>Overtime and low salary identified as major attrition drivers</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-target"></i>
-                <span>Built ML models with high accuracy for attrition prediction</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-dashboard"></i>
-                <span>Interactive Power BI dashboard with KPIs and heatmaps</span>
-              </div>
-            </div>
-            
-            <div class="project-actions">
-              <a href="https://github.com/kalyan-91/EmployeeAttritionAndEngagementAnalysis/tree/main" target="_blank" class="btn btn-primary">
-                <i class="fab fa-github"></i>
-                View on GitHub
-              </a>
-            </div>
           </div>
         </div>
 
-        <div class="project-card" data-project="1">
-          <div class="project-header">
+        <div class="project-card">
+          <div class="project-image">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank" class="project-link">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
             <div class="project-icon">
               <i class="fas fa-utensils"></i>
-            </div>
-            <div class="project-meta">
-              <h3>Zomato Restaurant Analysis</h3>
-              <span class="project-type">Predictive Modeling</span>
             </div>
           </div>
           
           <div class="project-content">
+            <div class="project-header">
+              <h3>Zomato Restaurant Analysis</h3>
+              <span class="project-type">Predictive Modeling</span>
+            </div>
+            
             <p class="project-description">
               Comprehensive analysis of Zomato restaurant data to identify patterns affecting ratings and customer preferences. Developed predictive models for restaurant classification.
             </p>
@@ -371,43 +484,32 @@
               <span class="tech-tag">Scikit-learn</span>
               <span class="tech-tag">Excel</span>
             </div>
-            
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Location and cuisine trend analysis</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-star"></i>
-                <span>Rating prediction model development</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-chart-area"></i>
-                <span>Interactive dashboard visualizations</span>
-              </div>
-            </div>
-            
-            <div class="project-actions">
-              <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank" class="btn btn-primary">
-                <i class="fab fa-github"></i>
-                View on GitHub
-              </a>
-            </div>
           </div>
         </div>
 
-        <div class="project-card" data-project="2">
-          <div class="project-header">
+        <div class="project-card">
+          <div class="project-image">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/kalyan-91/Hand-Written-Digit-Recognition" target="_blank" class="project-link">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
             <div class="project-icon">
               <i class="fas fa-hand-paper"></i>
-            </div>
-            <div class="project-meta">
-              <h3>Handwritten Digit Recognition</h3>
-              <span class="project-type">Deep Learning</span>
             </div>
           </div>
           
           <div class="project-content">
+            <div class="project-header">
+              <h3>Handwritten Digit Recognition</h3>
+              <span class="project-type">Deep Learning</span>
+            </div>
+            
             <p class="project-description">
               Built a CNN model to classify handwritten digits from MNIST dataset. Created an interactive canvas for real-time digit drawing and prediction with user feedback.
             </p>
@@ -418,43 +520,32 @@
               <span class="tech-tag">OpenCV</span>
               <span class="tech-tag">Python</span>
             </div>
-            
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <i class="fas fa-brain"></i>
-                <span>Convolutional Neural Network implementation</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-paint-brush"></i>
-                <span>Interactive drawing canvas interface</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-bullseye"></i>
-                <span>High accuracy real-time predictions</span>
-              </div>
-            </div>
-            
-            <div class="project-actions">
-              <a href="https://github.com/kalyan-91/Hand-Written-Digit-Recognition/tree/main" target="_blank" class="btn btn-primary">
-                <i class="fab fa-github"></i>
-                View on GitHub
-              </a>
-            </div>
           </div>
         </div>
 
-        <div class="project-card" data-project="3">
-          <div class="project-header">
+        <div class="project-card">
+          <div class="project-image">
+            <div class="project-overlay">
+              <div class="project-links">
+                <a href="https://github.com/kalyan-91/Netflix-PowerBI-Dashboard" target="_blank" class="project-link">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="project-link">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
             <div class="project-icon">
               <i class="fas fa-tv"></i>
-            </div>
-            <div class="project-meta">
-              <h3>Netflix Analytics Dashboard</h3>
-              <span class="project-type">Business Intelligence</span>
             </div>
           </div>
           
           <div class="project-content">
+            <div class="project-header">
+              <h3>Netflix Analytics Dashboard</h3>
+              <span class="project-type">Business Intelligence</span>
+            </div>
+            
             <p class="project-description">
               Interactive Power BI dashboard exploring 5,000+ Netflix titles, uncovering trends in content types, durations, countries, and genres with advanced DAX functions.
             </p>
@@ -465,89 +556,63 @@
               <span class="tech-tag">Power Query</span>
               <span class="tech-tag">Data Modeling</span>
             </div>
-            
-            <div class="project-highlights">
-              <div class="highlight-item">
-                <i class="fas fa-filter"></i>
-                <span>Advanced slicers and cross-page filters</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-globe"></i>
-                <span>Global content distribution analysis</span>
-              </div>
-              <div class="highlight-item">
-                <i class="fas fa-clock"></i>
-                <span>Duration and genre trend insights</span>
-              </div>
-            </div>
-            
-            <div class="project-actions">
-              <a href="https://github.com/kalyan-91/Netflix-PowerBI-Dashboard" target="_blank" class="btn btn-primary">
-                <i class="fab fa-github"></i>
-                View on GitHub
-              </a>
-            </div>
           </div>
         </div>
-      </div>
-      
-      <div class="project-navigation">
-        <button class="nav-btn prev-btn">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <div class="project-indicators">
-          <span class="indicator active" data-project="0"></span>
-          <span class="indicator" data-project="1"></span>
-          <span class="indicator" data-project="2"></span>
-          <span class="indicator" data-project="3"></span>
-        </div>
-        <button class="nav-btn next-btn">
-          <i class="fas fa-chevron-right"></i>
-        </button>
       </div>
     </div>
   </section>
 
-<!-- Resume Section -->
-<section id="resume" class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">
-        <i class="fas fa-file-alt section-icon"></i>
-        My Resume
-      </h2>
-      <div class="section-line"></div>
-      <p class="section-subtitle">
-        You can view my detailed resume to explore my education, skills, and experiences, or download a copy to keep for your reference.
-      </p>
-    </div>
+  <!-- Resume Section -->
+  <section id="resume" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-file-alt section-icon"></i>
+          My Resume
+        </h2>
+        <div class="section-line"></div>
+        <p class="section-subtitle">
+          You can view my detailed resume to explore my education, skills, and experiences, or download a copy to keep for your reference.
+        </p>
+      </div>
 
-    <div class="resume-buttons">
-      <a href="Pavan_Kalyan (1) (1).pdf" target="_blank" class="btn btn-primary">
-        <i class="fas fa-eye"></i> View Resume
-      </a>
-      <a href="Pavan_Kalyan (1) (1).pdf" download class="btn btn-secondary">
-        <i class="fas fa-download"></i> Download Resume
-      </a>
-    </div>
-  </div>
-</section>
+      <div class="resume-container">
+        <div class="resume-preview">
 
-  
+          <div class="resume-info">
+            <h3>Pavan Kalyan Resume</h3>
+            <p>Complete overview of my skills, experience, and education</p>
+          </div>
+        </div>
+        
+        <div class="resume-actions">
+          <a href="D:\\Portfolio\\Pavan_Kalyan (1) (1).pdf" class="btn btn-primary">
+            <i class="fas fa-eye"></i> View Resume
+          </a>
+          <a href="D:\\Portfolio\\Pavan_Kalyan (1) (1).pdf" class="btn btn-outline">
+            <i class="fas fa-download"></i> Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Experience Section -->
   <section id="experience" class="section">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">
           <i class="fas fa-briefcase section-icon"></i>
-          Internship
+          Experience
         </h2>
         <div class="section-line"></div>
       </div>
       
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-marker"></div>
+          <div class="timeline-marker">
+            <i class="fas fa-briefcase"></i>
+          </div>
           <div class="timeline-content">
             <div class="timeline-header">
               <h3>Data Science Intern</h3>
@@ -590,13 +655,19 @@
       <div class="contact-content">
         <div class="contact-form-container">
           <form action="https://formspree.io/f/mnnnpoop" method="POST" class="contact-form">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+              </div>
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Your Email" required>
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Subject" required>
             </div>
             <div class="form-group">
               <label for="message">Message</label>
@@ -650,10 +721,12 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <p>
-          <strong>Developed and maintained by Pavan Kalyan</strong><br>
-          <strong>Last updated: <span id="last-updated"></span></strong>
-        </p>
+        <div class="footer-info">
+          <p>
+            <strong>Developed and maintained by Pavan Kalyan</strong><br>
+            <span>Last updated: <span id="last-updated"></span></span>
+          </p>
+        </div>
         <div class="footer-social">
           <a href="https://github.com/kalyan-91" target="_blank">
             <i class="fab fa-github"></i>
@@ -669,7 +742,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
