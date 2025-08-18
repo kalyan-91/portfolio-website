@@ -171,12 +171,71 @@ body {
   animation: float 20s infinite linear;
 }
 
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 20%; animation-delay: 2s; }
-.particle:nth-child(3) { left: 30%; animation-delay: 4s; }
-.particle:nth-child(4) { left: 40%; animation-delay: 6s; }
-.particle:nth-child(5) { left: 60%; animation-delay: 8s; }
-.particle:nth-child(6) { left: 80%; animation-delay: 10s; }
+/* Small particles */
+.particle.small {
+  width: 3px;
+  height: 3px;
+}
+
+/* Medium particles */
+.particle.medium {
+  width: 6px;
+  height: 6px;
+}
+
+/* Large particles */
+.particle.large {
+  width: 10px;
+  height: 10px;
+}
+
+/* Square particles */
+.particle.square {
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+/* Triangle particles */
+.particle.triangle {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 8px solid var(--primary-color);
+  border-radius: 0;
+}
+
+/* Diamond particles */
+.particle.diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  transform: rotate(45deg);
+  border-radius: 0;
+}
+
+/* Particle positions and delays */
+.particle:nth-child(1) { left: 5%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 15%; animation-delay: 1s; }
+.particle:nth-child(3) { left: 25%; animation-delay: 2s; }
+.particle:nth-child(4) { left: 35%; animation-delay: 3s; }
+.particle:nth-child(5) { left: 45%; animation-delay: 4s; }
+.particle:nth-child(6) { left: 55%; animation-delay: 5s; }
+.particle:nth-child(7) { left: 65%; animation-delay: 6s; }
+.particle:nth-child(8) { left: 75%; animation-delay: 7s; }
+.particle:nth-child(9) { left: 85%; animation-delay: 8s; }
+.particle:nth-child(10) { left: 95%; animation-delay: 9s; }
+.particle:nth-child(11) { left: 8%; animation-delay: 10s; }
+.particle:nth-child(12) { left: 18%; animation-delay: 11s; }
+.particle:nth-child(13) { left: 28%; animation-delay: 12s; }
+.particle:nth-child(14) { left: 38%; animation-delay: 13s; }
+.particle:nth-child(15) { left: 48%; animation-delay: 14s; }
+.particle:nth-child(16) { left: 58%; animation-delay: 15s; }
+.particle:nth-child(17) { left: 68%; animation-delay: 16s; }
+.particle:nth-child(18) { left: 78%; animation-delay: 17s; }
+.particle:nth-child(19) { left: 88%; animation-delay: 18s; }
+.particle:nth-child(20) { left: 12%; animation-delay: 19s; }
 
 @keyframes float {
   0% {
@@ -192,6 +251,71 @@ body {
   100% {
     transform: translateY(-100px) rotate(360deg);
     opacity: 0;
+  }
+}
+
+/* Additional floating animation for variety */
+@keyframes floatSlow {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+    transform: translateY(90vh) rotate(45deg) scale(1);
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes floatFast {
+  0% {
+    transform: translateY(100vh) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.4;
+  }
+  95% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100px) rotate(720deg) translateX(50px);
+    opacity: 0;
+  }
+}
+
+/* Apply different animations to different particles */
+.particle:nth-child(odd) {
+  animation: float 25s infinite linear;
+}
+
+.particle:nth-child(even) {
+  animation: floatSlow 30s infinite linear;
+}
+
+.particle:nth-child(3n) {
+  animation: floatFast 15s infinite linear;
+}
+
+/* Pulsing particles */
+.particle.pulse {
+  animation: float 20s infinite linear, pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.3;
   }
 }
 
@@ -248,7 +372,6 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 100px;
   z-index: 999;
   padding: 1rem 0;
   background: rgba(10, 10, 10, 0.9);
@@ -289,7 +412,7 @@ body {
   background-clip: text;
   z-index: 2;
   position: relative;
-  left: -40px;
+  left: -40px
 }
 
 .logo-pulse {
@@ -300,7 +423,6 @@ body {
   border-radius: 50%;
   animation: pulse 2s infinite;
   left: -40px;
-
 }
 
 @keyframes pulse {
@@ -409,16 +531,6 @@ body {
   transition: transform 0.4s ease;
 }
 
-.profile-frame:hover {
-  transform: scale(1.05);
-}
-
-.profile-frame:hover .profile-ring {
-  animation: rotate 3s linear infinite; 
-  box-shadow: 0 0 25px rgb(194, 5, 241), 0 0 50px rgb(224, 10, 239);
-}
-
-
 .profile-ring {
   position: absolute;
   width: 100%;
@@ -449,14 +561,15 @@ body {
   transform: translate(-50%, -50%);
   width: 180px;
   height: 180px;
+  background: var(--bg-secondary);
   border-radius: 50%;
-  overflow: hidden;  /* 🔥 ensures image stays inside circle */
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 4rem;
+  color: var(--primary-color);
 }
 
-/* Image styling */
 .profile-pic-placeholder img {
   width: 100%;
   height: 100%;
