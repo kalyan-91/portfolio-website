@@ -297,13 +297,13 @@ class Utils {
   static updateLastUpdated() {
     const lastUpdatedEl = document.getElementById('last-updated');
     if (lastUpdatedEl) {
-      const now = new Date();
+      const lastModified = new Date(document.lastModified);
       const options = { 
         year: 'numeric', 
         month: 'long', 
         day: 'numeric' 
       };
-      lastUpdatedEl.textContent = now.toLocaleDateString('en-US', options);
+      lastUpdatedEl.textContent = lastModified.toLocaleDateString('en-US', options);
     }
   }
 
@@ -524,3 +524,4 @@ styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
 console.log('Portfolio initialized successfully! 🚀');
+
