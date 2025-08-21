@@ -297,13 +297,15 @@ class Utils {
   static updateLastUpdated() {
     const lastUpdatedEl = document.getElementById('last-updated');
     if (lastUpdatedEl) {
-      const lastModified = new Date(document.lastModified);
-      const options = { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      };
-      lastUpdatedEl.textContent = lastModified.toLocaleDateString('en-US', options);
+      // This gets replaced during build process
+      const buildTimestamp = '__BUILD_TIMESTAMP__'; // Build tool replaces this
+      const buildDate = new Date(buildTimestamp);
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric
+          };
+      lastUpdatedEl.textContent = buildDate.toLocaleDateString('en-US', options);
     }
   }
 
@@ -524,4 +526,5 @@ styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
 console.log('Portfolio initialized successfully! 🚀');
+
 
