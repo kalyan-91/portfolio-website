@@ -294,18 +294,27 @@ class FormHandler {
 
 // Utility Functions
 class Utils {
-  static updateLastUpdated() {
+  static async updateLastUpdated() {
     const lastUpdatedEl = document.getElementById('last-updated');
-    if (lastUpdatedEl) {
-      // This gets replaced during build process
-      const buildTimestamp = '__BUILD_TIMESTAMP__'; // Build tool replaces this
-      const buildDate = new Date(buildTimestamp);
-      const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric
-          };
-      lastUpdatedEl.textContent = buildDate.toLocaleDateString('en-US', options);
+    if (!lastUpdatedEl) return;
+
+    try {
+      const res = await fetch('https://api.github.com/repos/kalyan-91/portfolio-website/commits/main');
+      if (!res.ok) {
+        throw new Error(`GitHub API error: ${res.status}`);
+      }
+      const data = await res.json();
+      const lastCommitDate = new Date(data.commit.committer.date);
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      lastUpdatedEl.textContent = `${lastCommitDate.toLocaleDateString(undefined, options)}`;
+    } catch (err) {
+      console.error('Error fetching last update:', err);
+
+      // fallback: use browser file last modified date
+      const fallbackDate = new Date(document.lastModified);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      lastUpdatedEl.textContent = `Last updated: ${fallbackDate.toLocaleDateString(undefined, options)}`;
     }
   }
 
@@ -526,5 +535,3 @@ styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
 
 console.log('Portfolio initialized successfully! 🚀');
-
-
