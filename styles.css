@@ -1872,8 +1872,8 @@ body {
     flex-direction: column;
     justify-content: flex-start; /* start from top */
     align-items: center;
-    padding-top: 5rem;
-    gap: 0.5rem;
+    padding-top: 2rem;
+    gap: 1.5rem;
     overflow-y: auto; /* only mobile scroll */
     transition: var(--transition-normal);
     box-sizing: border-box;
@@ -2064,4 +2064,5 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
 
