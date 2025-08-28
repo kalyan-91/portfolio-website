@@ -35,6 +35,31 @@ class ThemeManager {
   }
 }
 
+const percentText = document.querySelector(".percent-text");
+const loader = document.getElementById("loader");
+const mainContent = document.getElementById("main-content");
+
+const duration = 4000;
+let startTime;
+
+function animateLoader(timestamp) {
+  if (!startTime) startTime = timestamp;
+  const elapsed = timestamp - startTime;
+  let progress = Math.min((elapsed/duration)*100, 100);
+
+  percentText.textContent = Math.round(progress) + "%";
+
+  if (progress < 100) {
+    requestAnimationFrame(animateLoader);
+  } else {
+    loader.style.display="none";
+    mainContent.style.display="block";
+  }
+}
+
+requestAnimationFrame(animateLoader);
+
+
 // Navigation Management
 class NavigationManager {
   constructor() {
