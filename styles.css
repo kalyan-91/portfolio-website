@@ -1872,7 +1872,7 @@ body {
     flex-direction: column;
     justify-content: flex-start; /* start from top */
     align-items: center;
-    padding-top: 2rem;
+    padding-top: 20vh;
     gap: 1.5rem;
     overflow-y: auto; /* only mobile scroll */
     transition: var(--transition-normal);
@@ -2064,5 +2064,6 @@ body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
 
 
