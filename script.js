@@ -35,30 +35,41 @@ class ThemeManager {
   }
 }
 
-const percentText = document.querySelector(".percent-text");
-const loader = document.getElementById("loader");
-const mainContent = document.getElementById("main-content");
+let percent = document.querySelector(".percent");
+let status = document.querySelector(".status-text");
+let loader = document.getElementById("loader");
+let content = document.getElementById("content");
 
-const duration = 4000;
-let startTime;
+let messages = [
+  "Preparing portfolio...",
+  "Optimizing portfolio assets...",
+  "Loading interactive features...",
+  "Almost ready… stay tuned!"
+];
 
-function animateLoader(timestamp) {
-  if (!startTime) startTime = timestamp;
-  const elapsed = timestamp - startTime;
-  let progress = Math.min((elapsed/duration)*100, 100);
+let count = 0;
 
-  percentText.textContent = Math.round(progress) + "%";
+// Increment every 30ms for total 3 seconds to reach 100%
+let interval = setInterval(() => {
+  count++;
+  percent.textContent = count + "%";
 
-  if (progress < 100) {
-    requestAnimationFrame(animateLoader);
-  } else {
-    loader.style.display="none";
-    mainContent.style.display="block";
+  // Change status every 25%
+  if (count % 25 === 0 && messages.length) {
+    status.textContent = messages.shift();
   }
-}
 
-requestAnimationFrame(animateLoader);
+  if (count >= 100) {
+    clearInterval(interval);
 
+    // Fade out loader smoothly
+    loader.style.opacity = "0";
+    setTimeout(() => {
+      loader.style.display = "none";
+      content.style.display = "block";
+    }, 600);
+  }
+}, 30);
 
 // Navigation Management
 class NavigationManager {
