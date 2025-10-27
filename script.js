@@ -395,6 +395,8 @@ class PerformanceOptimizer {
     images.forEach(img => imageObserver.observe(img));
   }
 
+  // script.js (inside the PerformanceOptimizer class)
+
   preloadCriticalResources() {
     // Preload critical fonts
     const fontLinks = [
@@ -403,8 +405,13 @@ class PerformanceOptimizer {
 
     fontLinks.forEach(href => {
       const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'style';
+      
+      // 🛑 CHANGE 1: Use 'stylesheet' instead of 'preload' 
+      link.rel = 'stylesheet'; 
+      
+      // 🛑 CHANGE 2: Remove the 'as' attribute, it's not needed for stylesheet
+      // link.as = 'style'; <--- DELETE THIS LINE 
+      
       link.href = href;
       document.head.appendChild(link);
     });
