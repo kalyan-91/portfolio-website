@@ -468,7 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     document.body.classList.add('loaded');
   }, 100);
-});
 
 // Add CSS for scroll to top button and form messages
 const additionalStyles = `
@@ -528,10 +527,3 @@ const additionalStyles = `
   }
 }
 `;
-
-// Inject additional styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = additionalStyles;
-document.head.appendChild(styleSheet);
-
-console.log('Portfolio initialized successfully! 🚀');
