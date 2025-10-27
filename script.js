@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add loading complete class to body
   setTimeout(() => {
     document.body.classList.add('loaded');
-  }, 100);
+  }, 100);});
 
 // Add CSS for scroll to top button and form messages
 const additionalStyles = `
@@ -522,4 +522,5 @@ const additionalStyles = `
     right: 1rem;
   }
 }
-;'
+;
+}`;
