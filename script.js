@@ -35,42 +35,6 @@ class ThemeManager {
   }
 }
 
-let percent = document.querySelector(".percent");
-let status = document.querySelector(".status-text");
-let loader = document.getElementById("loader");
-let content = document.getElementById("content");
-
-let messages = [
-  "Preparing portfolio...",
-  "Optimizing portfolio assets...",
-  "Loading interactive features...",
-  "Almost ready… stay tuned!"
-];
-
-let count = 0;
-
-// Increment every 30ms for total 3 seconds to reach 100%
-let interval = setInterval(() => {
-  count++;
-  percent.textContent = count + "%";
-
-  // Change status every 25%
-  if (count % 25 === 0 && messages.length) {
-    status.textContent = messages.shift();
-  }
-
-  if (count >= 100) {
-    clearInterval(interval);
-
-    // Fade out loader smoothly
-    loader.style.opacity = "0";
-    setTimeout(() => {
-      loader.style.display = "none";
-      content.style.display = "block";
-    }, 600);
-  }
-}, 30);
-
 // Navigation Management
 class NavigationManager {
   constructor() {
