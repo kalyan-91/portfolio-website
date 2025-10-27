@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize utility functions
   Utils.updateLastUpdated();
-  Utils.addScrollToTopButton();
+  //Utils.addScrollToTopButton();
   Utils.setupParallaxEffect();
   Utils.setupSmoothScrolling();
 
@@ -531,3 +531,4 @@ const additionalStyles = `
 }
 ;
 }`;
+
