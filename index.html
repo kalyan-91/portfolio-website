@@ -1,1 +1,670 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pavan Kalyan — Data Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Canvas for particles -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Noise overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-text">PK</span>
+      <span class="logo-dot"></span>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="#home" class="nav-link" data-text="Home">Home</a></li>
+      <li><a href="#skills" class="nav-link" data-text="Skills">Skills</a></li>
+      <li><a href="#education" class="nav-link" data-text="Education">Education</a></li>
+      <li><a href="#experience" class="nav-link" data-text="Experience">Experience</a></li>
+      <li><a href="#projects" class="nav-link" data-text="Projects">Projects</a></li>
+      <li><a href="#contact" class="nav-link" data-text="Contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="Pavan Kalyan - Resume2.pdf" download class="btn-resume">
+        <span>Resume</span>
+        <i class="fas fa-arrow-down"></i>
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#home" class="mob-link">Home</a></li>
+      <li><a href="#skills" class="mob-link">Skills</a></li>
+      <li><a href="#education" class="mob-link">Education</a></li>
+      <li><a href="#experience" class="mob-link">Experience</a></li>
+      <li><a href="#projects" class="mob-link">Projects</a></li>
+      <li><a href="#contact" class="mob-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+  <section id="home" class="hero">
+    <div class="hero-bg-text">DATA</div>
+
+    <div class="hero-layout">
+      <!-- Left Column -->
+      <div class="hero-left reveal-left">
+        <div class="hero-tag">
+          <span class="tag-dot"></span>
+          <span>MCA Student · Open to Internships</span>
+        </div>
+
+        <h1 class="hero-name">
+          <span class="name-line">PAVAN</span>
+          <span class="name-line accent-line">KALYAN</span>
+        </h1>
+
+        <div class="hero-role">
+          <span class="role-prefix">I'm a</span>
+          <div class="role-cycling" id="roleCycling">
+            <span class="role-word active">MCA Student</span>
+            <span class="role-word">Python Enthusiast</span>
+            <span class="role-word">ML Learner</span>
+            <span class="role-word">Data Analytics Aspirant</span>
+          </div>
+        </div>
+
+        <p class="hero-bio">
+          MCA student passionate about data. I build projects using Python, SQL, and Power BI — 
+          turning real datasets into insights and learning something new with every line of code.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-pill">
+            <span class="stat-num">5</span>
+            <span class="stat-lbl">Projects</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-pill">
+            <span class="stat-num">1</span>
+            <span class="stat-lbl">Internship</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-pill">
+            <span class="stat-num">85%+</span>
+            <span class="stat-lbl">ML Accuracy</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary-hero magnetic">
+            <span>View Projects</span>
+            <div class="btn-glow"></div>
+          </a>
+          <a href="#contact" class="btn-ghost-hero magnetic">
+            <span>Let's Talk</span>
+          </a>
+        </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/kalyan-91" target="_blank" class="social-pill">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/daroor-pavan-kalyan-370277253/" target="_blank" class="social-pill">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="mailto:daroorpavankalyan@gmail.com" class="social-pill">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://wa.me/918919944203" target="_blank" class="social-pill">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="hero-right reveal-right">
+        <div class="profile-wrapper">
+          <div class="profile-frame">
+            <img src="pavankalyan.jpg" alt="Pavan Kalyan" class="profile-photo" onerror="this.src='https://ui-avatars.com/api/?name=Pavan+Kalyan&size=300&background=0a0a1a&color=00d4ff&bold=true&font-size=0.35'">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ SKILLS ═══════════════════════════ -->
+  <section id="skills" class="section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-eyebrow">My Expertise</span>
+        <h2 class="section-title">Skills & <em>Technologies</em></h2>
+        <p class="section-sub">A strong blend of analytical, visualization, and machine learning skills used to solve real-world data problems.</p>
+      </div>
+
+      <div class="skills-layout">
+        <!-- Skill Categories -->
+        <div class="skill-tabs reveal-left">
+          <button class="skill-tab active" data-tab="programming">
+            <i class="fas fa-code"></i>
+            <span>Programming & Data</span>
+          </button>
+          <button class="skill-tab" data-tab="visualization">
+            <i class="fas fa-chart-line"></i>
+            <span>Visualization</span>
+          </button>
+          <button class="skill-tab" data-tab="ml">
+            <i class="fas fa-brain"></i>
+            <span>Machine Learning</span>
+          </button>
+          <button class="skill-tab" data-tab="web">
+            <i class="fas fa-globe"></i>
+            <span>Web Technologies</span>
+          </button>
+        </div>
+
+        <!-- Skill Panels -->
+        <div class="skill-panels reveal-right">
+          <div class="skill-panel active" id="tab-programming">
+            <div class="skill-row" data-skill="SQL" data-pct="90">
+              <div class="sk-label"><i class="fas fa-database"></i> SQL</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:90%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Python" data-pct="85">
+              <div class="sk-label"><i class="fab fa-python"></i> Python</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:85%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Excel" data-pct="88">
+              <div class="sk-label"><i class="fas fa-file-excel"></i> Excel</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:88%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Java" data-pct="70">
+              <div class="sk-label"><i class="fab fa-java"></i> Java</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:70%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="tab-visualization">
+            <div class="skill-row" data-skill="Power BI" data-pct="85">
+              <div class="sk-label"><i class="fas fa-chart-bar"></i> Power BI</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:85%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Matplotlib" data-pct="80">
+              <div class="sk-label"><i class="fas fa-wave-square"></i> Matplotlib</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:80%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Seaborn" data-pct="80">
+              <div class="sk-label"><i class="fas fa-palette"></i> Seaborn</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:80%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Plotly" data-pct="75">
+              <div class="sk-label"><i class="fas fa-project-diagram"></i> Plotly</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:75%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="tab-ml">
+            <div class="skill-row" data-skill="Scikit-learn" data-pct="75">
+              <div class="sk-label"><i class="fas fa-robot"></i> Scikit-learn</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:75%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="TensorFlow" data-pct="70">
+              <div class="sk-label"><i class="fas fa-network-wired"></i> TensorFlow</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:70%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="Pandas" data-pct="85">
+              <div class="sk-label"><i class="fas fa-table"></i> Pandas</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:85%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="NumPy" data-pct="80">
+              <div class="sk-label"><i class="fas fa-superscript"></i> NumPy</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:80%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="tab-web">
+            <div class="skill-row" data-skill="HTML" data-pct="85">
+              <div class="sk-label"><i class="fab fa-html5"></i> HTML</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:85%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="CSS" data-pct="80">
+              <div class="sk-label"><i class="fab fa-css3-alt"></i> CSS</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:80%"></div></div>
+            </div>
+            <div class="skill-row" data-skill="JavaScript" data-pct="70">
+              <div class="sk-label"><i class="fab fa-js"></i> JavaScript</div>
+              <div class="sk-track"><div class="sk-fill" style="--pct:70%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Cloud -->
+      <div class="tech-cloud reveal-up">
+        <span class="tech-chip">Python</span>
+        <span class="tech-chip large">SQL</span>
+        <span class="tech-chip">Power BI</span>
+        <span class="tech-chip large">Pandas</span>
+        <span class="tech-chip">TensorFlow</span>
+        <span class="tech-chip">Scikit-learn</span>
+        <span class="tech-chip large">Excel</span>
+        <span class="tech-chip">Matplotlib</span>
+        <span class="tech-chip">Seaborn</span>
+        <span class="tech-chip">Java</span>
+        <span class="tech-chip">Plotly</span>
+        <span class="tech-chip large">NumPy</span>
+        <span class="tech-chip">Streamlit</span>
+        <span class="tech-chip">OpenCV</span>
+        <span class="tech-chip large">HTML</span>
+        <span class="tech-chip large">CSS</span>
+        <span class="tech-chip">JavaScript</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ EDUCATION ═══════════════════════════ -->
+  <section id="education" class="section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-eyebrow">Academic Journey</span>
+        <h2 class="section-title">My <em>Education</em></h2>
+      </div>
+
+      <div class="edu-grid">
+        <div class="edu-card reveal-up" style="--delay:0.1s">
+          <div class="edu-year-badge">2025 — 2027</div>
+          <div class="edu-icon-wrap"><i class="fas fa-graduation-cap"></i></div>
+          <h3 class="edu-degree">Master of Computer Applications</h3>
+          <p class="edu-abbr">MCA</p>
+          <p class="edu-inst">
+            <i class="fas fa-university"></i>
+            Jawaharlal Nehru Technological University (JNTUA), Anantapur
+          </p>
+          <p class="edu-desc">Pursuing MCA with a focus on Data Analytics, Database Management, and Business Intelligence. Gaining hands-on experience in real-world datasets, data visualization, and analytical problem-solving.</p>
+          <div class="edu-tags">
+            <span>SQL</span><span>Python</span><span>Java</span>
+            <span>Data Analysis</span><span>Business Intelligence</span>
+          </div>
+          <div class="edu-status current">Currently Pursuing</div>
+        </div>
+
+        <div class="edu-card reveal-up" style="--delay:0.25s">
+          <div class="edu-year-badge">2021 — 2024</div>
+          <div class="edu-icon-wrap"><i class="fas fa-user-graduate"></i></div>
+          <h3 class="edu-degree">Bachelor of Science</h3>
+          <p class="edu-abbr">BSc – MSCS</p>
+          <p class="edu-inst">
+            <i class="fas fa-university"></i>
+            Rayalaseema University, Kurnool
+          </p>
+          <p class="edu-desc">Specialized in Mathematics, Statistics & Computer Science. Built a solid foundation in programming, data analysis, algorithms, and problem-solving techniques alongside strong analytical and statistical skills.</p>
+          <div class="edu-tags">
+            <span>Programming</span><span>Data Structures</span>
+            <span>Algorithms</span><span>Statistics</span><span>Problem Solving</span>
+          </div>
+          <div class="edu-status completed">Completed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ EXPERIENCE ═══════════════════════════ -->
+  <section id="experience" class="section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-eyebrow">Professional Journey</span>
+        <h2 class="section-title">My <em>Experience</em></h2>
+      </div>
+
+      <div class="exp-wrapper reveal-up">
+        <div class="exp-card">
+          <div class="exp-timeline-dot"></div>
+          <div class="exp-left">
+            <div class="exp-period">Jan 2024 — Apr 2024</div>
+            <div class="exp-company-logo">
+              <i class="fas fa-flask"></i>
+            </div>
+            <div class="exp-company-name">Interncall</div>
+            <div class="exp-location"><i class="fas fa-map-marker-alt"></i> Kurnool, AP</div>
+          </div>
+          <div class="exp-right">
+            <h3 class="exp-title">Data Science Intern</h3>
+            <p class="exp-desc">Focused on applying Python for data science tasks including data cleaning, exploratory data analysis (EDA), and building machine learning models to solve real-world problems. Worked extensively with data visualization libraries to present insights effectively to stakeholders.</p>
+            
+            <div class="exp-achievements">
+              <div class="ach-item">
+                <div class="ach-icon">🎯</div>
+                <div class="ach-text">Developed multiple ML models with <strong>85%+ accuracy</strong></div>
+              </div>
+              <div class="ach-item">
+                <div class="ach-icon">📊</div>
+                <div class="ach-text">Created interactive visualizations for <strong>business stakeholders</strong></div>
+              </div>
+              <div class="ach-item">
+                <div class="ach-icon">🔍</div>
+                <div class="ach-text">Performed comprehensive EDA on <strong>100K+ record</strong> datasets</div>
+              </div>
+              <div class="ach-item">
+                <div class="ach-icon">⚡</div>
+                <div class="ach-text">Automated data cleaning reducing manual work by <strong>60%</strong></div>
+              </div>
+            </div>
+
+            <div class="exp-skills">
+              <span>Python</span><span>Pandas</span><span>Scikit-learn</span>
+              <span>Matplotlib</span><span>Seaborn</span><span>EDA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ PROJECTS ═══════════════════════════ -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-header reveal-up">
+        <span class="section-eyebrow">Portfolio</span>
+        <h2 class="section-title">Featured <em>Projects</em></h2>
+        <p class="section-sub">From real-world data analysis to impactful visualizations and machine learning models.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="proj-card reveal-up" style="--delay:0s; --card-accent:#00d4ff">
+          <div class="proj-card-top">
+            <div class="proj-icon-wrap" style="--icon-color:#00d4ff">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <span class="proj-category">Analytics</span>
+          </div>
+          <h3 class="proj-title">InventoryIQ</h3>
+          <p class="proj-subtitle">E-commerce Inventory & Analytics System</p>
+          <p class="proj-desc">Streamlit-based inventory management and analytics dashboard using CSV files. Features secure login, product management, audit logs, visual dashboards, and CSV export for e-commerce tracking.</p>
+          <div class="proj-tech">
+            <span>Python</span><span>Streamlit</span><span>Pandas</span><span>Plotly</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://inventoryiq-e-commerce-inventory-analytics-system-lqpsn7qy8hhd.streamlit.app/" target="_blank" class="proj-btn-live">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="https://github.com/kalyan-91/InventoryIQ-E-commerce-Inventory-Analytics-System" target="_blank" class="proj-btn-gh">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </div>
+
+        <div class="proj-card reveal-up" style="--delay:0.1s; --card-accent:#ffd700">
+          <div class="proj-card-top">
+            <div class="proj-icon-wrap" style="--icon-color:#ffd700">
+              <i class="fas fa-pen-nib"></i>
+            </div>
+            <span class="proj-category">Machine Learning</span>
+          </div>
+          <h3 class="proj-title">Digit Recognizer</h3>
+          <p class="proj-subtitle">Hand-Written Digit Recognition</p>
+          <p class="proj-desc">AI-powered web app that recognizes handwritten digits using a CNN model. Draw any digit (0–9) on an interactive canvas and get instant predictions with confidence scores.</p>
+          <div class="proj-tech">
+            <span>Python</span><span>TensorFlow</span><span>Streamlit</span><span>OpenCV</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://hand-written-digit-recognition-xp9dvpheswt6zju8xpknxn.streamlit.app/" target="_blank" class="proj-btn-live">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a href="https://github.com/kalyan-91/Hand-Written-Digit-Recognition" target="_blank" class="proj-btn-gh">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </div>
+
+        <div class="proj-card reveal-up" style="--delay:0.2s; --card-accent:#e50914">
+          <div class="proj-card-top">
+            <div class="proj-icon-wrap" style="--icon-color:#e50914">
+              <i class="fas fa-tv"></i>
+            </div>
+            <span class="proj-category">Visualization</span>
+          </div>
+          <h3 class="proj-title">Netflix Dashboard</h3>
+          <p class="proj-subtitle">Netflix Analytics Dashboard</p>
+          <p class="proj-desc">Interactive Power BI dashboard exploring 5,000+ Netflix titles, uncovering trends in content types, durations, countries, and genres with advanced DAX functions.</p>
+          <div class="proj-tech">
+            <span>Power BI</span><span>DAX</span><span>Power Query</span><span>Data Modeling</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kalyan-91/Netflix-PowerBI-Dashboard/raw/main/netflix.pbix" class="proj-btn-live">
+              <i class="fas fa-download"></i> Download
+            </a>
+            <a href="https://github.com/kalyan-91/Netflix-PowerBI-Dashboard" target="_blank" class="proj-btn-gh">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </div>
+
+        <div class="proj-card reveal-up" style="--delay:0.3s; --card-accent:#7c4dff">
+          <div class="proj-card-top">
+            <div class="proj-icon-wrap" style="--icon-color:#7c4dff">
+              <i class="fas fa-users"></i>
+            </div>
+            <span class="proj-category">HR Analytics</span>
+          </div>
+          <h3 class="proj-title">Attrition Analysis</h3>
+          <p class="proj-subtitle">Employee Attrition & Engagement</p>
+          <p class="proj-desc">Analyzed employee attrition data to identify key factors influencing resignations. Built classification models to predict attrition and developed an interactive Power BI dashboard.</p>
+          <div class="proj-tech">
+            <span>Python</span><span>Scikit-learn</span><span>Power BI</span><span>Pandas</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kalyan-91/EmployeeAttritionAndEngagementAnalysis/raw/main/dashboard.pbix" class="proj-btn-live">
+              <i class="fas fa-download"></i> Download
+            </a>
+            <a href="https://github.com/kalyan-91/EmployeeAttritionAndEngagementAnalysis" target="_blank" class="proj-btn-gh">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </div>
+
+        <div class="proj-card reveal-up" style="--delay:0.4s; --card-accent:#ff6b35">
+          <div class="proj-card-top">
+            <div class="proj-icon-wrap" style="--icon-color:#ff6b35">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <span class="proj-category">Predictive Analytics</span>
+          </div>
+          <h3 class="proj-title">Zomato Analysis</h3>
+          <p class="proj-subtitle">Restaurant Analysis & Prediction</p>
+          <p class="proj-desc">Comprehensive analysis of Zomato restaurant data to identify patterns affecting ratings and customer preferences. Developed predictive models for restaurant classification.</p>
+          <div class="proj-tech">
+            <span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>Excel</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank" class="proj-btn-live">
+              <i class="fas fa-chart-line"></i> View Analysis
+            </a>
+            <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank" class="proj-btn-gh">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ RESUME ═══════════════════════════ -->
+  <section id="resume" class="section section-resume">
+    <div class="container">
+      <div class="resume-banner reveal-up">
+        <div class="resume-banner-left">
+          <span class="section-eyebrow">Download</span>
+          <h2 class="resume-heading">Ready to work<br><em>together?</em></h2>
+          <p>Grab my resume for a complete overview of my skills, experience, and projects.</p>
+          <div class="resume-meta">
+            <span><i class="fas fa-file-pdf"></i> PDF</span>
+            <span><i class="fas fa-clock"></i> Updated Feb 2025</span>
+            <span><i class="fas fa-language"></i> English</span>
+          </div>
+          <div class="resume-btns">
+            <a href="Pavan Kalyan - Resume2.pdf" download class="btn-primary-hero magnetic">
+              <span><i class="fas fa-download"></i> Download Resume</span>
+              <div class="btn-glow"></div>
+            </a>
+            <a href="Pavan Kalyan - Resume2.pdf" target="_blank" class="btn-ghost-hero magnetic">
+              <span><i class="fas fa-eye"></i> Preview</span>
+            </a>
+          </div>
+        </div>
+        <div class="resume-banner-right">
+          <div class="resume-doc-visual">
+            <div class="doc-line"></div>
+            <div class="doc-line short"></div>
+            <div class="doc-line"></div>
+            <div class="doc-line medium"></div>
+            <div class="doc-line short"></div>
+            <div class="doc-line"></div>
+            <div class="doc-line medium"></div>
+            <div class="doc-label"><i class="fas fa-file-pdf"></i> Resume.pdf</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ CONTACT ═══════════════════════════ -->
+  <section id="contact" class="section contact-section">
+    <div class="contact-wrap">
+
+      <!-- LEFT PANEL -->
+      <div class="contact-left reveal-left">
+        <div class="contact-left-inner">
+          <span class="section-eyebrow">Let's Connect</span>
+          <h2 class="contact-headline">
+            Let's build<br>something<br><em>remarkable</em>
+          </h2>
+          <p class="contact-tagline">Looking for internship opportunities or just want to talk data and tech? Feel free to reach out!</p>
+
+          <div class="availability-strip">
+            <span class="avail-dot"></span>
+            <span>Open to internships & entry-level roles</span>
+          </div>
+
+          <div class="contact-links-grid">
+            <a href="mailto:daroorpavankalyan@gmail.com" class="cl-item" data-label="Email">
+              <div class="cl-icon" style="--ic:#EA4335"><i class="fas fa-envelope"></i></div>
+              <div class="cl-meta">
+                <span class="cl-type">Email</span>
+                <span class="cl-val">daroorpavankalyan@gmail.com</span>
+              </div>
+            </a>
+            <a href="https://wa.me/918919944203" target="_blank" class="cl-item" data-label="WhatsApp">
+              <div class="cl-icon" style="--ic:#25D366"><i class="fab fa-whatsapp"></i></div>
+              <div class="cl-meta">
+                <span class="cl-type">WhatsApp</span>
+                <span class="cl-val">+91 89199 44203</span>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/daroor-pavan-kalyan-370277253/" target="_blank" class="cl-item" data-label="LinkedIn">
+              <div class="cl-icon" style="--ic:#0A66C2"><i class="fab fa-linkedin-in"></i></div>
+              <div class="cl-meta">
+                <span class="cl-type">LinkedIn</span>
+                <span class="cl-val">daroor-pavan-kalyan</span>
+              </div>
+            </a>
+            <a href="https://github.com/kalyan-91" target="_blank" class="cl-item" data-label="GitHub">
+              <div class="cl-icon" style="--ic:#e8eaf0"><i class="fab fa-github"></i></div>
+              <div class="cl-meta">
+                <span class="cl-type">GitHub</span>
+                <span class="cl-val">kalyan-91</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- decorative corner accent -->
+        <div class="contact-left-deco"></div>
+      </div>
+
+      <!-- RIGHT PANEL — FORM -->
+      <div class="contact-right reveal-right">
+        <div class="contact-form-card">
+          <div class="form-card-header">
+            <span class="form-card-label">Send a message</span>
+            <div class="form-card-dots"><span></span><span></span><span></span></div>
+          </div>
+
+          <form action="https://formspree.io/f/mnnnpoop" method="POST" class="contact-form-new">
+            <div class="cfn-row">
+              <div class="cfn-field">
+                <input type="text" name="name" id="cfn-name" placeholder=" " required>
+                <label for="cfn-name">Your Name</label>
+              </div>
+              <div class="cfn-field">
+                <input type="email" name="email" id="cfn-email" placeholder=" " required>
+                <label for="cfn-email">Email Address</label>
+              </div>
+            </div>
+            <div class="cfn-field">
+              <input type="text" name="subject" id="cfn-subject" placeholder=" " required>
+              <label for="cfn-subject">Subject</label>
+            </div>
+            <div class="cfn-field">
+              <textarea name="message" id="cfn-msg" rows="5" placeholder=" " required></textarea>
+              <label for="cfn-msg">Your Message</label>
+            </div>
+            <button type="submit" class="cfn-submit magnetic">
+              <span class="cfn-submit-text"><i class="fas fa-paper-plane"></i> Send Message</span>
+              <div class="cfn-submit-shine"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-text">PK</span>
+        <span class="logo-dot"></span>
+      </div>
+      <p class="footer-copy">Designed & crafted by <strong>Pavan Kalyan</strong> · © 2026 All Rights Reserved</p>
+      <div class="footer-links">
+        <a href="https://github.com/kalyan-91" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/daroor-pavan-kalyan-370277253/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:daroorpavankalyan@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://wa.me/918919944203" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
