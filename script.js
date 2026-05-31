@@ -98,19 +98,24 @@ function initParticles() {
   });
 
   function createParticle(w, h) {
+    const type = Math.random();
     return {
       x: Math.random() * w,
       y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.4 + 0.1,
-      hue: Math.random() < 0.7 ? 190 : 50, // cyan or gold
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      r: Math.random() * 1.2 + 0.3,
+      alpha: Math.random() * 0.5 + 0.1,
+      // Space palette: white stars, violet, cyan-blue, soft gold
+      hue: type < 0.5 ? 220 : type < 0.7 ? 270 : type < 0.85 ? 195 : 45,
+      sat: type < 0.5 ? 10 : 90,
+      twinkle: Math.random() * Math.PI * 2,
+      twinkleSpeed: Math.random() * 0.02 + 0.005,
     };
   }
 
   function drawConnections() {
-    const maxDist = 130;
+    const maxDist = 120;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -120,8 +125,8 @@ function initParticles() {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          const alpha = (1 - dist / maxDist) * 0.12;
-          ctx.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
+          const alpha = (1 - dist / maxDist) * 0.08;
+          ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
