@@ -396,80 +396,156 @@ function initActiveNav() {
 //    play video after flip completes, pause + reset on mouse leave
 
 function initProjectCards() {
+  // ── Fullscreen modal setup ──
+  const modal        = document.getElementById('videoModal');
+  const modalVideo   = document.getElementById('modalVideo');
+  const modalClose   = document.getElementById('videoModalClose');
+  const modalBackdrop= document.getElementById('videoModalBackdrop');
+ 
+  function openModal() {
+    if (!modal || !modalVideo) return;
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+    // Sync position then play
+    const inlineVid = document.getElementById('sparmsVideo');
+    if (inlineVid) modalVideo.currentTime = inlineVid.currentTime;
+    modalVideo.muted = false;
+    modalVideo.play().catch(()=>{});
+    // Pause inline
+    if (inlineVid) inlineVid.pause();
+  }
+ 
+  function closeModal() {
+    if (!modal || !modalVideo) return;
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    modalVideo.pause();
+    // Resume inline if card still hovered
+    const inlineVid = document.getElementById('sparmsVideo');
+    if (inlineVid) inlineVid.currentTime = modalVideo.currentTime;
+  }
+ 
+  if (modalClose)   modalClose.addEventListener('click', closeModal);
+  if (modalBackdrop)modalBackdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+ 
+  // ── Per-card logic ──
   document.querySelectorAll('.proj-card').forEach(card => {
     const inner    = card.querySelector('.proj-card-inner');
     const hasVideo = card.dataset.hasVideo === 'true';
-
+ 
     if (hasVideo) {
-      // ── VIDEO CARD (SPARMS) ──
-      const video   = card.querySelector('.proj-demo-video');
-      const overlay = card.querySelector('.video-play-overlay');
-      const playBtn = card.querySelector('.video-play-btn');
-
+      const video      = card.querySelector('.proj-demo-video');
+      const overlay    = card.querySelector('.video-play-overlay');
+      const playBtn    = card.querySelector('#videoPlayBtn');
+      const controls   = card.querySelector('#vidControls');
+      const playPause  = card.querySelector('#vidPlayPause');
+      const playIcon   = card.querySelector('#vidPlayIcon');
+      const progressFill = card.querySelector('#vidProgressFill');
+      const progressTrack= card.querySelector('#vidProgressTrack');
+      const timeLabel  = card.querySelector('#vidTime');
+      const fullBtn    = card.querySelector('#vidFullscreenBtn');
+ 
       if (!video) return;
-
-      // Flip delay is 0.7s (matches CSS transition); start video after flip
+ 
       let flipTimer = null;
-
-      card.addEventListener('mouseenter', () => {
-        // Wait for the flip animation to finish before playing
-        flipTimer = setTimeout(() => {
-          if (overlay) overlay.style.display = 'none';
-          video.play().catch(() => {
-            // Autoplay blocked — show the overlay play button instead
-            if (overlay) overlay.style.display = 'flex';
-          });
-        }, 720); // slightly > 0.7s flip
+      let playing   = false;
+ 
+      // Format seconds → m:ss
+      function fmtTime(s) { return Math.floor(s/60)+':'+(Math.floor(s%60)<10?'0':'')+Math.floor(s%60); }
+ 
+      // Sync progress bar
+      video.addEventListener('timeupdate', () => {
+        if (!video.duration) return;
+        const pct = (video.currentTime / video.duration) * 100;
+        if (progressFill) progressFill.style.width = pct + '%';
+        if (timeLabel)    timeLabel.textContent     = fmtTime(video.currentTime);
       });
-
-      card.addEventListener('mouseleave', () => {
-        clearTimeout(flipTimer);
-        video.pause();
-        video.currentTime = 0;
-        // Re-show overlay for next hover
-        if (overlay) overlay.style.display = 'flex';
-      });
-
-      // Manual play button (for browsers that block autoplay)
-      if (playBtn) {
-        playBtn.addEventListener('click', e => {
-          e.stopPropagation(); // don't trigger card events
-          if (overlay) overlay.style.display = 'none';
-          video.play().catch(() => {});
+ 
+      // Click on progress track to seek
+      if (progressTrack) {
+        progressTrack.addEventListener('click', e => {
+          e.stopPropagation();
+          if (!video.duration) return;
+          const rect = progressTrack.getBoundingClientRect();
+          const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+          video.currentTime = ratio * video.duration;
         });
       }
-
-      // When video ends (it's looped, but just in case)
-      video.addEventListener('ended', () => {
-        if (overlay) overlay.style.display = 'flex';
+ 
+      // Play/Pause toggle button
+      function setPlaying(state) {
+        playing = state;
+        if (playIcon) playIcon.className = state ? 'fas fa-pause' : 'fas fa-play';
+      }
+ 
+      if (playPause) {
+        playPause.addEventListener('click', e => {
+          e.stopPropagation();
+          if (video.paused) { video.play().then(()=>setPlaying(true)).catch(()=>{}); }
+          else              { video.pause(); setPlaying(false); }
+        });
+      }
+ 
+      // Fullscreen button → open modal
+      if (fullBtn) {
+        fullBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          openModal();
+        });
+      }
+ 
+      // Original play overlay button
+      if (playBtn) {
+        playBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          if (overlay) overlay.style.display = 'none';
+          if (controls) controls.classList.add('visible');
+          video.play().then(()=>setPlaying(true)).catch(()=>{});
+        });
+      }
+ 
+      // Auto-play after flip
+      card.addEventListener('mouseenter', () => {
+        flipTimer = setTimeout(() => {
+          if (overlay) overlay.style.display = 'none';
+          if (controls) controls.classList.add('visible');
+          video.play().then(()=>setPlaying(true)).catch(() => {
+            if (overlay) overlay.style.display = 'flex';
+          });
+        }, 720);
       });
-
-    } else {
-      // ── NORMAL CARD: subtle pre-flip tilt ──
-      // Only tilt when the card is NOT in its flipped state
-      let flipped = false;
-
-      card.addEventListener('mouseenter', () => { flipped = true; });
+ 
       card.addEventListener('mouseleave', () => {
-        flipped = false;
-        if (inner) inner.style.transform = '';
+        clearTimeout(flipTimer);
+        video.pause(); setPlaying(false);
+        video.currentTime = 0;
+        if (progressFill) progressFill.style.width = '0%';
+        if (timeLabel)    timeLabel.textContent     = '0:00';
+        if (overlay)  overlay.style.display  = 'flex';
+        if (controls) controls.classList.remove('visible');
       });
-
+ 
+      video.addEventListener('ended', () => {
+        setPlaying(false);
+        if (overlay) overlay.style.display = 'flex';
+        if (controls) controls.classList.remove('visible');
+      });
+ 
+    } else {
+      // Normal cards: tilt on hover
+      let flipped = false;
+      card.addEventListener('mouseenter', () => flipped = true);
+      card.addEventListener('mouseleave', () => { flipped = false; if (inner) inner.style.transform = ''; });
       card.addEventListener('mousemove', e => {
-        // Once CSS :hover fires the flip we stop manual tilt
         if (flipped) return;
-        const rect = card.getBoundingClientRect();
-        const x    = (e.clientX - rect.left)  / rect.width  - 0.5;
-        const y    = (e.clientY - rect.top)    / rect.height - 0.5;
-        if (inner) {
-          inner.style.transform =
-            `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
-        }
+        const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+        if (inner) inner.style.transform=`perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg)`;
       });
     }
   });
 }
-
+ 
 // ═══════════════════════════════════
 // 14. EDUCATION CARD TILT
 // ═══════════════════════════════════
