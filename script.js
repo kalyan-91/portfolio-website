@@ -84,96 +84,107 @@ function initParticles() {
   window.addEventListener('resize', () => {
     W = canvas.width  = window.innerWidth;
     H = canvas.height = window.innerHeight;
+    stars.length = 0;
+    for (let i = 0; i < STAR_COUNT; i++) stars.push(createStar());
   });
 
-  // Particles
-  const COUNT = Math.min(80, Math.floor(W * H / 18000));
-  const particles = Array.from({ length: COUNT }, () => createParticle(W, H));
+  // ── Stars ──
+  const STAR_COUNT = Math.min(200, Math.floor(W * H / 6000));
+  const stars = Array.from({ length: STAR_COUNT }, createStar);
 
-  // Mouse position for interactivity
-  let mouse = { x: W / 2, y: H / 2 };
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  function createParticle(w, h) {
-    const type = Math.random();
+  function createStar() {
+    const t = Math.random();
     return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      r: Math.random() * 1.2 + 0.3,
-      alpha: Math.random() * 0.5 + 0.1,
-      // Space palette: white stars, violet, cyan-blue, soft gold
-      hue: type < 0.5 ? 220 : type < 0.7 ? 270 : type < 0.85 ? 195 : 45,
-      sat: type < 0.5 ? 10 : 90,
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.4 + 0.2,
+      alpha: Math.random() * 0.7 + 0.15,
+      // 50% white stars, 25% violet, 15% cyan-blue, 10% gold
+      hue: t < 0.5 ? 220 + Math.random()*20 : t < 0.75 ? 265 + Math.random()*20 : t < 0.9 ? 195 + Math.random()*15 : 42,
+      sat: t < 0.5 ? 15 : 85,
       twinkle: Math.random() * Math.PI * 2,
-      twinkleSpeed: Math.random() * 0.02 + 0.005,
+      twinkleSpeed: Math.random() * 0.025 + 0.004,
+      vx: (Math.random() - 0.5) * 0.12,
+      vy: (Math.random() - 0.5) * 0.12,
     };
   }
 
-  function drawConnections() {
-    const maxDist = 120;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          const alpha = (1 - dist / maxDist) * 0.08;
-          ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
+  // ── Shooting stars ──
+  const shooters = [];
+  function spawnShooter() {
+    shooters.push({
+      x: Math.random() * W * 0.7,
+      y: Math.random() * H * 0.4,
+      len: Math.random() * 120 + 60,
+      speed: Math.random() * 8 + 5,
+      angle: Math.PI / 4 + (Math.random() - 0.5) * 0.4,
+      alpha: 1,
+      life: 1,
+    });
   }
+  setInterval(() => { if (Math.random() < 0.6) spawnShooter(); }, 3500);
+
+  // ── Mouse parallax ──
+  let mouse = { x: W / 2, y: H / 2 };
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
   function tick() {
     ctx.clearRect(0, 0, W, H);
-    drawConnections();
 
-    particles.forEach(p => {
-      // Gentle mouse attraction
-      const dx = mouse.x - p.x;
-      const dy = mouse.y - p.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 200) {
-        p.vx += dx / dist * 0.008;
-        p.vy += dy / dist * 0.008;
+    // Draw stars
+    stars.forEach(s => {
+      s.twinkle += s.twinkleSpeed;
+      const twinkleAlpha = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
+
+      // Gentle mouse parallax
+      const px = s.x + (mouse.x - W/2) * s.r * 0.003;
+      const py = s.y + (mouse.y - H/2) * s.r * 0.003;
+
+      // Glow for larger stars
+      if (s.r > 1.0) {
+        ctx.beginPath();
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, s.r * 4);
+        grad.addColorStop(0, `hsla(${s.hue}, ${s.sat}%, 80%, ${twinkleAlpha * 0.3})`);
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.arc(px, py, s.r * 4, 0, Math.PI * 2);
+        ctx.fill();
       }
 
-      // Damping
-      p.vx *= 0.99;
-      p.vy *= 0.99;
-
-      // Clamp speed
-      const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-      if (speed > 0.8) {
-        p.vx = (p.vx / speed) * 0.8;
-        p.vy = (p.vy / speed) * 0.8;
-      }
-
-      p.x += p.vx;
-      p.y += p.vy;
-
-      // Wrap
-      if (p.x < 0)  p.x = W;
-      if (p.x > W)  p.x = 0;
-      if (p.y < 0)  p.y = H;
-      if (p.y > H)  p.y = 0;
-
-      // Draw
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${p.hue}, 100%, 65%, ${p.alpha})`;
+      ctx.arc(px, py, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${s.hue}, ${s.sat}%, 85%, ${twinkleAlpha})`;
       ctx.fill();
+
+      // Move slowly
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = W; if (s.x > W) s.x = 0;
+      if (s.y < 0) s.y = H; if (s.y > H) s.y = 0;
     });
+
+    // Draw shooting stars
+    for (let i = shooters.length - 1; i >= 0; i--) {
+      const sh = shooters[i];
+      sh.x += Math.cos(sh.angle) * sh.speed;
+      sh.y += Math.sin(sh.angle) * sh.speed;
+      sh.life -= 0.018;
+      if (sh.life <= 0) { shooters.splice(i, 1); continue; }
+
+      const tailX = sh.x - Math.cos(sh.angle) * sh.len;
+      const tailY = sh.y - Math.sin(sh.angle) * sh.len;
+
+      const grad = ctx.createLinearGradient(tailX, tailY, sh.x, sh.y);
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(0.7, `rgba(167, 139, 250, ${sh.life * 0.4})`);
+      grad.addColorStop(1,   `rgba(255, 255, 255, ${sh.life * 0.9})`);
+
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(sh.x, sh.y);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = sh.life * 1.8;
+      ctx.stroke();
+    }
 
     requestAnimationFrame(tick);
   }
@@ -394,21 +405,40 @@ function initActiveNav() {
 }
 
 // ═══════════════════════════════════
-// 13. TILT EFFECT ON PROJECT CARDS
+// 13. TILT EFFECT ON PROJECT & EDU CARDS
 // ═══════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.proj-card, .edu-card');
+  // 3D tilt on project card FRONT only (disabled during flip hover)
+  document.querySelectorAll('.proj-card').forEach(card => {
+    const inner = card.querySelector('.proj-card-inner');
+    let isFlipped = false;
 
-  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => { isFlipped = true; });
+    card.addEventListener('mouseleave', () => {
+      isFlipped = false;
+      if (inner) inner.style.transform = '';
+    });
+
+    card.addEventListener('mousemove', e => {
+      if (isFlipped) return; // already flipping via CSS
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      // Gentle tilt — the CSS :hover transition handles the actual flip
+      if (inner) inner.style.transform =
+        `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+    });
+  });
+
+  // Standard tilt for edu cards
+  document.querySelectorAll('.edu-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width  - 0.5;
       const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-6px)`;
+      card.style.transform = `perspective(800px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) translateY(-4px)`;
     });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
 });
 
