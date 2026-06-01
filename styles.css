@@ -1073,11 +1073,12 @@ img { max-width: 100%; display: block; }
 
 /* Back content */
 .proj-back-title {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: var(--text);
   margin-bottom: 6px;
   letter-spacing: -0.02em;
+  line-height: 1.3;
   position: relative; z-index: 1;
 }
 .proj-back-subtitle {
@@ -1220,8 +1221,22 @@ img { max-width: 100%; display: block; }
 @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
 @keyframes borderSpin { to { --angle: 360deg; } }
 
-/* compat — hide old elements */
-.proj-hover-bg { display: none; }
+/* Inline demo video on project back face */
+.proj-video-wrap {
+  margin: 12px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #000;
+  position: relative; z-index: 1;
+}
+.proj-demo-video {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
 .proj-desc { display: none; }
 .proj-tech { display: none; }
 .proj-links { display: none; }
