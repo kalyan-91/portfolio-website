@@ -161,7 +161,6 @@
       </div>
 
       <div class="skills-layout">
-        <!-- Skill Categories -->
         <div class="skill-tabs reveal-left">
           <button class="skill-tab active" data-tab="programming">
             <i class="fas fa-code"></i>
@@ -181,7 +180,6 @@
           </button>
         </div>
 
-        <!-- Skill Panels -->
         <div class="skill-panels reveal-right">
           <div class="skill-panel active" id="tab-programming">
             <div class="skill-row" data-skill="SQL" data-pct="90">
@@ -389,8 +387,9 @@
 
       <div class="projects-grid">
 
-        <!-- SPARMS — Java MCA Project (FIRST) -->
-        <div class="proj-card reveal-up" style="--delay:0s; --card-accent:#38bdf8; --icon-color:#38bdf8">
+        <!-- ── SPARMS — Java MCA Project (FIRST) ── -->
+        <!-- data-has-video="true" tells JS to handle video play/pause on this card -->
+        <div class="proj-card reveal-up" data-has-video="true" style="--delay:0s; --card-accent:#38bdf8; --icon-color:#38bdf8">
           <div class="proj-card-inner">
             <div class="proj-front">
               <div class="proj-card-top">
@@ -398,26 +397,51 @@
                 <span class="proj-category">Java Desktop App</span>
               </div>
               <h3 class="proj-title">Student Performance Analysis & Result Management</h3>
-              <p class="proj-subtitle">Java Desktop App </p>
+              <p class="proj-subtitle">Java Desktop App</p>
               <div class="proj-hover-hint"><i class="fas fa-sync-alt"></i> Hover to explore</div>
             </div>
             <div class="proj-back">
-              <div>
+              <div class="proj-back-content">
                 <p class="proj-back-title">Student Performance Analysis & Result Management</p>
                 <p class="proj-back-subtitle">MCA Final Year Project</p>
-                <p class="proj-back-desc">Role-based Java Swing desktop app for academic result management. Features Admin, Faculty & Student dashboards, automated grade computation, OMR scanning, and MySQL-backed data with JDBC.</p>
+                <p class="proj-back-desc">Role-based Java Swing desktop app for academic result management. Features Admin, Faculty &amp; Student dashboards, automated grade computation, OMR scanning, and MySQL-backed data with JDBC.</p>
                 <div class="proj-back-tech">
                   <span>Java Swing</span><span>MySQL</span><span>JDBC</span><span>Maven</span><span>iText PDF</span><span>ZXing</span>
                 </div>
               </div>
-              <!-- Replace demo/sparms-demo.mp4 with your actual video path after uploading to GitHub -->
+
+              <!-- ── VIDEO PLAYER ── -->
+              <!-- 
+                IMPORTANT: Make sure "Demo/project-demo_T1Hirmbw.mp4" exists
+                relative to index.html. The poster attribute is optional —
+                remove it if your screenshot filename has spaces or doesn't exist.
+              -->
               <div class="proj-video-wrap">
-                <video class="proj-demo-video" src="Demo/project-demo_T1Hirmbw.mp4" controls preload="none" poster="Demo/Screenshot 2026-06-01 104531.png">
+                <video
+                  class="proj-demo-video"
+                  id="sparmsVideo"
+                  src="Demo/project-demo_T1Hirmbw.mp4"
+                  preload="metadata"
+                  playsinline
+                  loop
+                  muted
+                >
                   Your browser does not support the video tag.
                 </video>
+                <!-- Overlay play button — clicked by user or triggered by JS -->
+                <div class="video-play-overlay" id="videoPlayOverlay">
+                  <button class="video-play-btn" id="videoPlayBtn" aria-label="Play demo video">
+                    <i class="fas fa-play"></i>
+                  </button>
+                  <span class="video-play-label">Watch Demo</span>
+                </div>
               </div>
+              <!-- ── END VIDEO PLAYER ── -->
+
               <div class="proj-back-links">
-                <a href="https://github.com/kalyan-91/SPARMS" target="_blank" class="proj-btn-gh" style="width:100%;justify-content:center;border-radius:100px;gap:8px;font-size:0.78rem;font-weight:700;"><i class="fab fa-github"></i> View on GitHub</a>
+                <a href="https://github.com/kalyan-91/SPARMS" target="_blank" class="proj-btn-gh proj-btn-gh--full">
+                  <i class="fab fa-github"></i> View on GitHub
+                </a>
               </div>
             </div>
           </div>
@@ -617,7 +641,7 @@
           <h2 class="contact-headline">
             Let's build<br>something<br><em>remarkable</em>
           </h2>
-          <p class="contact-tagline">Looking for opportunities or just want to talk and tech? Feel free to reach out!</p>
+          <p class="contact-tagline">Looking for opportunities or just want to talk about tech? Feel free to reach out!</p>
 
           <div class="availability-strip">
             <span class="avail-dot"></span>
@@ -655,7 +679,6 @@
             </a>
           </div>
         </div>
-        <!-- decorative corner accent -->
         <div class="contact-left-deco"></div>
       </div>
 
@@ -667,7 +690,7 @@
             <div class="form-card-dots"><span></span><span></span><span></span></div>
           </div>
 
-          <form action="https://formspree.io/f/mnnnpoop" method="POST" class="contact-form-new">
+          <form action="https://formspree.io/f/mnnnpoop" method="POST" class="contact-form-new" id="contactForm">
             <div class="cfn-row">
               <div class="cfn-field">
                 <input type="text" name="name" id="cfn-name" placeholder=" " required>
@@ -686,7 +709,7 @@
               <textarea name="message" id="cfn-msg" rows="5" placeholder=" " required></textarea>
               <label for="cfn-msg">Your Message</label>
             </div>
-            <button type="submit" class="cfn-submit magnetic">
+            <button type="submit" class="cfn-submit magnetic" id="cfnSubmitBtn">
               <span class="cfn-submit-text"><i class="fas fa-paper-plane"></i> Send Message</span>
               <div class="cfn-submit-shine"></div>
             </button>
@@ -704,7 +727,7 @@
         <span class="logo-text">PK</span>
         <span class="logo-dot"></span>
       </div>
-      <p class="footer-copy">Designed & crafted by <strong>Pavan Kalyan</strong> · © 2026 All Rights Reserved</p>
+      <p class="footer-copy">Designed &amp; crafted by <strong>Pavan Kalyan</strong> · © 2026 All Rights Reserved</p>
       <div class="footer-links">
         <a href="https://github.com/kalyan-91" target="_blank"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/daroor-pavan-kalyan-370277253/" target="_blank"><i class="fab fa-linkedin"></i></a>
