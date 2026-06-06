@@ -624,3 +624,68 @@
     bottom: 90px;
   }
 }
+
+/* ══════════════════════════════
+   VOICE / TEXT MODE TOGGLE PILL
+══════════════════════════════ */
+.agent-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px 4px 7px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  height: 28px;
+}
+.agent-mode-toggle:hover {
+  border-color: rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.06);
+}
+
+/* Voice mode — cyan tint */
+.agent-mode-toggle.voice-mode {
+  border-color: rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.08);
+}
+.agent-mode-toggle.voice-mode .agent-mode-icon--voice { display: flex; color: #7dd3fc; }
+.agent-mode-toggle.voice-mode .agent-mode-icon--text  { display: none; }
+.agent-mode-toggle.voice-mode .agent-mode-label       { color: #7dd3fc; }
+
+/* Text mode — violet tint */
+.agent-mode-toggle.text-mode {
+  border-color: rgba(167,139,250,0.3);
+  background: rgba(167,139,250,0.08);
+}
+.agent-mode-toggle.text-mode .agent-mode-icon--voice { display: none; }
+.agent-mode-toggle.text-mode .agent-mode-icon--text  { display: flex; color: #a78bfa; }
+.agent-mode-toggle.text-mode .agent-mode-label       { color: #a78bfa; }
+
+/* Speaking pulse */
+.agent-mode-toggle.speaking {
+  border-color: rgba(251,191,36,0.4);
+  background: rgba(251,191,36,0.08);
+  animation: speakPulse 1.2s ease-in-out infinite;
+}
+.agent-mode-toggle.speaking .agent-mode-icon--voice { color: #fbbf24; }
+.agent-mode-toggle.speaking .agent-mode-label       { color: #fbbf24; }
+
+.agent-mode-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.agent-mode-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
