@@ -5,7 +5,7 @@
 
 'use strict';
 
-const GROQ_MODEL    = 'llama3-8b-8192';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 const GROQ_ENDPOINT = 'https://pk-groq-proxy.daroorpavankalyan.workers.dev';
 
 // ── System prompt: everything about Pavan ──
