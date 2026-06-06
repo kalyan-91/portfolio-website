@@ -46,7 +46,7 @@ Skills:
 - Tools: Streamlit, OpenCV, JDBC, Maven, iText PDF, ZXing
 
 Projects:
-1. SRMS — Java Swing desktop app for academic result management. Role-based dashboards (Admin/Faculty/Student), OMR scanning, automated grades, MySQL+JDBC, PDF export. Stack: Java Swing, MySQL, JDBC, Maven, iText, ZXing.
+1. SPARMS — Java Swing desktop app for academic result management. Role-based dashboards (Admin/Faculty/Student), OMR scanning, automated grades, MySQL+JDBC, PDF export. Stack: Java Swing, MySQL, JDBC, Maven, iText, ZXing.
 
 2. InventoryIQ — Streamlit inventory + analytics dashboard. Secure login, product management, audit logs, CSV export.
    Live: inventoryiq-e-commerce-inventory-analytics-system-lqpsn7qy8hhd.streamlit.app
@@ -86,7 +86,21 @@ let isListening  = false;
 let isSpeaking   = false;
 let recognition  = null;
 let currentUtter = null;
-let voiceEnabled = true;
+let voiceEnabled = true;   // speak by default
+let voicesLoaded = false;
+let pendingSpeak = null;   // queued text if voices not ready yet
+
+// Pre-load voices as early as possible
+if (window.speechSynthesis) {
+  window.speechSynthesis.getVoices(); // trigger load
+  window.speechSynthesis.addEventListener('voiceschanged', () => {
+    voicesLoaded = true;
+    if (pendingSpeak) {
+      speak(pendingSpeak);
+      pendingSpeak = null;
+    }
+  });
+}
 
 // ── DOM Ready ──
 document.addEventListener('DOMContentLoaded', initAgent);
@@ -261,38 +275,45 @@ function updateMicUI(active) {
 function speak(text) {
   if (!voiceEnabled || !window.speechSynthesis) return;
 
-  stopSpeaking();
-
-  // Strip HTML tags for speech
+  // Strip HTML tags for clean speech
   const clean = text.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   if (!clean) return;
 
-  currentUtter = new SpeechSynthesisUtterance(clean);
-  currentUtter.lang  = 'en-IN';
-  currentUtter.rate  = 1.0;
-  currentUtter.pitch = 1.05;
-
-  // Pick a good voice if available
+  // If voices aren't loaded yet, queue and wait
   const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find(v =>
-    v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural'))
-  ) || voices.find(v => v.lang.startsWith('en'));
+  if (!voices.length) {
+    pendingSpeak = text;
+    return;
+  }
+
+  stopSpeaking();
+
+  currentUtter = new SpeechSynthesisUtterance(clean);
+  currentUtter.lang  = 'en-US';
+  currentUtter.rate  = 1.0;
+  currentUtter.pitch = 1.0;
+  currentUtter.volume = 1.0;
+
+  // Pick the best available English voice
+  const preferred =
+    voices.find(v => v.name.includes('Google US English')) ||
+    voices.find(v => v.name.includes('Google UK English Female')) ||
+    voices.find(v => v.lang === 'en-US' && !v.localService) ||
+    voices.find(v => v.lang.startsWith('en-'));
   if (preferred) currentUtter.voice = preferred;
 
-  currentUtter.onstart = () => {
-    isSpeaking = true;
-    updateSpeakUI(true);
-  };
-  currentUtter.onend = () => {
+  currentUtter.onstart = () => { isSpeaking = true;  updateSpeakUI(true);  };
+  currentUtter.onend   = () => { isSpeaking = false; updateSpeakUI(false); };
+  currentUtter.onerror = (e) => {
     isSpeaking = false;
     updateSpeakUI(false);
-  };
-  currentUtter.onerror = () => {
-    isSpeaking = false;
-    updateSpeakUI(false);
+    console.warn('[PK·AI speak error]', e.error);
   };
 
-  window.speechSynthesis.speak(currentUtter);
+  // Small delay fixes Chrome autoplay block after page load
+  setTimeout(() => {
+    window.speechSynthesis.speak(currentUtter);
+  }, 100);
 }
 
 function stopSpeaking() {
@@ -503,7 +524,7 @@ function buildAgentHTML() {
       <textarea
         id="agentInput"
         class="agent-input"
-        placeholder="Ask me about Pavan… or speak 🎤"
+        placeholder="Ask me about Pavan… or speak "
         rows="1"
         maxlength="500"
       ></textarea>
