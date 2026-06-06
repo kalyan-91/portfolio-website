@@ -149,16 +149,20 @@ function initAgent() {
   if (!toggleBtn || !chatWindow) return;
 
   setupRecognition();
+  buildCandyCharacter();
 
   // Open / close
   toggleBtn.addEventListener('click', () => {
     const isOpen = chatWindow.classList.toggle('open');
     toggleBtn.classList.toggle('active', isOpen);
+    showCandyCharacter(isOpen);
     if (isOpen) {
       input.focus();
       if (chatHistory.length === 0) appendWelcome();
+      setCandyState('idle');
     } else {
       stopSpeaking();
+      setCandyState('idle');
     }
   });
 
@@ -167,6 +171,8 @@ function initAgent() {
     toggleBtn.classList.remove('active');
     stopSpeaking();
     stopListening();
+    showCandyCharacter(false);
+    setCandyState('idle');
   });
 
   clearBtn.addEventListener('click', () => {
@@ -255,8 +261,8 @@ function setupRecognition() {
   recognition.interimResults = true;
   recognition.lang          = 'en-IN';
 
-  recognition.onstart  = () => { isListening = true;  updateMicUI(true);  };
-  recognition.onend    = () => { isListening = false; updateMicUI(false); };
+  recognition.onstart  = () => { isListening = true;  updateMicUI(true);  setCandyState('listening'); };
+  recognition.onend    = () => { isListening = false; updateMicUI(false); setCandyState('idle');      };
   recognition.onerror  = e  => {
     stopListening();
     if (e.error === 'not-allowed') showToast('Microphone access denied');
@@ -315,9 +321,9 @@ function speak(text) {
     voices.find(v => v.lang.startsWith('en-'));
   if (preferred) currentUtter.voice = preferred;
 
-  currentUtter.onstart = () => { isSpeaking = true;  updateSpeakUI(true);  };
-  currentUtter.onend   = () => { isSpeaking = false; updateSpeakUI(false); };
-  currentUtter.onerror = () => { isSpeaking = false; updateSpeakUI(false); };
+  currentUtter.onstart = () => { isSpeaking = true;  updateSpeakUI(true);  setCandyState('talking');  };
+  currentUtter.onend   = () => { isSpeaking = false; updateSpeakUI(false); setCandyState('idle');     };
+  currentUtter.onerror = () => { isSpeaking = false; updateSpeakUI(false); setCandyState('idle');     };
 
   setTimeout(() => window.speechSynthesis.speak(currentUtter), 100);
 }
@@ -400,6 +406,7 @@ async function handleSend(text) {
     appendMessage('assistant', formatReply(reply));
     chatHistory.push({ role: 'assistant', content: reply });
     speak(reply);
+    if (!voiceEnabled) setCandyState('idle');
 
     if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
 
@@ -567,6 +574,168 @@ function showProactiveBubble() {
       setTimeout(() => bubble.remove(), 400);
     }
   }, 18000);
+}
+
+// ══════════════════════════════
+// CANDY CHARACTER
+// ══════════════════════════════
+function buildCandyCharacter() {
+  const el = document.createElement('div');
+  el.className = 'candy-character idle';
+  el.id = 'candyCharacter';
+  el.innerHTML = `
+  <svg viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
+    <!-- Shadow -->
+    <ellipse cx="45" cy="107" rx="22" ry="4" fill="rgba(0,0,0,0.12)"/>
+
+    <!-- Body -->
+    <ellipse cx="45" cy="80" rx="22" ry="24" fill="#7dd3fc"/>
+    <!-- Belly shine -->
+    <ellipse cx="45" cy="76" rx="12" ry="14" fill="rgba(255,255,255,0.18)"/>
+
+    <!-- Left arm -->
+    <ellipse cx="20" cy="78" rx="6" ry="10" fill="#7dd3fc" transform="rotate(-20 20 78)"/>
+    <!-- Right arm -->
+    <ellipse cx="70" cy="78" rx="6" ry="10" fill="#7dd3fc" transform="rotate(20 70 78)"/>
+
+    <!-- Neck -->
+    <rect x="38" y="52" width="14" height="8" rx="4" fill="#93c5fd"/>
+
+    <!-- Head -->
+    <circle cx="45" cy="42" r="26" fill="#bfdbfe"/>
+    <!-- Head shine -->
+    <ellipse cx="36" cy="30" rx="8" ry="6" fill="rgba(255,255,255,0.35)" transform="rotate(-20 36 30)"/>
+
+    <!-- Ears -->
+    <circle cx="19" cy="42" r="7" fill="#93c5fd"/>
+    <circle cx="19" cy="42" r="4" fill="#bfdbfe"/>
+    <circle cx="71" cy="42" r="7" fill="#93c5fd"/>
+    <circle cx="71" cy="42" r="4" fill="#bfdbfe"/>
+
+    <!-- Eyes group — animated via JS classes -->
+    <g id="candyEyes">
+      <!-- Left eye white -->
+      <circle cx="36" cy="40" r="8" fill="white"/>
+      <!-- Right eye white -->
+      <circle cx="54" cy="40" r="8" fill="white"/>
+      <!-- Left pupil -->
+      <circle id="candyPupilL" cx="37" cy="41" r="4" fill="#1e3a5f"/>
+      <!-- Right pupil -->
+      <circle id="candyPupilR" cx="55" cy="41" r="4" fill="#1e3a5f"/>
+      <!-- Left eye shine -->
+      <circle cx="38" cy="39" r="1.5" fill="white"/>
+      <!-- Right eye shine -->
+      <circle cx="56" cy="39" r="1.5" fill="white"/>
+    </g>
+
+    <!-- Blink overlay (hidden by default, shown on blink) -->
+    <g id="candyBlink" style="display:none">
+      <rect x="28" y="37" width="16" height="6" rx="3" fill="#bfdbfe"/>
+      <rect x="46" y="37" width="16" height="6" rx="3" fill="#bfdbfe"/>
+    </g>
+
+    <!-- Mouth — changes expression -->
+    <!-- Happy (default) -->
+    <g id="mouthHappy">
+      <path d="M36 52 Q45 60 54 52" stroke="#1e3a5f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- Talking -->
+    <g id="mouthTalking" style="display:none">
+      <ellipse cx="45" cy="54" rx="6" ry="4" fill="#1e3a5f"/>
+    </g>
+    <!-- Listening (small O) -->
+    <g id="mouthListening" style="display:none">
+      <circle cx="45" cy="54" r="3" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+    </g>
+
+    <!-- Cheeks -->
+    <ellipse cx="27" cy="50" rx="6" ry="4" fill="rgba(251,113,133,0.35)"/>
+    <ellipse cx="63" cy="50" rx="6" ry="4" fill="rgba(251,113,133,0.35)"/>
+
+    <!-- Antenna -->
+    <line x1="45" y1="16" x2="45" y2="4" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="45" cy="3" r="4" fill="#fbbf24"/>
+    <circle cx="45" cy="3" r="2" fill="#fff"/>
+  </svg>`;
+
+  document.body.appendChild(el);
+  startCandyBlink();
+  startCandyEyeFollow();
+}
+
+// Blink every 3-5 seconds
+function startCandyBlink() {
+  function doBlink() {
+    const blink = document.getElementById('candyBlink');
+    const eyes  = document.getElementById('candyEyes');
+    if (!blink || !eyes) return;
+    blink.style.display = 'block';
+    eyes.style.display  = 'none';
+    setTimeout(() => {
+      blink.style.display = 'none';
+      eyes.style.display  = 'block';
+    }, 120);
+    setTimeout(doBlink, 3000 + Math.random() * 2000);
+  }
+  setTimeout(doBlink, 2000);
+}
+
+// Pupils follow mouse subtly
+function startCandyEyeFollow() {
+  document.addEventListener('mousemove', e => {
+    const char = document.getElementById('candyCharacter');
+    const pl   = document.getElementById('candyPupilL');
+    const pr   = document.getElementById('candyPupilR');
+    if (!char || !pl || !pr) return;
+
+    const rect = char.getBoundingClientRect();
+    const cx   = rect.left + rect.width / 2;
+    const cy   = rect.top  + rect.height / 2;
+    const dx   = (e.clientX - cx) / window.innerWidth;
+    const dy   = (e.clientY - cy) / window.innerHeight;
+
+    const mx = dx * 2.5;
+    const my = dy * 2.5;
+
+    pl.setAttribute('cx', 37 + mx);
+    pl.setAttribute('cy', 41 + my);
+    pr.setAttribute('cx', 55 + mx);
+    pr.setAttribute('cy', 41 + my);
+  });
+}
+
+function setCandyState(state) {
+  const char = document.getElementById('candyCharacter');
+  const mH   = document.getElementById('mouthHappy');
+  const mT   = document.getElementById('mouthTalking');
+  const mL   = document.getElementById('mouthListening');
+  if (!char) return;
+
+  char.classList.remove('idle', 'talking', 'listening-anim');
+
+  if (state === 'talking') {
+    char.classList.add('talking');
+    if (mH) mH.style.display = 'none';
+    if (mT) mT.style.display = 'block';
+    if (mL) mL.style.display = 'none';
+  } else if (state === 'listening') {
+    char.classList.add('listening-anim');
+    if (mH) mH.style.display = 'none';
+    if (mT) mT.style.display = 'none';
+    if (mL) mL.style.display = 'block';
+  } else {
+    char.classList.add('idle');
+    if (mH) mH.style.display = 'block';
+    if (mT) mT.style.display = 'none';
+    if (mL) mL.style.display = 'none';
+  }
+}
+
+function showCandyCharacter(show) {
+  const char = document.getElementById('candyCharacter');
+  if (!char) return;
+  if (show) char.classList.add('visible');
+  else      char.classList.remove('visible');
 }
 
 // ══════════════════════════════
