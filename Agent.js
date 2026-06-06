@@ -86,7 +86,7 @@ let isListening  = false;
 let isSpeaking   = false;
 let recognition  = null;
 let currentUtter = null;
-let voiceEnabled = false;
+let voiceEnabled = true;
 
 // ── DOM Ready ──
 document.addEventListener('DOMContentLoaded', initAgent);
