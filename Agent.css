@@ -474,3 +474,153 @@
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* ══════════════════════════════
+   PROACTIVE BUBBLE
+══════════════════════════════ */
+.agent-proactive {
+  position: fixed;
+  bottom: 102px;
+  left: 36px;
+  z-index: 498;
+  width: 300px;
+  background: rgba(8, 11, 28, 0.97);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 18px;
+  padding: 18px 16px 16px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,212,255,0.07);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.agent-proactive::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, #00d4ff, #fbbf24, #00d4ff);
+  background-size: 200% 100%;
+  animation: agentBorderFlow 3s linear infinite;
+}
+.agent-proactive.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+.agent-proactive-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #94a3b8;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s;
+}
+.agent-proactive-close:hover {
+  background: rgba(244,63,94,0.15);
+  border-color: rgba(244,63,94,0.3);
+  color: #f43f5e;
+}
+.agent-proactive-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00d4ff, #7dd3fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #02030d;
+  flex-shrink: 0;
+  box-shadow: 0 0 14px rgba(0,212,255,0.3);
+}
+.agent-proactive-body { flex: 1; padding-right: 16px; }
+.agent-proactive-msg {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.agent-proactive-msg strong { color: #7dd3fc; }
+.agent-proactive-sub {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.agent-proactive-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.agent-proactive-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 13px;
+  border-radius: 100px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+.agent-proactive-btn--primary {
+  background: linear-gradient(135deg, #00d4ff, #0099bb);
+  color: #02030d;
+  box-shadow: 0 4px 14px rgba(0,212,255,0.25);
+}
+.agent-proactive-btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,212,255,0.4);
+  filter: brightness(1.08);
+}
+.agent-proactive-btn--whatsapp {
+  background: rgba(37,211,102,0.12);
+  border: 1px solid rgba(37,211,102,0.3);
+  color: #25d366;
+}
+.agent-proactive-btn--whatsapp:hover {
+  background: rgba(37,211,102,0.2);
+  transform: translateY(-1px);
+}
+.agent-proactive-btn--email {
+  background: rgba(234,67,53,0.1);
+  border: 1px solid rgba(234,67,53,0.25);
+  color: #ea4335;
+}
+.agent-proactive-btn--email:hover {
+  background: rgba(234,67,53,0.18);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .agent-proactive {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 90px;
+  }
+}
