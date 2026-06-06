@@ -1,19 +1,12 @@
 /* ═══════════════════════════════════════════════════
    PAVAN KALYAN PORTFOLIO — agent.js
-   Groq-powered AI Chat Agent
-   ⚠️  REPLACE the GROQ_API_KEY value below with your real key
+   Groq-powered AI Chat Agent (via Cloudflare Worker proxy)
 ═══════════════════════════════════════════════════ */
 
 'use strict';
 
-// ─────────────────────────────────────────
-// ⚠️  PUT YOUR GROQ API KEY HERE ↓
-// ─────────────────────────────────────────
-const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
-// ─────────────────────────────────────────
-
-const GROQ_MODEL   = 'llama3-8b-8192'; // fast & free tier friendly
-const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL    = 'llama3-8b-8192';
+const GROQ_ENDPOINT = 'https://pk-groq-proxy.daroorpavankalyan.workers.dev';
 
 // ── System prompt: everything about Pavan ──
 const SYSTEM_PROMPT = `You are PK·AI, a friendly and knowledgeable personal AI assistant embedded in Pavan Kalyan's portfolio website. Your role is to help visitors learn about Pavan and his work.
@@ -93,7 +86,7 @@ Guidelines for your responses:
 // ── Conversation history (in-memory) ──
 let chatHistory = [];
 
-// ── DOM ──
+// ── DOM Ready ──
 document.addEventListener('DOMContentLoaded', initAgent);
 
 function initAgent() {
@@ -104,7 +97,6 @@ function initAgent() {
   const clearBtn   = document.getElementById('agentClear');
   const chatWindow = document.getElementById('agentChat');
   const input      = document.getElementById('agentInput');
-  const sendBtn    = document.getElementById('agentSend');
   const form       = document.getElementById('agentForm');
 
   if (!toggleBtn || !chatWindow) return;
@@ -118,20 +110,20 @@ function initAgent() {
       if (chatHistory.length === 0) appendWelcome();
     }
   });
+
   closeBtn.addEventListener('click', () => {
     chatWindow.classList.remove('open');
     toggleBtn.classList.remove('active');
   });
 
-  // Clear
+  // Clear chat
   clearBtn.addEventListener('click', () => {
     chatHistory = [];
-    const body = document.getElementById('agentMessages');
-    body.innerHTML = '';
+    document.getElementById('agentMessages').innerHTML = '';
     appendWelcome();
   });
 
-  // Send on form submit
+  // Submit
   form.addEventListener('submit', async e => {
     e.preventDefault();
     const text = input.value.trim();
@@ -141,7 +133,7 @@ function initAgent() {
     await handleSend(text);
   });
 
-  // Ctrl+Enter / Enter (no shift) to send
+  // Enter to send (Shift+Enter = newline)
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -151,7 +143,7 @@ function initAgent() {
 
   input.addEventListener('input', () => adjustTextarea(input));
 
-  // Chip quick-questions
+  // Quick-chip clicks
   document.getElementById('agentMessages').addEventListener('click', e => {
     const chip = e.target.closest('.agent-chip');
     if (chip) {
@@ -161,12 +153,12 @@ function initAgent() {
   });
 }
 
-// ── Welcome message with chips ──
+// ── Welcome message ──
 function appendWelcome() {
   const chips = [
-    { label: '📁 Projects',   q: 'Tell me about Pavan\'s projects' },
-    { label: '🛠 Skills',      q: 'What are Pavan\'s top skills?' },
-    { label: '💼 Experience', q: 'Tell me about Pavan\'s internship' },
+    { label: '📁 Projects',   q: "Tell me about Pavan's projects" },
+    { label: '🛠 Skills',     q: "What are Pavan's top skills?" },
+    { label: '💼 Experience', q: "Tell me about Pavan's internship" },
     { label: '📬 Contact',    q: 'How can I contact Pavan?' },
   ];
 
@@ -174,7 +166,11 @@ function appendWelcome() {
     `<button class="agent-chip" data-q="${c.q}">${c.label}</button>`
   ).join('');
 
-  appendMessage('assistant', `Hey there! 👋 I'm <strong>PK·AI</strong>, Pavan's personal AI assistant.<br>Ask me anything about his skills, projects, or experience!<div class="agent-chips">${chipsHTML}</div>`);
+  appendMessage('assistant',
+    `Hey there! 👋 I'm <strong>PK·AI</strong>, Pavan's personal AI assistant.<br>
+     Ask me anything about his skills, projects, or experience!
+     <div class="agent-chips">${chipsHTML}</div>`
+  );
 }
 
 // ── Main send handler ──
@@ -189,7 +185,7 @@ async function handleSend(text) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        // No Authorization header — key is stored securely in Cloudflare Worker
       },
       body: JSON.stringify({
         model: GROQ_MODEL,
@@ -208,26 +204,19 @@ async function handleSend(text) {
       throw new Error(err?.error?.message || `HTTP ${response.status}`);
     }
 
-    const data    = await response.json();
-    const reply   = data.choices?.[0]?.message?.content?.trim() || 'Sorry, I got an empty response.';
+    const data  = await response.json();
+    const reply = data.choices?.[0]?.message?.content?.trim() || 'Sorry, I got an empty response.';
 
     removeTyping(typingId);
     appendMessage('assistant', formatReply(reply));
     chatHistory.push({ role: 'assistant', content: reply });
 
-    // keep history manageable (last 20 turns)
+    // Keep history manageable (last 40 messages = 20 turns)
     if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
 
   } catch (err) {
     removeTyping(typingId);
-    const isKeyError = err.message.toLowerCase().includes('api') ||
-                       err.message.toLowerCase().includes('auth') ||
-                       err.message.toLowerCase().includes('key');
-    appendMessage('error',
-      isKeyError
-        ? '🔑 API key issue — make sure you replaced <code>YOUR_GROQ_API_KEY_HERE</code> in <code>agent.js</code>.'
-        : `⚠️ Something went wrong: ${escapeHTML(err.message)}`
-    );
+    appendMessage('error', `⚠️ Something went wrong: ${escapeHTML(err.message)}`);
     console.error('[PK·AI]', err);
   }
 }
@@ -279,37 +268,46 @@ function adjustTextarea(el) {
 }
 
 function escapeHTML(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 function formatReply(text) {
-  // Minimal markdown: **bold**, `code`, newlines → <br>
   return text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\n/g, '<br>');
 }
 
-// ── Inject HTML into DOM ──
+// ── Inject widget HTML into page ──
 function buildAgentHTML() {
   const html = `
-  <!-- ── AI Agent Widget ── -->
   <div id="agentChat" class="agent-window">
     <div class="agent-header">
       <div class="agent-header-left">
         <div class="agent-header-avatar">PK</div>
         <div>
           <div class="agent-header-name">PK·AI</div>
-          <div class="agent-header-status"><span class="agent-online-dot"></span>Online · Groq powered</div>
+          <div class="agent-header-status">
+            <span class="agent-online-dot"></span>Online · Groq powered
+          </div>
         </div>
       </div>
       <div class="agent-header-actions">
         <button id="agentClear" class="agent-icon-btn" title="Clear chat">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.3"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 .49-3.3"/>
+          </svg>
         </button>
         <button id="agentClose" class="agent-icon-btn" title="Close">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -323,20 +321,23 @@ function buildAgentHTML() {
         maxlength="500"
       ></textarea>
       <button type="submit" id="agentSend" class="agent-send-btn" aria-label="Send">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
       </button>
     </form>
   </div>
 
-  <!-- Toggle FAB -->
   <button id="agentToggle" class="agent-toggle" aria-label="Chat with PK·AI">
-    <span class="agent-toggle-icon agent-toggle-icon--chat">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="agent-toggle-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
     </span>
     <span class="agent-toggle-label">Ask PK·AI</span>
     <span class="agent-toggle-ping"></span>
-  </button>
-  `;
+  </button>`;
 
   document.body.insertAdjacentHTML('beforeend', html);
 }
