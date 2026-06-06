@@ -46,7 +46,7 @@ Skills:
 - Tools: Streamlit, OpenCV, JDBC, Maven, iText PDF, ZXing
 
 Projects:
-1. SPARMS — Java Swing desktop app for academic result management. Role-based dashboards (Admin/Faculty/Student), OMR scanning, automated grades, MySQL+JDBC, PDF export. Stack: Java Swing, MySQL, JDBC, Maven, iText, ZXing.
+1. SRMS — Java Swing desktop app for academic result management. Role-based dashboards (Admin/Faculty/Student), OMR scanning, automated grades, MySQL+JDBC, PDF export. Stack: Java Swing, MySQL, JDBC, Maven, iText, ZXing.
 
 2. InventoryIQ — Streamlit inventory + analytics dashboard. Secure login, product management, audit logs, CSV export.
    Live: inventoryiq-e-commerce-inventory-analytics-system-lqpsn7qy8hhd.streamlit.app
