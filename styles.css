@@ -841,6 +841,54 @@ img { max-width: 100%; display: block; }
   color: var(--cyan);
 }
 
+/* ═══════════════════════════
+   PROJECT FILTERS
+═══════════════════════════ */
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.filter-btn {
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 100px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.filter-btn:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  color: var(--cyan);
+  background: rgba(0, 212, 255, 0.05);
+  transform: translateY(-2px);
+}
+.filter-btn.active {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+}
+
+/* Card fade out animation */
+.proj-card {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.proj-card.hidden {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
 /* ═══════════════════════════ PROJECTS ═══════════════════════════ */
 .projects-grid {
   display: grid;
