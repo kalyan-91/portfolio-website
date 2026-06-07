@@ -756,11 +756,6 @@ function buildAgentHTML() {
       </div>
       <div class="agent-header-actions">
 
-      <div class="candy-pointer" id="candyPointer">
-      <span class="candy-pointer-text">I'm Candy, Pavan's AI!</span>
-      <span class="candy-pointer-arrow">←</span>
-      </div>
-
         <!-- Voice / Text toggle pill -->
         <div id="agentModeToggle" class="agent-mode-toggle voice-mode" title="Switch between voice and text mode">
           <span class="agent-mode-icon agent-mode-icon--voice">
