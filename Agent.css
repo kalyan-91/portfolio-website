@@ -746,7 +746,7 @@
 ═══════════════════════════ */
 .announcement-bar {
   position: fixed;
-  top: 68px;
+  top: 60px;
   left: 0;
   right: 0;
   z-index: 1001;
