@@ -303,6 +303,7 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   position: relative;
   padding: 100px 2rem 60px;
+  padding-top: 148px;
   z-index: 2;
   overflow: hidden;
 }
