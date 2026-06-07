@@ -249,6 +249,23 @@ document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
   });
 }
 
+// Announcement bar chat button
+  document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const chatWindow = document.getElementById('agentChat');
+      const toggleBtn  = document.getElementById('agentToggle');
+      
+      if (!chatWindow.classList.contains('open')) {
+        chatWindow.classList.add('open');
+        toggleBtn.classList.add('active');
+        showCandyCharacter(true);
+        if (chatHistory.length === 0) appendWelcome();
+        setCandyState('idle');
+        document.getElementById('agentInput')?.focus();
+      }
+    });
+  });
+
 function updateModeUI() {
   const modeToggle  = document.getElementById('agentModeToggle');
   const modeLabel   = document.getElementById('agentModeLabel');
