@@ -182,6 +182,24 @@ function initAgent() {
     appendWelcome();
   });
 
+   // Announcement bar chat button
+document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const chatWindow = document.getElementById('agentChat');
+    const toggleBtn  = document.getElementById('agentToggle');
+    if (!chatWindow.classList.contains('open')) {
+      chatWindow.classList.add('open');
+      toggleBtn.classList.add('active');
+      showCandyCharacter(true);
+      if (chatHistory.length === 0) appendWelcome();
+      setCandyState('idle');
+      document.getElementById('agentInput')?.focus();
+    }
+    // smooth scroll down to candy button area
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  });
+});
+
   // Submit
   form.addEventListener('submit', async e => {
     e.preventDefault();
