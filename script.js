@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initEduCardTilt();    // ← edu-card tilt only
   initContactForm();    // ← fixed selector
   initHeroCounter();    // ← stat counter
+  initProjectFilter();
 });
 
 // ═══════════════════════════════════
