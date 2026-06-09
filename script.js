@@ -28,15 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilter();
 });
 
-new QRCode(document.getElementById('qrCode'), {
-  text: 'https://kalyanfinity-portfolio.netlify.app',
-  width: 120,
-  height: 120,
-  colorDark: '#0369A1',
-  colorLight: '#ffffff',
-  correctLevel: QRCode.CorrectLevel.H
-});
-
 // ═══════════════════════════════════
 // 1. CUSTOM CURSOR
 // ═══════════════════════════════════
