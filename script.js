@@ -573,3 +573,34 @@ function initHeroCounter() {
 
   if (heroSection) observer.observe(heroSection);
 }
+
+// ═══════════════════════════════════
+// 17. TECH STACK SCROLLING WALL
+// ═══════════════════════════════════
+function initTechStack() {
+  const track = document.getElementById('techTrack');
+  if (!track) return;
+
+  const techs = [
+    { icon: 'fab fa-python',        name: 'Python' },
+    { icon: 'fas fa-database',      name: 'SQL' },
+    { icon: 'fab fa-java',          name: 'Java' },
+    { icon: 'fab fa-html5',         name: 'HTML' },
+    { icon: 'fab fa-css3-alt',      name: 'CSS' },
+    { icon: 'fab fa-js',            name: 'JavaScript' },
+    { icon: 'fas fa-chart-bar',     name: 'Power BI' },
+    { icon: 'fas fa-wave-square',   name: 'Matplotlib' },
+    { icon: 'fas fa-palette',       name: 'Seaborn' },
+    { icon: 'fas fa-project-diagram', name: 'Plotly' },
+    { icon: 'fas fa-file-excel',    name: 'Excel' },
+    { icon: 'fab fa-github',        name: 'GitHub' },
+  ];
+
+  // Duplicate for seamless infinite loop
+  [...techs, ...techs].forEach(t => {
+    const chip = document.createElement('div');
+    chip.className = 'tech-chip-card';
+    chip.innerHTML = `<i class="${t.icon}"></i><span>${t.name}</span>`;
+    track.appendChild(chip);
+  });
+}
