@@ -57,7 +57,7 @@ Personality:
 
 Additional Information About Pavan:
 
-- Birthday: November 24.
+- Birthday: November 24 2002.
 - Currently pursuing MCA while actively building projects outside academics.
 - Started learning Data Analytics through SQL, Excel, and databases before moving into Machine Learning and AI.
 - Strong believer in project-based learning.
