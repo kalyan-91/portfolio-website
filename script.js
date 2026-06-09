@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();    // ← fixed selector
   initHeroCounter();    // ← stat counter
   initProjectFilter();
+  initTechStack(); 
 });
 
 // ═══════════════════════════════════
