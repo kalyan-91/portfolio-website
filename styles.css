@@ -1681,4 +1681,77 @@ img { max-width: 100%; display: block; }
   .contact-form-card { border-radius: 18px; }
   .contact-form-new { padding: 24px 20px; }
 }
+
+/* ═══════════════════════════
+   TECH STACK ICONS WALL
+═══════════════════════════ */
+.tech-stack-wall {
+  margin-top: 60px;
+}
+.tech-stack-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--violet);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.tech-icons-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.tech-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 80px;
+  padding: 16px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: default;
+  animation: techFloat var(--float-duration, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  transition: all 0.3s ease;
+}
+.tech-icon-item:hover {
+  border-color: var(--cyan);
+  background: rgba(0, 212, 255, 0.06);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+  transform: translateY(-6px) scale(1.08);
+}
+.tech-icon-item i {
+  font-size: 1.6rem;
+  color: var(--cyan);
+  transition: color 0.3s;
+}
+.tech-icon-item:hover i {
+  color: var(--gold);
+}
+.tech-icon-item span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+@keyframes techFloat {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Give each item slightly different float duration for natural feel */
+.tech-icon-item:nth-child(odd)  { --float-duration: 3.2s; }
+.tech-icon-item:nth-child(even) { --float-duration: 2.8s; }
+.tech-icon-item:nth-child(3n)   { --float-duration: 3.6s; }
+.tech-icon-item:nth-child(4n)   { --float-duration: 2.5s; }
+
+@media (max-width: 640px) {
+  .tech-icon-item { width: 68px; padding: 12px 8px; }
+  .tech-icon-item i { font-size: 1.3rem; }
+}
  
