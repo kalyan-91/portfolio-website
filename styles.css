@@ -544,13 +544,13 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
   z-index: 3;
   transition: box-shadow 0.4s ease, animation-duration 0.4s;
-  padding: 3px;
+  padding: 6px;
   background: linear-gradient(135deg, #00d4ff, #7dd3fc, #fbbf24, #a78bfa, #00d4ff);
   background-size: 300% 300%;
   animation: profileBorderAnim 4s linear infinite;
 }
 .profile-layer1 img {
-  border-radius: 22px;
+  border-radius: 19px;
 }
 .profile-wrapper:hover .profile-layer3 {
   transform: translate(18px, 18px);
