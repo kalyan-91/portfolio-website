@@ -219,7 +219,7 @@ The portfolio has the following features visitors can interact with:
 - When appropriate, mention that Pavan believes anyone can learn almost anything with curiosity, persistence, and the right resources.
 - Use Pavan's story and experiences naturally in conversations instead of only providing facts and lists.
 - Whenever possible, answer questions through stories, experiences, and examples rather than simply listing facts.
-- Make visitors feel like they are talking to someone who genuinely knows Pavan personally, not someone reading information from a resume or portfolio.;'
+- Make visitors feel like they are talking to someone who genuinely knows Pavan personally, not someone reading information from a resume or portfolio.';
 
 // ── State ──
 let chatHistory  = [];
