@@ -513,6 +513,12 @@ img { max-width: 100%; display: block; }
   height: 400px;
   cursor: pointer;
 }
+ .profile-wrapper {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  cursor: pointer;
+}
 .profile-layer3 {
   position: absolute;
   inset: 0;
@@ -536,9 +542,15 @@ img { max-width: 100%; display: block; }
   inset: 0;
   border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(0, 212, 255, 0.3);
   z-index: 3;
-  transition: box-shadow 0.4s ease;
+  transition: box-shadow 0.4s ease, animation-duration 0.4s;
+  padding: 3px;
+  background: linear-gradient(135deg, #00d4ff, #7dd3fc, #fbbf24, #a78bfa, #00d4ff);
+  background-size: 300% 300%;
+  animation: profileBorderAnim 4s linear infinite;
+}
+.profile-layer1 img {
+  border-radius: 22px;
 }
 .profile-wrapper:hover .profile-layer3 {
   transform: translate(18px, 18px);
@@ -547,7 +559,8 @@ img { max-width: 100%; display: block; }
   transform: translate(9px, 9px);
 }
 .profile-wrapper:hover .profile-layer1 {
-  box-shadow: 0 24px 50px rgba(0, 212, 255, 0.2);
+  animation-duration: 1.5s;
+  box-shadow: 0 24px 50px rgba(0, 212, 255, 0.25);
 }
 .profile-wrapper:hover {
   transform: translateY(-8px);
@@ -560,6 +573,11 @@ img { max-width: 100%; display: block; }
   object-position: center top;
   display: block;
   filter: contrast(1.05) saturate(1.08);
+}
+@keyframes profileBorderAnim {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 /* Scroll indicator */
 .scroll-indicator {
