@@ -1681,3 +1681,28 @@ img { max-width: 100%; display: block; }
   .contact-form-card { border-radius: 18px; }
   .contact-form-new { padding: 24px 20px; }
 }
+.qr-wrap {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.qr-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+#qrCode {
+  padding: 10px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+#qrCode img {
+  border-radius: 8px;
+  display: block;
+}
