@@ -1683,7 +1683,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ═══════════════════════════
-   TECH STACK ICONS WALL
+   TECH STACK SCROLLING WALL
 ═══════════════════════════ */
 .tech-stack-wall {
   margin-top: 60px;
@@ -1695,63 +1695,74 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   color: var(--violet);
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
-.tech-icons-grid {
+.tech-track-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.tech-track-wrap::before,
+.tech-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.tech-track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.tech-track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+.tech-track {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+  gap: 14px;
+  width: max-content;
+  animation: techScroll 30s linear infinite;
 }
-.tech-icon-item {
+.tech-track:hover {
+  animation-play-state: paused;
+}
+.tech-chip-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 80px;
-  padding: 16px 10px;
+  padding: 16px 18px;
+  min-width: 90px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 14px;
   cursor: default;
-  animation: techFloat var(--float-duration, 3s) ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
+  flex-shrink: 0;
   transition: all 0.3s ease;
 }
-.tech-icon-item:hover {
+.tech-chip-card:hover {
   border-color: var(--cyan);
   background: rgba(0, 212, 255, 0.06);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
-  transform: translateY(-6px) scale(1.08);
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.18);
+  transform: translateY(-4px);
 }
-.tech-icon-item i {
+.tech-chip-card i {
   font-size: 1.6rem;
   color: var(--cyan);
   transition: color 0.3s;
 }
-.tech-icon-item:hover i {
+.tech-chip-card:hover i {
   color: var(--gold);
 }
-.tech-icon-item span {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
+.tech-chip-card span {
+  font-size: 0.68rem;
   color: var(--text-muted);
-  text-align: center;
   letter-spacing: 0.04em;
+  white-space: nowrap;
+  font-family: 'DM Mono', monospace;
 }
-@keyframes techFloat {
-  0%, 100% { transform: translateY(0px);  }
-  50%       { transform: translateY(-6px); }
+@keyframes techScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
-
-/* Give each item slightly different float duration for natural feel */
-.tech-icon-item:nth-child(odd)  { --float-duration: 3.2s; }
-.tech-icon-item:nth-child(even) { --float-duration: 2.8s; }
-.tech-icon-item:nth-child(3n)   { --float-duration: 3.6s; }
-.tech-icon-item:nth-child(4n)   { --float-duration: 2.5s; }
-
-@media (max-width: 640px) {
-  .tech-icon-item { width: 68px; padding: 12px 8px; }
-  .tech-icon-item i { font-size: 1.3rem; }
-}
- 
