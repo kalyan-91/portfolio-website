@@ -570,6 +570,8 @@ async function handleSend(text) {
 
     removeTyping(typingId);
      await typeMessage(formatReply(reply));
+     autoScrollToSection(text);
+     resetInactivityTimer();
      chatHistory.push({ role: 'assistant', content: reply });
      speak(reply);
      addSmartSuggestions(reply);
@@ -626,14 +628,26 @@ function appendMessage(role, html) {
   const wrap = document.createElement('div');
   wrap.className = `agent-msg agent-msg--${role}`;
 
+  const time = new Date().toLocaleTimeString('en-IN', {
+    hour: '2-digit', minute: '2-digit',
+    timeZone: 'Asia/Kolkata'
+  });
+
   if (role === 'user') {
-    wrap.innerHTML = `<div class="agent-bubble agent-bubble--user">${html}</div>`;
+    wrap.innerHTML = `
+      <div>
+        <div class="agent-bubble agent-bubble--user">${html}</div>
+        <div class="agent-timestamp agent-timestamp--user">${time}</div>
+      </div>`;
   } else if (role === 'error') {
     wrap.innerHTML = `<div class="agent-bubble agent-bubble--error">${html}</div>`;
   } else {
     wrap.innerHTML = `
       <div class="agent-avatar"><span>C</span></div>
-      <div class="agent-bubble agent-bubble--assistant">${html}</div>`;
+      <div>
+        <div class="agent-bubble agent-bubble--assistant">${html}</div>
+        <div class="agent-timestamp agent-timestamp--assistant">${time}</div>
+      </div>`;
   }
 
   body.appendChild(wrap);
@@ -1093,3 +1107,72 @@ function buildAgentHTML() {
 
   document.body.insertAdjacentHTML('beforeend', html);
 }
+
+// ══════════════════════════════
+// AUTO SCROLL TO SECTION
+// ══════════════════════════════
+function autoScrollToSection(text) {
+  const lower = text.toLowerCase();
+  let sectionId = null;
+
+  if (lower.includes('project') || lower.includes('sparms') ||
+      lower.includes('inventoryiq') || lower.includes('digit') ||
+      lower.includes('netflix') || lower.includes('zomato') ||
+      lower.includes('attrition')) {
+    sectionId = 'projects';
+  } else if (lower.includes('skill') || lower.includes('python') ||
+             lower.includes('sql') || lower.includes('power bi') ||
+             lower.includes('tech stack')) {
+    sectionId = 'skills';
+  } else if (lower.includes('education') || lower.includes('mca') ||
+             lower.includes('degree') || lower.includes('university')) {
+    sectionId = 'education';
+  } else if (lower.includes('experience') || lower.includes('intern') ||
+             lower.includes('interncall')) {
+    sectionId = 'experience';
+  } else if (lower.includes('contact') || lower.includes('email') ||
+             lower.includes('hire') || lower.includes('reach') ||
+             lower.includes('whatsapp') || lower.includes('linkedin')) {
+    sectionId = 'contact';
+  }
+
+  if (sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      setTimeout(() => {
+        const top = section.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 800);
+    }
+  }
+}
+
+// ══════════════════════════════
+// INACTIVITY MESSAGE
+// ══════════════════════════════
+let inactivityTimer = null;
+const INACTIVITY_MESSAGES = [
+  'Still there? Feel free to ask me anything about Pavan!',
+  'Not sure what to ask? Try "What projects has Pavan built?" or "How do I contact him?"',
+  'I am here if you need anything. Ask me about Pavan\'s skills or experience!',
+];
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+  const chatWindow = document.getElementById('agentChat');
+  if (!chatWindow || !chatWindow.classList.contains('open')) return;
+
+  inactivityTimer = setTimeout(() => {
+    const randomMsg = INACTIVITY_MESSAGES[
+      Math.floor(Math.random() * INACTIVITY_MESSAGES.length)
+    ];
+    appendMessage('assistant', randomMsg);
+    addSmartSuggestions(randomMsg);
+  }, 120000); // 2 minutes
+}
+
+// Call resetInactivityTimer on user activity inside chat
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('mousemove', resetInactivityTimer, { passive: true });
+  document.addEventListener('keydown', resetInactivityTimer, { passive: true });
+});
