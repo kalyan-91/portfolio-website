@@ -785,3 +785,12 @@
   from { transform: translateX(100vw); }
   to   { transform: translateX(-100%); }
 }
+
+/* Smart suggestions */
+.agent-smart-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 14px 8px;
+  animation: agentMsgIn 0.25s ease both;
+}
