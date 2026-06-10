@@ -503,6 +503,13 @@ function updateSpeakUI(active) {
 // WELCOME
 // ══════════════════════════════
 function appendWelcome() {
+  const hour = new Date().getHours();
+  let greeting = '';
+  if (hour >= 5 && hour < 12)       greeting = 'Good morning';
+  else if (hour >= 12 && hour < 17) greeting = 'Good afternoon';
+  else if (hour >= 17 && hour < 21) greeting = 'Good evening';
+  else                               greeting = 'Hey, night owl';
+
   const chips = [
     { label: 'Projects',   q: 'What projects has Pavan built?' },
     { label: 'Skills',     q: 'What are Pavan\'s strongest skills?' },
@@ -514,11 +521,10 @@ function appendWelcome() {
   ).join('');
 
   appendMessage('assistant',
-    `Hi, I am <strong>Candy</strong>, Pavan's personal AI assistant. What would you like to know?
+    `${greeting}! I am <strong>Candy</strong>, Pavan's personal AI assistant. What would you like to know?
     <div class="agent-chips">${chipsHTML}</div>`
   );
 }
-
 // ══════════════════════════════
 // MAIN SEND
 // ══════════════════════════════
@@ -563,9 +569,10 @@ async function handleSend(text) {
     const reply = data.choices?.[0]?.message?.content?.trim() || 'I got an empty response. Please try again.';
 
     removeTyping(typingId);
-    appendMessage('assistant', formatReply(reply));
-    chatHistory.push({ role: 'assistant', content: reply });
-    speak(reply);
+     await typeMessage(formatReply(reply));
+     chatHistory.push({ role: 'assistant', content: reply });
+     speak(reply);
+     addSmartSuggestions(reply);
     if (!voiceEnabled) setCandyState('idle');
 
     if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
@@ -821,6 +828,102 @@ function buildCandyCharacter() {
   document.body.appendChild(el);
   startCandyBlink();
   startCandyEyeFollow();
+}
+
+// ══════════════════════════════
+// TYPING SPEED EFFECT
+// ══════════════════════════════
+async function typeMessage(html) {
+  const body  = document.getElementById('agentMessages');
+  const wrap  = document.createElement('div');
+  wrap.className = 'agent-msg agent-msg--assistant';
+  wrap.innerHTML = `
+    <div class="agent-avatar"><span>C</span></div>
+    <div class="agent-bubble agent-bubble--assistant" id="typingBubble"></div>`;
+  body.appendChild(wrap);
+  body.scrollTop = body.scrollHeight;
+
+  const bubble = document.getElementById('typingBubble');
+  bubble.removeAttribute('id');
+
+  // Strip HTML tags for typing, then set full HTML at end
+  const plainText = html.replace(/<[^>]+>/g, '');
+  const words     = plainText.split(' ');
+
+  let displayed = '';
+  for (let i = 0; i < words.length; i++) {
+    displayed += (i === 0 ? '' : ' ') + words[i];
+    bubble.textContent = displayed;
+    body.scrollTop = body.scrollHeight;
+    await new Promise(r => setTimeout(r, 35));
+  }
+
+  // Set full formatted HTML after typing completes
+  bubble.innerHTML = html;
+  body.scrollTop = body.scrollHeight;
+  return wrap;
+}
+
+// ══════════════════════════════
+// SMART SUGGESTIONS
+// ══════════════════════════════
+function addSmartSuggestions(reply) {
+  const body = document.getElementById('agentMessages');
+  const lower = reply.toLowerCase();
+
+  let suggestions = [];
+
+  if (lower.includes('project') || lower.includes('sparms') || lower.includes('inventoryiq')) {
+    suggestions = [
+      'Which project is most impressive?',
+      'Does Pavan have any live projects?',
+      'What tech stack does Pavan use?'
+    ];
+  } else if (lower.includes('skill') || lower.includes('python') || lower.includes('sql')) {
+    suggestions = [
+      'What is Pavan\'s strongest skill?',
+      'Does Pavan know machine learning?',
+      'What tools does Pavan use daily?'
+    ];
+  } else if (lower.includes('intern') || lower.includes('experience') || lower.includes('work')) {
+    suggestions = [
+      'What did Pavan do in his internship?',
+      'Is Pavan open to new opportunities?',
+      'How do I contact Pavan?'
+    ];
+  } else if (lower.includes('contact') || lower.includes('email') || lower.includes('hire')) {
+    suggestions = [
+      'What roles is Pavan looking for?',
+      'Can I see Pavan\'s resume?',
+      'What is Pavan\'s LinkedIn?'
+    ];
+  } else if (lower.includes('education') || lower.includes('mca') || lower.includes('degree')) {
+    suggestions = [
+      'What is Pavan studying?',
+      'When does Pavan graduate?',
+      'What projects has Pavan built?'
+    ];
+  } else {
+    suggestions = [
+      'Tell me about Pavan\'s projects',
+      'What are Pavan\'s skills?',
+      'How do I contact Pavan?'
+    ];
+  }
+
+  const wrap = document.createElement('div');
+  wrap.className = 'agent-smart-suggestions';
+  wrap.innerHTML = suggestions.map(s =>
+    `<button class="agent-chip" data-q="${s}">${s}</button>`
+  ).join('');
+
+  body.appendChild(wrap);
+  body.scrollTop = body.scrollHeight;
+
+  // Remove suggestions when next message is sent
+  document.getElementById('agentForm').addEventListener('submit', () => {
+    wrap.remove();
+  }, { once: true });
 }
 
 // Blink every 3-5 seconds
