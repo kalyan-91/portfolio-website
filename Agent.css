@@ -794,3 +794,22 @@
   padding: 0 14px 8px;
   animation: agentMsgIn 0.25s ease both;
 }
+
+/* ══════════════════════════════
+   TIMESTAMPS
+══════════════════════════════ */
+.agent-timestamp {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  color: #475569;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.agent-timestamp--user {
+  text-align: right;
+  padding-right: 2px;
+}
+.agent-timestamp--assistant {
+  text-align: left;
+  padding-left: 2px;
+}
