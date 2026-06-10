@@ -855,7 +855,7 @@ async function typeMessage(html) {
     displayed += (i === 0 ? '' : ' ') + words[i];
     bubble.textContent = displayed;
     body.scrollTop = body.scrollHeight;
-    await new Promise(r => setTimeout(r, 35));
+    await new Promise(r => setTimeout(r, 65));
   }
 
   // Set full formatted HTML after typing completes
