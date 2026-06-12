@@ -153,7 +153,7 @@
 /* ── Planet Avatar in header ── */
 .agent-header-avatar {
   position: relative;
-  width: 42px; height: 42px;
+  width: 42px; height: 38px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
