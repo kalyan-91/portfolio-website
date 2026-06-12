@@ -93,7 +93,7 @@
   left: 36px;
   z-index: 499;
   width: 390px;
-  max-height: 580px;
+  max-height: 550px;
   display: flex;
   flex-direction: column;
   background: linear-gradient(160deg, rgba(35,8,90,0.96), rgba(8,25,70,0.97), rgba(4,15,45,0.98));
