@@ -761,7 +761,7 @@
 /* ─── Announcement Bar ─── */
 .announcement-bar {
   position: fixed;
-  top: 68px; left: 0; right: 0;
+  top: 60px; left: 0; right: 0;
   z-index: 999;
   height: 36px;
   background: linear-gradient(90deg, rgba(35,8,90,0.95), rgba(6,2,24,0.98), rgba(35,8,90,0.95));
