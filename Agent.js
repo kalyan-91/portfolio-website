@@ -227,7 +227,7 @@ let isListening  = false;
 let isSpeaking   = false;
 let recognition  = null;
 let currentUtter = null;
-let voiceEnabled = true;   // voice ON by default
+let voiceEnabled = true;
 let voicesLoaded = false;
 let pendingSpeak = null;
 
@@ -307,23 +307,19 @@ function initAgent() {
     appendWelcome();
   });
 
-   // Announcement bar chat button
-document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const chatWindow = document.getElementById('agentChat');
-    const toggleBtn  = document.getElementById('agentToggle');
-    if (!chatWindow.classList.contains('open')) {
-      chatWindow.classList.add('open');
-      toggleBtn.classList.add('active');
-      showCandyCharacter(true);
-      if (chatHistory.length === 0) appendWelcome();
-      setCandyState('idle');
-      document.getElementById('agentInput')?.focus();
-    }
-    // smooth scroll down to candy button area
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  // Announcement bar chat button
+  document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!chatWindow.classList.contains('open')) {
+        chatWindow.classList.add('open');
+        toggleBtn.classList.add('active');
+        showCandyCharacter(true);
+        if (chatHistory.length === 0) appendWelcome();
+        setCandyState('idle');
+        document.getElementById('agentInput')?.focus();
+      }
+    });
   });
-});
 
   // Submit
   form.addEventListener('submit', async e => {
@@ -354,7 +350,6 @@ document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
 
   // Voice / Text mode toggle pill
   if (modeToggle) {
-    // Set initial state
     updateModeUI();
     modeToggle.addEventListener('click', () => {
       voiceEnabled = !voiceEnabled;
@@ -372,29 +367,16 @@ document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
       form.dispatchEvent(new Event('submit'));
     }
   });
+
+  // Inactivity listeners
+  document.addEventListener('mousemove', resetInactivityTimer, { passive: true });
+  document.addEventListener('keydown',   resetInactivityTimer, { passive: true });
 }
 
-// Announcement bar chat button
-  document.querySelectorAll('.announcement-chat-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const chatWindow = document.getElementById('agentChat');
-      const toggleBtn  = document.getElementById('agentToggle');
-      
-      if (!chatWindow.classList.contains('open')) {
-        chatWindow.classList.add('open');
-        toggleBtn.classList.add('active');
-        showCandyCharacter(true);
-        if (chatHistory.length === 0) appendWelcome();
-        setCandyState('idle');
-        document.getElementById('agentInput')?.focus();
-      }
-    });
-  });
-
 function updateModeUI() {
-  const modeToggle  = document.getElementById('agentModeToggle');
-  const modeLabel   = document.getElementById('agentModeLabel');
-  const micBtn      = document.getElementById('agentMic');
+  const modeToggle = document.getElementById('agentModeToggle');
+  const modeLabel  = document.getElementById('agentModeLabel');
+  const micBtn     = document.getElementById('agentMic');
   if (!modeToggle) return;
 
   if (voiceEnabled) {
@@ -417,12 +399,12 @@ function setupRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) return;
   recognition = new SR();
-  recognition.continuous    = false;
+  recognition.continuous     = false;
   recognition.interimResults = true;
-  recognition.lang          = 'en-IN';
+  recognition.lang           = 'en-IN';
 
   recognition.onstart  = () => { isListening = true;  updateMicUI(true);  setCandyState('listening'); };
-  recognition.onend    = () => { isListening = false; updateMicUI(false); setCandyState('idle');      };
+  recognition.onend    = () => { isListening = false; updateMicUI(false); setCandyState('idle'); };
   recognition.onerror  = e  => {
     stopListening();
     if (e.error === 'not-allowed') showToast('Microphone access denied');
@@ -468,11 +450,11 @@ function speak(text) {
   if (!voices.length) { pendingSpeak = text; return; }
 
   stopSpeaking();
-  currentUtter         = new SpeechSynthesisUtterance(clean);
-  currentUtter.lang    = 'en-US';
-  currentUtter.rate    = 1.0;
-  currentUtter.pitch   = 1.0;
-  currentUtter.volume  = 1.0;
+  currentUtter        = new SpeechSynthesisUtterance(clean);
+  currentUtter.lang   = 'en-US';
+  currentUtter.rate   = 1.0;
+  currentUtter.pitch  = 1.0;
+  currentUtter.volume = 1.0;
 
   const preferred =
     voices.find(v => v.name.includes('Google US English')) ||
@@ -481,9 +463,9 @@ function speak(text) {
     voices.find(v => v.lang.startsWith('en-'));
   if (preferred) currentUtter.voice = preferred;
 
-  currentUtter.onstart = () => { isSpeaking = true;  updateSpeakUI(true);  setCandyState('talking');  };
-  currentUtter.onend   = () => { isSpeaking = false; updateSpeakUI(false); setCandyState('idle');     };
-  currentUtter.onerror = () => { isSpeaking = false; updateSpeakUI(false); setCandyState('idle');     };
+  currentUtter.onstart = () => { isSpeaking = true;  updateSpeakUI(true);  setCandyState('talking'); };
+  currentUtter.onend   = () => { isSpeaking = false; updateSpeakUI(false); setCandyState('idle'); };
+  currentUtter.onerror = () => { isSpeaking = false; updateSpeakUI(false); setCandyState('idle'); };
 
   setTimeout(() => window.speechSynthesis.speak(currentUtter), 100);
 }
@@ -505,16 +487,16 @@ function updateSpeakUI(active) {
 function appendWelcome() {
   const hour = new Date().getHours();
   let greeting = '';
-  if (hour >= 5 && hour < 12)       greeting = 'Good morning';
+  if (hour >= 5  && hour < 12) greeting = 'Good morning';
   else if (hour >= 12 && hour < 17) greeting = 'Good afternoon';
   else if (hour >= 17 && hour < 21) greeting = 'Good evening';
-  else                               greeting = 'Hey, night owl';
+  else greeting = 'Hey, night owl';
 
   const chips = [
-    { label: 'Projects',   q: 'What projects has Pavan built?' },
-    { label: 'Skills',     q: 'What are Pavan\'s strongest skills?' },
-    { label: 'Experience', q: 'Tell me about Pavan\'s internship experience' },
-    { label: 'Contact',    q: 'I am interested in hiring Pavan, how do I reach him?' },
+    { label: 'Projects',   q: "What projects has Pavan built?" },
+    { label: 'Skills',     q: "What are Pavan's strongest skills?" },
+    { label: 'Experience', q: "Tell me about Pavan's internship experience" },
+    { label: 'Contact',    q: "I am interested in hiring Pavan, how do I reach him?" },
   ];
   const chipsHTML = chips.map(c =>
     `<button class="agent-chip" data-q="${c.q}">${c.label}</button>`
@@ -525,6 +507,7 @@ function appendWelcome() {
     <div class="agent-chips">${chipsHTML}</div>`
   );
 }
+
 // ══════════════════════════════
 // MAIN SEND
 // ══════════════════════════════
@@ -569,12 +552,12 @@ async function handleSend(text) {
     const reply = data.choices?.[0]?.message?.content?.trim() || 'I got an empty response. Please try again.';
 
     removeTyping(typingId);
-     await typeMessage(formatReply(reply));
-     autoScrollToSection(text);
-     resetInactivityTimer();
-     chatHistory.push({ role: 'assistant', content: reply });
-     speak(reply);
-     addSmartSuggestions(reply);
+    await typeMessage(formatReply(reply));
+    autoScrollToSection(text);
+    resetInactivityTimer();
+    chatHistory.push({ role: 'assistant', content: reply });
+    speak(reply);
+    addSmartSuggestions(reply);
     if (!voiceEnabled) setCandyState('idle');
 
     if (chatHistory.length > 40) chatHistory = chatHistory.slice(-40);
@@ -623,6 +606,12 @@ window.addEventListener('beforeunload', () => {
 // ══════════════════════════════
 // DOM HELPERS
 // ══════════════════════════════
+
+// Mini planet avatar HTML helper
+function miniAvatar() {
+  return `<div class="agent-avatar-mini"><div class="pcore-mini">C</div></div>`;
+}
+
 function appendMessage(role, html) {
   const body = document.getElementById('agentMessages');
   const wrap = document.createElement('div');
@@ -643,9 +632,7 @@ function appendMessage(role, html) {
     wrap.innerHTML = `<div class="agent-bubble agent-bubble--error">${html}</div>`;
   } else {
     wrap.innerHTML = `
-      <div class="agent-avatar-mini">
-      <div class="pcore-mini">C</div>
-      </div>
+      ${miniAvatar()}
       <div>
         <div class="agent-bubble agent-bubble--assistant">${html}</div>
         <div class="agent-timestamp agent-timestamp--assistant">${time}</div>
@@ -664,7 +651,7 @@ function appendTyping() {
   wrap.className = 'agent-msg agent-msg--assistant';
   wrap.id = id;
   wrap.innerHTML = `
-    <div class="agent-avatar"><span>C</span></div>
+    ${miniAvatar()}
     <div class="agent-bubble agent-bubble--assistant agent-typing">
       <span></span><span></span><span></span>
     </div>`;
@@ -685,7 +672,6 @@ function escapeHTML(str) {
 }
 
 function formatReply(text) {
-  // Strip emojis from AI reply
   text = text.replace(/[\u{1F300}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
   return text
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -703,6 +689,170 @@ function showToast(msg) {
   document.body.appendChild(t);
   setTimeout(() => t.classList.add('show'), 10);
   setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 2500);
+}
+
+// ══════════════════════════════
+// TYPING SPEED EFFECT
+// ══════════════════════════════
+async function typeMessage(html) {
+  const body = document.getElementById('agentMessages');
+  const wrap = document.createElement('div');
+  wrap.className = 'agent-msg agent-msg--assistant';
+
+  const time = new Date().toLocaleTimeString('en-IN', {
+    hour: '2-digit', minute: '2-digit',
+    timeZone: 'Asia/Kolkata'
+  });
+
+  wrap.innerHTML = `
+    ${miniAvatar()}
+    <div>
+      <div class="agent-bubble agent-bubble--assistant" id="typingBubble"></div>
+      <div class="agent-timestamp agent-timestamp--assistant">${time}</div>
+    </div>`;
+  body.appendChild(wrap);
+  body.scrollTop = body.scrollHeight;
+
+  const bubble = document.getElementById('typingBubble');
+  bubble.removeAttribute('id');
+
+  const plainText = html.replace(/<[^>]+>/g, '');
+  const words     = plainText.split(' ');
+
+  let displayed = '';
+  for (let i = 0; i < words.length; i++) {
+    displayed += (i === 0 ? '' : ' ') + words[i];
+    bubble.textContent = displayed;
+    body.scrollTop = body.scrollHeight;
+    await new Promise(r => setTimeout(r, 65));
+  }
+
+  bubble.innerHTML = html;
+  body.scrollTop = body.scrollHeight;
+  return wrap;
+}
+
+// ══════════════════════════════
+// SMART SUGGESTIONS
+// ══════════════════════════════
+function addSmartSuggestions(reply) {
+  const body  = document.getElementById('agentMessages');
+  const lower = reply.toLowerCase();
+  let suggestions = [];
+
+  if (lower.includes('project') || lower.includes('sparms') || lower.includes('inventoryiq')) {
+    suggestions = [
+      'Which project is most impressive?',
+      'Does Pavan have any live projects?',
+      'What tech stack does Pavan use?'
+    ];
+  } else if (lower.includes('skill') || lower.includes('python') || lower.includes('sql')) {
+    suggestions = [
+      "What is Pavan's strongest skill?",
+      'Does Pavan know machine learning?',
+      'What tools does Pavan use daily?'
+    ];
+  } else if (lower.includes('intern') || lower.includes('experience') || lower.includes('work')) {
+    suggestions = [
+      'What did Pavan do in his internship?',
+      'Is Pavan open to new opportunities?',
+      'How do I contact Pavan?'
+    ];
+  } else if (lower.includes('contact') || lower.includes('email') || lower.includes('hire')) {
+    suggestions = [
+      'What roles is Pavan looking for?',
+      "Can I see Pavan's resume?",
+      "What is Pavan's LinkedIn?"
+    ];
+  } else if (lower.includes('education') || lower.includes('mca') || lower.includes('degree')) {
+    suggestions = [
+      'What is Pavan studying?',
+      'When does Pavan graduate?',
+      'What projects has Pavan built?'
+    ];
+  } else {
+    suggestions = [
+      "Tell me about Pavan's projects",
+      "What are Pavan's skills?",
+      'How do I contact Pavan?'
+    ];
+  }
+
+  const wrap = document.createElement('div');
+  wrap.className = 'agent-smart-suggestions';
+  wrap.innerHTML = suggestions.map(s =>
+    `<button class="agent-chip" data-q="${s}">${s}</button>`
+  ).join('');
+
+  body.appendChild(wrap);
+  body.scrollTop = body.scrollHeight;
+
+  document.getElementById('agentForm').addEventListener('submit', () => {
+    wrap.remove();
+  }, { once: true });
+}
+
+// ══════════════════════════════
+// AUTO SCROLL TO SECTION
+// ══════════════════════════════
+function autoScrollToSection(text) {
+  const lower = text.toLowerCase();
+  let sectionId = null;
+
+  if (lower.includes('project') || lower.includes('sparms') ||
+      lower.includes('inventoryiq') || lower.includes('digit') ||
+      lower.includes('netflix') || lower.includes('zomato') ||
+      lower.includes('attrition')) {
+    sectionId = 'projects';
+  } else if (lower.includes('skill') || lower.includes('python') ||
+             lower.includes('sql') || lower.includes('power bi') ||
+             lower.includes('tech stack')) {
+    sectionId = 'skills';
+  } else if (lower.includes('education') || lower.includes('mca') ||
+             lower.includes('degree') || lower.includes('university')) {
+    sectionId = 'education';
+  } else if (lower.includes('experience') || lower.includes('intern') ||
+             lower.includes('interncall')) {
+    sectionId = 'experience';
+  } else if (lower.includes('contact') || lower.includes('email') ||
+             lower.includes('hire') || lower.includes('reach') ||
+             lower.includes('whatsapp') || lower.includes('linkedin')) {
+    sectionId = 'contact';
+  }
+
+  if (sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      setTimeout(() => {
+        const top = section.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 800);
+    }
+  }
+}
+
+// ══════════════════════════════
+// INACTIVITY MESSAGE
+// ══════════════════════════════
+let inactivityTimer = null;
+const INACTIVITY_MESSAGES = [
+  'Still there? Feel free to ask me anything about Pavan!',
+  'Not sure what to ask? Try "What projects has Pavan built?" or "How do I contact him?"',
+  "I am here if you need anything. Ask me about Pavan's skills or experience!",
+];
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+  const chatWindow = document.getElementById('agentChat');
+  if (!chatWindow || !chatWindow.classList.contains('open')) return;
+
+  inactivityTimer = setTimeout(() => {
+    const randomMsg = INACTIVITY_MESSAGES[
+      Math.floor(Math.random() * INACTIVITY_MESSAGES.length)
+    ];
+    appendMessage('assistant', randomMsg);
+    addSmartSuggestions(randomMsg);
+  }, 120000);
 }
 
 // ══════════════════════════════
@@ -768,74 +918,41 @@ function buildCandyCharacter() {
   el.id = 'candyCharacter';
   el.innerHTML = `
   <svg viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
-    <!-- Shadow -->
     <ellipse cx="45" cy="107" rx="22" ry="4" fill="rgba(0,0,0,0.12)"/>
-
-    <!-- Body -->
     <ellipse cx="45" cy="80" rx="22" ry="24" fill="#7dd3fc"/>
-    <!-- Belly shine -->
     <ellipse cx="45" cy="76" rx="12" ry="14" fill="rgba(255,255,255,0.18)"/>
-
-    <!-- Left arm -->
     <ellipse cx="20" cy="78" rx="6" ry="10" fill="#7dd3fc" transform="rotate(-20 20 78)"/>
-    <!-- Right arm -->
     <ellipse cx="70" cy="78" rx="6" ry="10" fill="#7dd3fc" transform="rotate(20 70 78)"/>
-
-    <!-- Neck -->
     <rect x="38" y="52" width="14" height="8" rx="4" fill="#93c5fd"/>
-
-    <!-- Head -->
     <circle cx="45" cy="42" r="26" fill="#bfdbfe"/>
-    <!-- Head shine -->
     <ellipse cx="36" cy="30" rx="8" ry="6" fill="rgba(255,255,255,0.35)" transform="rotate(-20 36 30)"/>
-
-    <!-- Ears -->
     <circle cx="19" cy="42" r="7" fill="#93c5fd"/>
     <circle cx="19" cy="42" r="4" fill="#bfdbfe"/>
     <circle cx="71" cy="42" r="7" fill="#93c5fd"/>
     <circle cx="71" cy="42" r="4" fill="#bfdbfe"/>
-
-    <!-- Eyes group — animated via JS classes -->
     <g id="candyEyes">
-      <!-- Left eye white -->
       <circle cx="36" cy="40" r="8" fill="white"/>
-      <!-- Right eye white -->
       <circle cx="54" cy="40" r="8" fill="white"/>
-      <!-- Left pupil -->
       <circle id="candyPupilL" cx="37" cy="41" r="4" fill="#1e3a5f"/>
-      <!-- Right pupil -->
       <circle id="candyPupilR" cx="55" cy="41" r="4" fill="#1e3a5f"/>
-      <!-- Left eye shine -->
       <circle cx="38" cy="39" r="1.5" fill="white"/>
-      <!-- Right eye shine -->
       <circle cx="56" cy="39" r="1.5" fill="white"/>
     </g>
-
-    <!-- Blink overlay (hidden by default, shown on blink) -->
     <g id="candyBlink" style="display:none">
       <rect x="28" y="37" width="16" height="6" rx="3" fill="#bfdbfe"/>
       <rect x="46" y="37" width="16" height="6" rx="3" fill="#bfdbfe"/>
     </g>
-
-    <!-- Mouth — changes expression -->
-    <!-- Happy (default) -->
     <g id="mouthHappy">
       <path d="M36 52 Q45 60 54 52" stroke="#1e3a5f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     </g>
-    <!-- Talking -->
     <g id="mouthTalking" style="display:none">
       <ellipse cx="45" cy="54" rx="6" ry="4" fill="#1e3a5f"/>
     </g>
-    <!-- Listening (small O) -->
     <g id="mouthListening" style="display:none">
       <circle cx="45" cy="54" r="3" fill="none" stroke="#1e3a5f" stroke-width="2"/>
     </g>
-
-    <!-- Cheeks -->
     <ellipse cx="27" cy="50" rx="6" ry="4" fill="rgba(251,113,133,0.35)"/>
     <ellipse cx="63" cy="50" rx="6" ry="4" fill="rgba(251,113,133,0.35)"/>
-
-    <!-- Antenna -->
     <line x1="45" y1="16" x2="45" y2="4" stroke="#93c5fd" stroke-width="2.5" stroke-linecap="round"/>
     <circle cx="45" cy="3" r="4" fill="#fbbf24"/>
     <circle cx="45" cy="3" r="2" fill="#fff"/>
@@ -846,103 +963,6 @@ function buildCandyCharacter() {
   startCandyEyeFollow();
 }
 
-// ══════════════════════════════
-// TYPING SPEED EFFECT
-// ══════════════════════════════
-async function typeMessage(html) {
-  const body  = document.getElementById('agentMessages');
-  const wrap  = document.createElement('div');
-  wrap.className = 'agent-msg agent-msg--assistant';
-  wrap.innerHTML = `
-    <div class="agent-avatar"><span>C</span></div>
-    <div class="agent-bubble agent-bubble--assistant" id="typingBubble"></div>`;
-  body.appendChild(wrap);
-  body.scrollTop = body.scrollHeight;
-
-  const bubble = document.getElementById('typingBubble');
-  bubble.removeAttribute('id');
-
-  // Strip HTML tags for typing, then set full HTML at end
-  const plainText = html.replace(/<[^>]+>/g, '');
-  const words     = plainText.split(' ');
-
-  let displayed = '';
-  for (let i = 0; i < words.length; i++) {
-    displayed += (i === 0 ? '' : ' ') + words[i];
-    bubble.textContent = displayed;
-    body.scrollTop = body.scrollHeight;
-    await new Promise(r => setTimeout(r, 65));
-  }
-
-  // Set full formatted HTML after typing completes
-  bubble.innerHTML = html;
-  body.scrollTop = body.scrollHeight;
-  return wrap;
-}
-
-// ══════════════════════════════
-// SMART SUGGESTIONS
-// ══════════════════════════════
-function addSmartSuggestions(reply) {
-  const body = document.getElementById('agentMessages');
-  const lower = reply.toLowerCase();
-
-  let suggestions = [];
-
-  if (lower.includes('project') || lower.includes('sparms') || lower.includes('inventoryiq')) {
-    suggestions = [
-      'Which project is most impressive?',
-      'Does Pavan have any live projects?',
-      'What tech stack does Pavan use?'
-    ];
-  } else if (lower.includes('skill') || lower.includes('python') || lower.includes('sql')) {
-    suggestions = [
-      'What is Pavan\'s strongest skill?',
-      'Does Pavan know machine learning?',
-      'What tools does Pavan use daily?'
-    ];
-  } else if (lower.includes('intern') || lower.includes('experience') || lower.includes('work')) {
-    suggestions = [
-      'What did Pavan do in his internship?',
-      'Is Pavan open to new opportunities?',
-      'How do I contact Pavan?'
-    ];
-  } else if (lower.includes('contact') || lower.includes('email') || lower.includes('hire')) {
-    suggestions = [
-      'What roles is Pavan looking for?',
-      'Can I see Pavan\'s resume?',
-      'What is Pavan\'s LinkedIn?'
-    ];
-  } else if (lower.includes('education') || lower.includes('mca') || lower.includes('degree')) {
-    suggestions = [
-      'What is Pavan studying?',
-      'When does Pavan graduate?',
-      'What projects has Pavan built?'
-    ];
-  } else {
-    suggestions = [
-      'Tell me about Pavan\'s projects',
-      'What are Pavan\'s skills?',
-      'How do I contact Pavan?'
-    ];
-  }
-
-  const wrap = document.createElement('div');
-  wrap.className = 'agent-smart-suggestions';
-  wrap.innerHTML = suggestions.map(s =>
-    `<button class="agent-chip" data-q="${s}">${s}</button>`
-  ).join('');
-
-  body.appendChild(wrap);
-  body.scrollTop = body.scrollHeight;
-
-  // Remove suggestions when next message is sent
-  document.getElementById('agentForm').addEventListener('submit', () => {
-    wrap.remove();
-  }, { once: true });
-}
-
-// Blink every 3-5 seconds
 function startCandyBlink() {
   function doBlink() {
     const blink = document.getElementById('candyBlink');
@@ -959,7 +979,6 @@ function startCandyBlink() {
   setTimeout(doBlink, 2000);
 }
 
-// Pupils follow mouse subtly
 function startCandyEyeFollow() {
   document.addEventListener('mousemove', e => {
     const char = document.getElementById('candyCharacter');
@@ -972,9 +991,8 @@ function startCandyEyeFollow() {
     const cy   = rect.top  + rect.height / 2;
     const dx   = (e.clientX - cx) / window.innerWidth;
     const dy   = (e.clientY - cy) / window.innerHeight;
-
-    const mx = dx * 2.5;
-    const my = dy * 2.5;
+    const mx   = dx * 2.5;
+    const my   = dy * 2.5;
 
     pl.setAttribute('cx', 37 + mx);
     pl.setAttribute('cy', 41 + my);
@@ -1025,9 +1043,25 @@ function buildAgentHTML() {
   <div id="agentChat" class="agent-window">
     <div class="agent-header">
       <div class="agent-header-left">
-        <div class="agent-header-avatar">C</div>
+
+        <!-- ── Planet Avatar ── -->
+        <div class="agent-header-avatar">
+          <div class="planet-scene">
+            <div class="ppulse pp1"></div>
+            <div class="ppulse pp2"></div>
+            <div class="ppulse pp3"></div>
+            <div class="phalo"></div>
+            <div class="oring or1"></div>
+            <div class="oring or2"></div>
+            <div class="oring or3"></div>
+            <div class="pcore">
+              <span class="pcore-letter">C</span>
+            </div>
+          </div>
+        </div>
+
         <div>
-          <div class="agent-header-name">Candy</div>
+          <div class="agent-header-name">Candy <span class="agent-header-tag">AI</span></div>
           <div class="agent-header-status">
             <span class="agent-online-dot"></span>Online · Pavan's AI
           </div>
@@ -1073,21 +1107,23 @@ function buildAgentHTML() {
     <div class="agent-messages" id="agentMessages"></div>
 
     <form class="agent-input-row" id="agentForm">
-      <button type="button" id="agentMic" class="agent-mic-btn" title="Click to speak">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-          <line x1="12" y1="19" x2="12" y2="23"/>
-          <line x1="8" y1="23" x2="16" y2="23"/>
-        </svg>
-      </button>
-      <textarea
-        id="agentInput"
-        class="agent-input"
-        placeholder="Ask me about Pavan..."
-        rows="1"
-        maxlength="500"
-      ></textarea>
+      <div class="agent-input-wrap">
+        <button type="button" id="agentMic" class="agent-mic-btn" title="Click to speak">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </button>
+        <textarea
+          id="agentInput"
+          class="agent-input"
+          placeholder="Ask me about Pavan..."
+          rows="1"
+          maxlength="500"
+        ></textarea>
+      </div>
       <button type="submit" id="agentSend" class="agent-send-btn" aria-label="Send">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="22" y1="2" x2="11" y2="13"/>
@@ -1109,72 +1145,3 @@ function buildAgentHTML() {
 
   document.body.insertAdjacentHTML('beforeend', html);
 }
-
-// ══════════════════════════════
-// AUTO SCROLL TO SECTION
-// ══════════════════════════════
-function autoScrollToSection(text) {
-  const lower = text.toLowerCase();
-  let sectionId = null;
-
-  if (lower.includes('project') || lower.includes('sparms') ||
-      lower.includes('inventoryiq') || lower.includes('digit') ||
-      lower.includes('netflix') || lower.includes('zomato') ||
-      lower.includes('attrition')) {
-    sectionId = 'projects';
-  } else if (lower.includes('skill') || lower.includes('python') ||
-             lower.includes('sql') || lower.includes('power bi') ||
-             lower.includes('tech stack')) {
-    sectionId = 'skills';
-  } else if (lower.includes('education') || lower.includes('mca') ||
-             lower.includes('degree') || lower.includes('university')) {
-    sectionId = 'education';
-  } else if (lower.includes('experience') || lower.includes('intern') ||
-             lower.includes('interncall')) {
-    sectionId = 'experience';
-  } else if (lower.includes('contact') || lower.includes('email') ||
-             lower.includes('hire') || lower.includes('reach') ||
-             lower.includes('whatsapp') || lower.includes('linkedin')) {
-    sectionId = 'contact';
-  }
-
-  if (sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      setTimeout(() => {
-        const top = section.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }, 800);
-    }
-  }
-}
-
-// ══════════════════════════════
-// INACTIVITY MESSAGE
-// ══════════════════════════════
-let inactivityTimer = null;
-const INACTIVITY_MESSAGES = [
-  'Still there? Feel free to ask me anything about Pavan!',
-  'Not sure what to ask? Try "What projects has Pavan built?" or "How do I contact him?"',
-  'I am here if you need anything. Ask me about Pavan\'s skills or experience!',
-];
-
-function resetInactivityTimer() {
-  clearTimeout(inactivityTimer);
-  const chatWindow = document.getElementById('agentChat');
-  if (!chatWindow || !chatWindow.classList.contains('open')) return;
-
-  inactivityTimer = setTimeout(() => {
-    const randomMsg = INACTIVITY_MESSAGES[
-      Math.floor(Math.random() * INACTIVITY_MESSAGES.length)
-    ];
-    appendMessage('assistant', randomMsg);
-    addSmartSuggestions(randomMsg);
-  }, 120000); // 2 minutes
-}
-
-// Call resetInactivityTimer on user activity inside chat
-document.addEventListener('DOMContentLoaded', () => {
-  document.addEventListener('mousemove', resetInactivityTimer, { passive: true });
-  document.addEventListener('keydown', resetInactivityTimer, { passive: true });
-});
