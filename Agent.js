@@ -643,7 +643,9 @@ function appendMessage(role, html) {
     wrap.innerHTML = `<div class="agent-bubble agent-bubble--error">${html}</div>`;
   } else {
     wrap.innerHTML = `
-      <div class="agent-avatar"><span>C</span></div>
+      <div class="agent-avatar-mini">
+      <div class="pcore-mini">C</div>
+      </div>
       <div>
         <div class="agent-bubble agent-bubble--assistant">${html}</div>
         <div class="agent-timestamp agent-timestamp--assistant">${time}</div>
