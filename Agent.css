@@ -864,3 +864,23 @@
   .candy-character { display: none; }
   .candy-pointer { display: none; }
 }
+/* ─── Mini avatar in messages ─── */
+.agent-avatar-mini {
+  width: 28px; height: 28px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #6d28d9, #06b6d4, #ec4899);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(139,92,246,.48);
+}
+.pcore-mini {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f0e6ff, #67e8f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
