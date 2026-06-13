@@ -450,7 +450,7 @@
   </div>
 </section>
 
-  <!-- ═══════════════════════════ PROJECTS ═══════════════════════════ -->
+<!-- ═══════════════════════════ PROJECTS ═══════════════════════════ -->
   <section id="projects" class="section">
     <div class="container">
       <div class="section-header reveal-up">
@@ -459,9 +459,9 @@
         <p class="section-sub">From real-world data analysis to impactful visualizations and machine learning models.</p>
       </div>
 
-        <!-- Project Filter Buttons -->
       <div class="project-filters reveal-up">
         <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="ai">AI</button>
         <button class="filter-btn" data-filter="java">Java</button>
         <button class="filter-btn" data-filter="analytics">Analytics</button>
         <button class="filter-btn" data-filter="ml">Machine Learning</button>
@@ -470,9 +470,42 @@
 
       <div class="projects-grid">
 
-        <!-- ── SPARMS — Java MCA Project (FIRST) ── -->
-        <!-- data-has-video="true" tells JS to handle video play/pause on this card -->
-        <div class="proj-card reveal-up"  data-category="java" data-has-video="true" style="--delay:0s; --card-accent:#38bdf8; --icon-color:#38bdf8">
+        <!-- ── Candy — AI Agent (FIRST) ── -->
+        <div class="proj-card reveal-up" data-category="ai" style="--delay:0s; --card-accent:#a855f7; --icon-color:#a855f7">
+          <div class="proj-card-inner">
+            <div class="proj-front">
+              <div class="proj-card-top">
+                <div class="proj-icon-wrap"><i class="fas fa-robot"></i></div>
+                <span class="proj-category">AI Agent</span>
+              </div>
+              <h3 class="proj-title">Candy — Portfolio AI Agent</h3>
+              <p class="proj-subtitle">Conversational AI assistant</p>
+              <div class="proj-hover-hint"><i class="fas fa-sync-alt"></i> Hover to explore</div>
+            </div>
+            <div class="proj-back">
+              <div>
+                <p class="proj-back-title">Candy — Portfolio AI Agent</p>
+                <p class="proj-back-subtitle">AI Agent</p>
+                <p class="proj-back-desc">Candy is a standalone AI assistant deployed as its own web app. Built on Groq's LLaMA 3.3-70B for ultra-fast inference, with a cosmic UI, voice input/output, light/dark mode, typing animation, smart follow-up chips, and a planet-core avatar scene built entirely in CSS.</p>
+                <div class="proj-back-tech">
+                  <span>Groq API</span><span>LLaMA 3.3-70B</span><span>Cloudflare Workers</span>
+                  <span>Web Speech API</span><span>Vanilla JS</span><span>CSS Animations</span>
+                </div>
+              </div>
+              <div class="proj-back-links">
+                <a href="https://candy-agent.netlify.app/" target="_blank" class="proj-btn-live">
+                  <i class="fas fa-external-link-alt"></i> Try Live
+                </a>
+                <a href="https://github.com/kalyan-91/portfolio-website" target="_blank" class="proj-btn-gh">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SPARMS ── -->
+        <div class="proj-card reveal-up" data-category="java" data-has-video="true" style="--delay:0.1s; --card-accent:#38bdf8; --icon-color:#38bdf8">
           <div class="proj-card-inner">
             <div class="proj-front">
               <div class="proj-card-top">
@@ -491,26 +524,10 @@
                   <span>Java Swing</span><span>MySQL</span><span>JDBC</span><span>Maven</span><span>iText PDF</span><span>ZXing</span>
                 </div>
               </div>
-
-              <!-- ── VIDEO PLAYER ── -->
-              <!-- 
-                IMPORTANT: Make sure "Demo/project-demo_T1Hirmbw.mp4" exists
-                relative to index.html. The poster attribute is optional —
-                remove it if your screenshot filename has spaces or doesn't exist.
-              -->
               <div class="proj-video-wrap">
-                <video
-                  class="proj-demo-video"
-                  id="sparmsVideo"
-                  src="Demo/project-demo_T1Hirmbw.mp4"
-                  preload="metadata"
-                  playsinline
-                  loop
-                  muted
-                >
+                <video class="proj-demo-video" id="sparmsVideo" src="Demo/project-demo_T1Hirmbw.mp4" preload="metadata" playsinline loop muted>
                   Your browser does not support the video tag.
                 </video>
-                <!-- Overlay play button — clicked by user or triggered by JS -->
                 <div class="video-play-overlay" id="videoPlayOverlay">
                   <button class="video-play-btn" id="videoPlayBtn" aria-label="Play demo video">
                     <i class="fas fa-play"></i>
@@ -518,8 +535,6 @@
                   <span class="video-play-label">Watch Demo</span>
                 </div>
               </div>
-              <!-- ── END VIDEO PLAYER ── -->
-
               <div class="proj-back-links">
                 <a href="https://github.com/kalyan-91/portfolio-website/blob/main/Demo/project-demo_T1Hirmbw.mp4" target="_blank" class="proj-btn-gh proj-btn-gh--full">
                   <i class="fab fa-github"></i> View on GitHub
@@ -529,7 +544,8 @@
           </div>
         </div>
 
-        <div class="proj-card reveal-up" data-category="analytics" style="--delay:0.1s; --card-accent:#7dd3fc; --icon-color:#7dd3fc">
+        <!-- ── InventoryIQ ── -->
+        <div class="proj-card reveal-up" data-category="analytics" style="--delay:0.2s; --card-accent:#7dd3fc; --icon-color:#7dd3fc">
           <div class="proj-card-inner">
             <div class="proj-front">
               <div class="proj-card-top">
@@ -557,7 +573,8 @@
           </div>
         </div>
 
-        <div class="proj-card reveal-up" data-category="ml"style="--delay:0.2s; --card-accent:#f59e0b; --icon-color:#f59e0b">
+        <!-- ── Digit Recognizer ── -->
+        <div class="proj-card reveal-up" data-category="ml" style="--delay:0.3s; --card-accent:#f59e0b; --icon-color:#f59e0b">
           <div class="proj-card-inner">
             <div class="proj-front">
               <div class="proj-card-top">
@@ -585,7 +602,8 @@
           </div>
         </div>
 
-        <div class="proj-card reveal-up" data-category="visualization" style="--delay:0.3s; --card-accent:#e50914; --icon-color:#e50914">
+        <!-- ── Netflix Dashboard ── -->
+        <div class="proj-card reveal-up" data-category="visualization" style="--delay:0.4s; --card-accent:#e50914; --icon-color:#e50914">
           <div class="proj-card-inner">
             <div class="proj-front">
               <div class="proj-card-top">
@@ -613,7 +631,8 @@
           </div>
         </div>
 
-        <div class="proj-card reveal-up" data-category="analytics" style="--delay:0.4s; --card-accent:#8b5cf6; --icon-color:#8b5cf6">
+        <!-- ── Attrition Analysis ── -->
+        <div class="proj-card reveal-up" data-category="analytics" style="--delay:0.5s; --card-accent:#8b5cf6; --icon-color:#8b5cf6">
           <div class="proj-card-inner">
             <div class="proj-front">
               <div class="proj-card-top">
@@ -641,38 +660,9 @@
           </div>
         </div>
 
-        <div class="proj-card reveal-up" data-category="analytics" style="--delay:0.5s; --card-accent:#f97316; --icon-color:#f97316">
-          <div class="proj-card-inner">
-            <div class="proj-front">
-              <div class="proj-card-top">
-                <div class="proj-icon-wrap"><i class="fas fa-utensils"></i></div>
-                <span class="proj-category">Predictive Analytics</span>
-              </div>
-              <h3 class="proj-title">Zomato Analysis</h3>
-              <p class="proj-subtitle">Restaurant Analysis & Prediction</p>
-              <div class="proj-hover-hint"><i class="fas fa-sync-alt"></i> Hover to explore</div>
-            </div>
-            <div class="proj-back">
-              <div>
-                <p class="proj-back-title">Zomato Analysis</p>
-                <p class="proj-back-subtitle">Predictive Analytics</p>
-                <p class="proj-back-desc">Comprehensive analysis of Zomato restaurant data to identify patterns affecting ratings and customer preferences. Developed predictive models for restaurant classification.</p>
-                <div class="proj-back-tech">
-                  <span>Python</span><span>Pandas</span><span>Scikit-learn</span><span>Excel</span>
-                </div>
-              </div>
-              <div class="proj-back-links">
-                <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank" class="proj-btn-live"><i class="fas fa-chart-line"></i> View Analysis</a>
-                <a href="https://github.com/kalyan-91/Zomato_Restaurant_Analysis_And_Predictive_Analysis" target="_blank" class="proj-btn-gh"><i class="fab fa-github"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
-
   <!-- ═══════════════════════════ RESUME ═══════════════════════════ -->
   <section id="resume" class="section section-resume">
     <div class="container">
