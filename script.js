@@ -595,6 +595,8 @@ function initTechStack() {
     { icon: 'fas fa-project-diagram', name: 'Plotly' },
     { icon: 'fas fa-file-excel',    name: 'Excel' },
     { icon: 'fab fa-github',        name: 'GitHub' },
+    { icon: 'fas fa-cloud',           name: 'Netlify' },
+    { icon: 'fas fa-server',          name: 'Vercel' },
   ];
 
   // Duplicate for seamless infinite loop
