@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroCounter();    // ← stat counter
   initProjectFilter();
   initTechStack(); 
+  initVisitorCounter();
 });
 
 // ═══════════════════════════════════
@@ -606,4 +607,32 @@ function initTechStack() {
     chip.innerHTML = `<i class="${t.icon}"></i><span>${t.name}</span>`;
     track.appendChild(chip);
   });
+}
+
+
+// ═══════════════════════════════════
+// 18. VISITOR COUNTER
+// ═══════════════════════════════════
+function initVisitorCounter() {
+  const el = document.getElementById('visitorCount');
+  if (!el) return;
+
+  const namespace = 'pavankalyan-portfolio-91'; // unique to you
+  const key = 'site-visits';
+
+  fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+    .then(res => res.json())
+    .then(data => {
+      const final = data.value;
+      const duration = 1200;
+      const start = performance.now();
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(final * eased);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    })
+    .catch(() => { el.textContent = '0'; });
 }
