@@ -609,3 +609,47 @@ function initTechStack() {
   });
 }
 
+// ── Certificate Lightbox ──
+document.addEventListener('DOMContentLoaded', () => {
+  const certModal = document.getElementById('certModal');
+  const certModalImg = document.getElementById('certModalImg');
+  const certModalTitle = document.getElementById('certModalTitle');
+  const certModalIssuer = document.getElementById('certModalIssuer');
+  const certModalDownload = document.getElementById('certModalDownload');
+  const certModalClose = document.getElementById('certModalClose');
+  const certModalOverlay = document.getElementById('certModalOverlay');
+
+  document.querySelectorAll('.cert-view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const fullSrc = btn.dataset.full;
+      const title = btn.dataset.title || '';
+      const issuer = btn.dataset.issuer || '';
+
+      certModalImg.src = fullSrc;
+      certModalImg.alt = title;
+      certModalTitle.textContent = title;
+      certModalIssuer.textContent = issuer;
+      certModalDownload.href = fullSrc;
+      certModalDownload.setAttribute('download', title.replace(/\s+/g, '_') + '.jpg');
+
+      certModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeCertModal() {
+    certModal.classList.remove('active');
+    document.body.style.overflow = '';
+    certModalImg.src = '';
+  }
+
+  certModalClose.addEventListener('click', closeCertModal);
+  certModalOverlay.addEventListener('click', closeCertModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certModal.classList.contains('active')) {
+      closeCertModal();
+    }
+  });
+});
+
