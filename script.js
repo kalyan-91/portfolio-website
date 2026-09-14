@@ -609,6 +609,27 @@ function initTechStack() {
   });
 }
 
+// ═══════════════════════════════════
+// 18. VISITOR COUNTER
+// ═══════════════════════════════════
+function initVisitorCounter() {
+  const counterEl = document.getElementById('visitorCount');
+  if (!counterEl) return;
+
+  // Use a unique namespace/key for your site
+  const namespace = 'pavankalyan-portfolio-kalyanfinity';
+  const key = 'visits';
+
+  fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+    .then(res => res.json())
+    .then(data => {
+      counterEl.textContent = data.value.toLocaleString();
+    })
+    .catch(() => {
+      counterEl.textContent = '—';
+    });
+}
+
 // ── Certificate Lightbox ──
 document.addEventListener('DOMContentLoaded', () => {
   const certModal = document.getElementById('certModal');
@@ -665,4 +686,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
 
