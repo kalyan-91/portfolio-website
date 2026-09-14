@@ -619,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const certModalClose = document.getElementById('certModalClose');
   const certModalOverlay = document.getElementById('certModalOverlay');
 
-  document.querySelectorAll('.cert-view-btn').forEach(btn => {
+  document.querySelectorAll('.cert-btn-view').forEach(btn => {
     btn.addEventListener('click', () => {
       const fullSrc = btn.dataset.full;
       const title = btn.dataset.title || '';
