@@ -653,3 +653,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// ── Tap-to-flip for touch devices ──
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.cert-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Only toggle flip on touch devices; ignore clicks on buttons/links
+      if (window.matchMedia('(hover: none)').matches) {
+        if (e.target.closest('.cert-btn-view') || e.target.closest('.cert-btn-download')) return;
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+});
+
