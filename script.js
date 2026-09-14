@@ -610,40 +610,27 @@ function initTechStack() {
 }
 
 // ═══════════════════════════════════
-// 18. VISITOR COUNTER (unique visitors only)
+// 18. VISITOR COUNTER (unique visitors, self-hosted)
 // ═══════════════════════════════════
 function initVisitorCounter() {
   const counterEl = document.getElementById('visitorCount');
   if (!counterEl) return;
 
-  const workspace = 'pavankalyan-portfolio';
-  const counterName = 'unique-visits';
+  const endpoint = '/.netlify/functions/visitor-count';
   const hasVisitedKey = 'pk_portfolio_visited';
-
   const alreadyVisited = localStorage.getItem(hasVisitedKey);
 
-  if (!alreadyVisited) {
-    // First time this browser has ever visited — increment the count
-    fetch(`https://api.counterapi.dev/v1/${workspace}/${counterName}/up`)
-      .then(res => res.json())
-      .then(data => {
-        counterEl.textContent = (data.count ?? data.value ?? '—').toLocaleString();
+  fetch(endpoint, { method: alreadyVisited ? 'GET' : 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      counterEl.textContent = (data.count ?? '—').toLocaleString();
+      if (!alreadyVisited) {
         localStorage.setItem(hasVisitedKey, 'true');
-      })
-      .catch(() => {
-        counterEl.textContent = '—';
-      });
-  } else {
-    // Returning visitor — just fetch current count, don't increment
-    fetch(`https://api.counterapi.dev/v1/${workspace}/${counterName}`)
-      .then(res => res.json())
-      .then(data => {
-        counterEl.textContent = (data.count ?? data.value ?? '—').toLocaleString();
-      })
-      .catch(() => {
-        counterEl.textContent = '—';
-      });
-  }
+      }
+    })
+    .catch(() => {
+      counterEl.textContent = '—';
+    });
 }
 
 // ── Certificate Lightbox ──
