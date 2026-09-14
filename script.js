@@ -610,24 +610,40 @@ function initTechStack() {
 }
 
 // ═══════════════════════════════════
-// 18. VISITOR COUNTER
+// 18. VISITOR COUNTER (unique visitors only)
 // ═══════════════════════════════════
 function initVisitorCounter() {
   const counterEl = document.getElementById('visitorCount');
   if (!counterEl) return;
 
-  // Use a unique namespace/key for your site
-  const namespace = 'pavankalyan-portfolio-kalyanfinity';
-  const key = 'visits';
+  const workspace = 'pavankalyan-portfolio';
+  const counterName = 'unique-visits';
+  const hasVisitedKey = 'pk_portfolio_visited';
 
-  fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-    .then(res => res.json())
-    .then(data => {
-      counterEl.textContent = data.value.toLocaleString();
-    })
-    .catch(() => {
-      counterEl.textContent = '—';
-    });
+  const alreadyVisited = localStorage.getItem(hasVisitedKey);
+
+  if (!alreadyVisited) {
+    // First time this browser has ever visited — increment the count
+    fetch(`https://api.counterapi.dev/v1/${workspace}/${counterName}/up`)
+      .then(res => res.json())
+      .then(data => {
+        counterEl.textContent = (data.count ?? data.value ?? '—').toLocaleString();
+        localStorage.setItem(hasVisitedKey, 'true');
+      })
+      .catch(() => {
+        counterEl.textContent = '—';
+      });
+  } else {
+    // Returning visitor — just fetch current count, don't increment
+    fetch(`https://api.counterapi.dev/v1/${workspace}/${counterName}`)
+      .then(res => res.json())
+      .then(data => {
+        counterEl.textContent = (data.count ?? data.value ?? '—').toLocaleString();
+      })
+      .catch(() => {
+        counterEl.textContent = '—';
+      });
+  }
 }
 
 // ── Certificate Lightbox ──
