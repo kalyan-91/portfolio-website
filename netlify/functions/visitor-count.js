@@ -2,7 +2,12 @@ const { getStore } = require('@netlify/blobs');
 
 exports.handler = async (event) => {
   try {
-    const store = getStore('visitor-counter');
+    const store = getStore({
+      name: 'visitor-counter',
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_API_TOKEN
+    });
+
     const key = 'total-visits';
 
     let current = await store.get(key, { type: 'json' });
@@ -24,6 +29,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({ count: current.count })
     };
   } catch (err) {
+    console.error('visitor-count function error:', err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: err.message })
