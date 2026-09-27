@@ -1966,8 +1966,6 @@ img { max-width: 100%; display: block; }
 }
 
 
-
-
 .filecard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:40px;}
 
 .filecard{
@@ -1983,7 +1981,6 @@ img { max-width: 100%; display: block; }
   transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* top light bar */
 .filecard::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--card-accent),transparent);
@@ -1991,7 +1988,6 @@ img { max-width: 100%; display: block; }
 }
 .filecard:hover::before{opacity:1;}
 
-/* corner glow blob */
 .filecard-glow{
   position:absolute;top:-70px;right:-70px;width:220px;height:220px;
   background:radial-gradient(circle,color-mix(in srgb,var(--card-accent) 22%,transparent) 0%,transparent 70%);
