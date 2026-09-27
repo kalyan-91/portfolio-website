@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data Cleaning Notebook — Pavan Kalyan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#02030d; --bg2:#050714; --surface:rgba(8,11,28,.85); --border:rgba(139,92,246,.15);
+  --cyan:#7dd3fc; --cyan-dim:rgba(125,211,252,.12); --gold:#fbbf24; --violet:#a78bfa;
+  --text:#e2e8f0; --text-muted:#94a3b8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg); color:var(--text); font-family:'DM Mono',monospace;
+  padding:40px 20px 80px; line-height:1.6;
+  background-image:radial-gradient(ellipse 60% 40% at 20% 10%, rgba(79,46,209,.18) 0%, transparent 65%),
+                    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(0,212,255,.10) 0%, transparent 60%);
+  background-attachment:fixed;
+}
+.nb-wrap{max-width:880px;margin:0 auto;}
+.nb-header{margin-bottom:32px;border-bottom:1px solid var(--border);padding-bottom:20px;}
+.nb-header a{color:var(--cyan);text-decoration:none;font-size:.78rem;letter-spacing:.05em;}
+.nb-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:var(--text);margin:14px 0 6px;}
+.nb-sub{color:var(--text-muted);font-size:.85rem;}
+.nb-cell{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:18px;overflow:hidden;backdrop-filter:blur(10px);}
+.nb-cell-head{padding:10px 18px;border-bottom:1px solid var(--border);background:rgba(125,211,252,.04);}
+.nb-in{color:var(--cyan);font-size:.75rem;letter-spacing:.05em;}
+.nb-code{padding:16px 18px;overflow-x:auto;font-size:.82rem;color:#e6edf3;}
+.nb-code code{white-space:pre;}
+.nb-out-wrap{border-top:1px dashed var(--border);padding:14px 18px;background:rgba(0,0,0,.15);}
+.nb-out-label{display:block;color:var(--gold);font-size:.7rem;letter-spacing:.1em;margin-bottom:8px;}
+.nb-stream{font-size:.8rem;color:var(--text-muted);white-space:pre-wrap;}
+.nb-html-out{overflow-x:auto;font-size:.78rem;}
+.nb-html-out table{border-collapse:collapse;color:var(--text-muted);}
+.nb-html-out th,.nb-html-out td{border:1px solid var(--border);padding:4px 10px;}
+.nb-html-out th{color:var(--cyan);}
+</style>
+</head>
+<body>
+<div class="nb-wrap">
+  <div class="nb-header">
+    <a href="../index.html">&larr; Back to Portfolio</a>
+    <h1 class="nb-title">Global YouTube Statistics — Data Cleaning</h1>
+    <p class="nb-sub">Python · pandas · 995 → 948 rows cleaned</p>
+  </div>
+  
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [1]</span></div>
+      <pre class="nb-code"><code>import pandas as pd
+import numpy as np</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [2]</span></div>
+      <pre class="nb-code"><code>df=pd.read_csv(&quot;C:\\Users\\daroo\\Downloads\\Global YouTube Statistics.csv&quot;,encoding=&quot;latin1&quot;)</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [3]</span></div>
+      <pre class="nb-code"><code>print(&quot;Original Shape:&quot;,df.shape)
+df.head()</code></pre>
+      <div class="nb-out-wrap"><span class="nb-out-label">Out</span><pre class="nb-stream">Original Shape: (995, 28)
+</pre><div class="nb-html-out"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rank</th>
+      <th>Youtuber</th>
+      <th>subscribers</th>
+      <th>video views</th>
+      <th>category</th>
+      <th>Title</th>
+      <th>uploads</th>
+      <th>Country</th>
+      <th>Abbreviation</th>
+      <th>channel_type</th>
+      <th>...</th>
+      <th>subscribers_for_last_30_days</th>
+      <th>created_year</th>
+      <th>created_month</th>
+      <th>created_date</th>
+      <th>Gross tertiary education enrollment (%)</th>
+      <th>Population</th>
+      <th>Unemployment rate</th>
+      <th>Urban_population</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>T-Series</td>
+      <td>245000000</td>
+      <td>2.280000e+11</td>
+      <td>Music</td>
+      <td>T-Series</td>
+      <td>20082</td>
+      <td>India</td>
+      <td>IN</td>
+      <td>Music</td>
+      <td>...</td>
+      <td>2000000.0</td>
+      <td>2006.0</td>
+      <td>Mar</td>
+      <td>13.0</td>
+      <td>28.1</td>
+      <td>1.366418e+09</td>
+      <td>5.36</td>
+      <td>471031528.0</td>
+      <td>20.593684</td>
+      <td>78.962880</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>YouTube Movies</td>
+      <td>170000000</td>
+      <td>0.000000e+00</td>
+      <td>Film &amp; Animation</td>
+      <td>youtubemovies</td>
+      <td>1</td>
+      <td>United States</td>
+      <td>US</td>
+      <td>Games</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>2006.0</td>
+      <td>Mar</td>
+      <td>5.0</td>
+      <td>88.2</td>
+      <td>3.282395e+08</td>
+      <td>14.70</td>
+      <td>270663028.0</td>
+      <td>37.090240</td>
+      <td>-95.712891</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>MrBeast</td>
+      <td>166000000</td>
+      <td>2.836884e+10</td>
+      <td>Entertainment</td>
+      <td>MrBeast</td>
+      <td>741</td>
+      <td>United States</td>
+      <td>US</td>
+      <td>Entertainment</td>
+      <td>...</td>
+      <td>8000000.0</td>
+      <td>2012.0</td>
+      <td>Feb</td>
+      <td>20.0</td>
+      <td>88.2</td>
+      <td>3.282395e+08</td>
+      <td>14.70</td>
+      <td>270663028.0</td>
+      <td>37.090240</td>
+      <td>-95.712891</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Cocomelon - Nursery Rhymes</td>
+      <td>162000000</td>
+      <td>1.640000e+11</td>
+      <td>Education</td>
+      <td>Cocomelon - Nursery Rhymes</td>
+      <td>966</td>
+      <td>United States</td>
+      <td>US</td>
+      <td>Education</td>
+      <td>...</td>
+      <td>1000000.0</td>
+      <td>2006.0</td>
+      <td>Sep</td>
+      <td>1.0</td>
+      <td>88.2</td>
+      <td>3.282395e+08</td>
+      <td>14.70</td>
+      <td>270663028.0</td>
+      <td>37.090240</td>
+      <td>-95.712891</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>SET India</td>
+      <td>159000000</td>
+      <td>1.480000e+11</td>
+      <td>Shows</td>
+      <td>SET India</td>
+      <td>116536</td>
+      <td>India</td>
+      <td>IN</td>
+      <td>Entertainment</td>
+      <td>...</td>
+      <td>1000000.0</td>
+      <td>2006.0</td>
+      <td>Sep</td>
+      <td>20.0</td>
+      <td>28.1</td>
+      <td>1.366418e+09</td>
+      <td>5.36</td>
+      <td>471031528.0</td>
+      <td>20.593684</td>
+      <td>78.962880</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [4]</span></div>
+      <pre class="nb-code"><code>df.isnull().sum()[df.isnull().sum()&gt;0]</code></pre>
+      <div class="nb-out-wrap"><span class="nb-out-label">Out</span><pre class="nb-stream">category                                    46
+Country                                    122
+Abbreviation                               122
+channel_type                                30
+video_views_rank                             1
+country_rank                               116
+channel_type_rank                           33
+video_views_for_the_last_30_days            56
+subscribers_for_last_30_days               337
+created_year                                 5
+created_month                                5
+created_date                                 5
+Gross tertiary education enrollment (%)    123
+Population                                 123
+Unemployment rate                          123
+Urban_population                           123
+Latitude                                   123
+Longitude                                  123
+dtype: int64</pre></div>
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [5]</span></div>
+      <pre class="nb-code"><code>df.dtypes</code></pre>
+      <div class="nb-out-wrap"><span class="nb-out-label">Out</span><pre class="nb-stream">rank                                         int64
+Youtuber                                    object
+subscribers                                  int64
+video views                                float64
+category                                    object
+Title                                       object
+uploads                                      int64
+Country                                     object
+Abbreviation                                object
+channel_type                                object
+video_views_rank                           float64
+country_rank                               float64
+channel_type_rank                          float64
+video_views_for_the_last_30_days           float64
+lowest_monthly_earnings                    float64
+highest_monthly_earnings                   float64
+lowest_yearly_earnings                     float64
+highest_yearly_earnings                    float64
+subscribers_for_last_30_days               float64
+created_year                               float64
+created_month                               object
+created_date                               float64
+Gross tertiary education enrollment (%)    float64
+Population                                 float64
+Unemployment rate                          float64
+Urban_population                           float64
+Latitude                                   float64
+Longitude                                  float64
+dtype: object</pre></div>
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [6]</span></div>
+      <pre class="nb-code"><code>df=df[df[&quot;created_year&quot;]!=1970]
+print(&quot;Shape after removing 1970 rows:&quot;,df.shape)</code></pre>
+      <div class="nb-out-wrap"><span class="nb-out-label">Out</span><pre class="nb-stream">Shape after removing 1970 rows: (994, 28)
+</pre></div>
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [7]</span></div>
+      <pre class="nb-code"><code>df=df[df[&quot;uploads&quot;]&gt;0]
+df=df[df[&quot;video views&quot;]&gt;0]
+print(&quot;Shape After removing zero-upload/zero-view rows:&quot;,df.shape)</code></pre>
+      <div class="nb-out-wrap"><span class="nb-out-label">Out</span><pre class="nb-stream">Shape After removing zero-upload/zero-view rows: (948, 28)
+</pre></div>
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [8]</span></div>
+      <pre class="nb-code"><code>df[&quot;Country&quot;]=df[&quot;Country&quot;].fillna(&quot;Unknown&quot;)
+df[&quot;Abbreviation&quot;]=df[&quot;Abbreviation&quot;].fillna(&quot;N/A&quot;)
+df[&quot;channel_type&quot;]=df[&quot;channel_type&quot;].fillna(&quot;Unknown&quot;)
+df[&quot;category&quot;]=df[&quot;category&quot;].fillna(&quot;Unknown&quot;)</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [9]</span></div>
+      <pre class="nb-code"><code>country_level_cols = [
+    &quot;Gross tertiary education enrollment (%)&quot;,
+    &quot;Population&quot;,
+    &quot;Unemployment rate&quot;,
+    &quot;Urban_population&quot;,
+    &quot;Latitude&quot;,
+    &quot;Longitude&quot;,
+]
+for col in country_level_cols:
+    df[col]=df[col].fillna(df[col].median())</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [10]</span></div>
+      <pre class="nb-code"><code>rank_cols = [&quot;video_views_rank&quot;, &quot;country_rank&quot;, &quot;channel_type_rank&quot;]
+for col in rank_cols:
+    df[col]=df[col].fillna(df[col].median())
+df[&quot;video_views_for_the_last_30_days&quot;] = df[&quot;video_views_for_the_last_30_days&quot;].fillna(0)
+df[&quot;subscribers_for_last_30_days&quot;] = df[&quot;subscribers_for_last_30_days&quot;].fillna(0)</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [11]</span></div>
+      <pre class="nb-code"><code>df=df.dropna(subset=[&quot;created_year&quot;,&quot;created_month&quot;,&quot;created_date&quot;])</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [12]</span></div>
+      <pre class="nb-code"><code>df[&quot;created_year&quot;]=df[&quot;created_year&quot;].astype(int)
+df[&quot;created_date&quot;]=df[&quot;created_date&quot;].astype(int)</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [13]</span></div>
+      <pre class="nb-code"><code>df=df.drop_duplicates()
+df=df.reset_index(drop=True)</code></pre>
+      
+    </div>
+    <div class="nb-cell">
+      <div class="nb-cell-head"><span class="nb-in">In [14]</span></div>
+      <pre class="nb-code"><code>df.to_csv(r&quot;C:\Users\daroo\Downloads\Global_YouTube_Statistics_Cleaned.csv&quot;, index=False)
+print(&quot;Saved.&quot;)
+print(df.head())</code></pre>
+      <div class="nb-out-wrap"><span class="nb-out-label">Out</span><pre class="nb-stream">Saved.
+   Unnamed: 0  rank                    Youtuber  subscribers   video views  \
+0           0     1                    T-Series    245000000  2.280000e+11   
+1           2     3                     MrBeast    166000000  2.836884e+10   
+2           3     4  Cocomelon - Nursery Rhymes    162000000  1.640000e+11   
+3           4     5                   SET India    159000000  1.480000e+11   
+4           6     7         ýýý Kids Diana Show    112000000  9.324704e+10   
+
+         category                       Title  uploads        Country  \
+0           Music                    T-Series    20082          India   
+1   Entertainment                     MrBeast      741  United States   
+2       Education  Cocomelon - Nursery Rhymes      966  United States   
+3           Shows                   SET India   116536          India   
+4  People &amp; Blogs         ýýý Kids Diana Show     1111  United States   
+
+  Abbreviation  ... subscribers_for_last_30_days  created_year  created_month  \
+0           IN  ...                    2000000.0          2006            Mar   
+1           US  ...                    8000000.0          2012            Feb   
+2           US  ...                    1000000.0          2006            Sep   
+3           IN  ...                    1000000.0          2006            Sep   
+4           US  ...                          0.0          2015            May   
+
+   created_date  Gross tertiary education enrollment (%)    Population  \
+0            13                                     28.1  1.366418e+09   
+1            20                                     88.2  3.282395e+08   
+2             1                                     88.2  3.282395e+08   
+3            20                                     28.1  1.366418e+09   
+4            12                                     88.2  3.282395e+08   
+
+   Unemployment rate  Urban_population   Latitude  Longitude  
+0               5.36       471031528.0  20.593684  78.962880  
+1              14.70       270663028.0  37.090240 -95.712891  
+2              14.70       270663028.0  37.090240 -95.712891  
+3               5.36       471031528.0  20.593684  78.962880  
+4              14.70       270663028.0  37.090240 -95.712891  
+
+[5 rows x 29 columns]
+</pre></div>
+    </div>
+</div>
+</body>
+</html>
